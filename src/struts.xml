@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Struts2创建bean交给spring来创建 -->
+    <constant name="struts.objectFactory" value="spring"/>
+    <!-- 扫描struts2的注解 还有一个默认是扫描以Action结尾的
+      如果需要修改的话我们可以配置
+    <constant name="struts.convention.action.suffix" value="Action"/> -->
+    <constant name="struts.convention.package.locators.basePackage" value="com"/>
+    <constant name="struts.convention.package.locators" value="com"/>
+
+    <!-- struts2默认是不扫描我们tomcar加载的类 所以我们要将类加载器改为false -->
+    <constant name="struts.convention.exclude.parentClassLoader" value="false" />
+</struts>
