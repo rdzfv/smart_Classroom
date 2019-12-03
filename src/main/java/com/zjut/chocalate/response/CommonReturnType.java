@@ -1,4 +1,4 @@
-package com.zjut.smartClassroom.response;
+package com.zjut.chocalate.response;
 
 public class CommonReturnType {
     //表明对应请求的返回处理结果室"success"或"false"

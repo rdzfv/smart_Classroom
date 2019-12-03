@@ -1,4 +1,4 @@
-package com.zjut.smartClassroom.error;
+package com.zjut.chocalate.error;
 
 //包装器业务异常类实现
 public class BusinessException extends Exception implements CommonError{

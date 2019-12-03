@@ -1,4 +1,4 @@
-package com.zjut.smartClassroom.error;
+package com.zjut.chocalate.error;
 
 public interface CommonError {
     public int getErrorCode();

@@ -1,7 +1,7 @@
-package com.zjut.smartClassroom.Controller;
+package com.zjut.chocalate.Controller;
 
-import com.zjut.smartClassroom.error.BusinessException;
-import com.zjut.smartClassroom.response.CommonReturnType;
+import com.zjut.chocalate.error.BusinessException;
+import com.zjut.chocalate.response.CommonReturnType;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
