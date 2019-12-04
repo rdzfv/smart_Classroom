@@ -2,17 +2,25 @@ package com.zjut.smartClassroom.Service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.mysql.cj.x.protobuf.MysqlxExpr;
 import com.zjut.smartClassroom.Service.ProblemService;
 import com.zjut.smartClassroom.dataObject.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Problem;
+import com.zjut.smartClassroom.dataObject.ProblemPaper;
+import com.zjut.smartClassroom.dataObject.ProblemSet;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
+import com.zjut.smartClassroom.repository.ProblemPaperRepository;
 import com.zjut.smartClassroom.repository.ProblemRepository;
 import com.zjut.smartClassroom.repository.AnswerSituationRepository;
+import com.zjut.smartClassroom.repository.ProblemSetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author     ：dzy
@@ -22,12 +30,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ProblemServiceImpl implements ProblemService {
-    @Autowired(required = false)//引入
+    @Autowired(required = false) // 引入
     private AnswerSituationRepository answerSituationRepository;
-    @Autowired(required = false)//引入
+    @Autowired(required = false) // 引入
     private AnswerSituation answerSituation;
-    @Autowired(required = false)//引入
+    @Autowired(required = false) // 引入
     private ProblemRepository problemRepository;
+    @Autowired(required = false) // 引入
+    private ProblemSetRepository problemSetRepository;
+    @Autowired(required = false) // 引入
+    private ProblemPaperRepository problemPaperRepository;
 
     /**
      * @author     ：dzy
@@ -90,4 +102,35 @@ public class ProblemServiceImpl implements ProblemService {
         return success;
     }
 
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/04 23:05:14
+     * @description：根据problemId获取问题详情
+     * @version:     1.0.0
+     */
+    @Override
+    public List<Problem> getProblemsByProblemSetId(int problemSetId) throws BusinessException {
+        ArrayList<Problem> result = new ArrayList<Problem>();
+        // 通过ProblemSetId获取对应的paperId
+        ProblemSet problemSet = problemSetRepository.findByProblemSetId(problemSetId);
+        if (problemSet == null) throw new BusinessException(EnumBusinessError.FIND_FAILED);
+        System.out.println(problemSet);
+        int paperId = problemSet.getPaperId();
+        System.out.println(paperId);
+        // 通过paperId获取problemIds
+        List<ProblemPaper> problemPaperList = problemPaperRepository.findAllByPaperId(paperId);
+        if (problemPaperList == null) throw new BusinessException(EnumBusinessError.FIND_FAILED);
+        // 遍历List<ProblemPaper>，取出problemId查询题目s信息
+        int size = problemPaperList.size();
+        System.out.println(size);
+        for (int i = 0; i < size; i ++) {
+            System.out.println(problemPaperList.get(i));
+            int problemId = problemPaperList.get(i).getProblemId();
+            // 根据problemId查询题目信息
+            Problem problem = problemRepository.findByProblemId(problemId);
+            if (problem == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+            result.add(problem);
+        }
+        return result;
+    }
 }
