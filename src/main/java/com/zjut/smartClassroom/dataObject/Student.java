@@ -18,5 +18,4 @@ public class Student implements Serializable {
     private String studentaccount;
     private String openid;
     private String sessionkey;
-
 }

@@ -42,18 +42,4 @@ public class UserController extends baseController {
         return CommonReturnType.create(studentInstanse);
     }
 
-    //通过用户id获取用户信息//////////////////////////////////////////////////////////////////////////////////////////////////////
-    @RequestMapping("/get")
-    @ResponseBody
-    public CommonReturnType getUser(@RequestParam(name ="id")int id) throws BusinessException{
-        //调用service服务获取对应的id的用户对象并返回给前端
-        System.out.println("进入get接口");
-        Student userModel = userService.getUserById(id);
-        if(userModel == null) {
-            BusinessException businessException = new BusinessException(EnumBusinessError.USER_NOT_EXIST);
-            throw businessException;
-        }
-        //返回通用对象
-        return CommonReturnType.create(userModel);
-    }
 }
