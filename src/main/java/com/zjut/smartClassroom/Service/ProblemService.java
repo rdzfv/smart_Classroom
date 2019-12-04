@@ -5,6 +5,12 @@ import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.error.BusinessException;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author     ：dzy
+ * @date       ：Created in 2019/12/03 12:45:23
+ * @description：ProblemService接口
+ * @version:     1.0.0
+ */
 @Service
 public interface ProblemService {
     // 通过problemId获取答题情况

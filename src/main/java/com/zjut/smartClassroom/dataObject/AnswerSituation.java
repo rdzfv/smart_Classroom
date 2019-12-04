@@ -5,6 +5,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * @author     ：dzy
+ * @date       ：Created in 2019/12/03 12:45:23
+ * @description：AnswerSituation DTO(对应answer_situation视图)
+ * @version:     1.0.0
+ */
 @Data
 @Entity
 public class AnswerSituation implements Serializable {

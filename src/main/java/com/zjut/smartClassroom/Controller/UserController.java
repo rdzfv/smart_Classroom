@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/02 12:45:23
+ * @description：userController
+ * @version:     1.0.0
+ */
 @Controller("/user")
 @RequestMapping("/user")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
@@ -25,7 +31,12 @@ public class UserController extends baseController {
     private HttpServletRequest httpServletRequest;
 
 
-    // 用户登录接口 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/02 12:45:23
+     * @description：用户登录接口（传入学生姓名[非空]、账户名[非空]、密码[非空]、openid[非空]、sessionkey[非空]）
+     * @version:     1.0.0
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType login(Student student) throws BusinessException {

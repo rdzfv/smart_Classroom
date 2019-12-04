@@ -6,6 +6,12 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/02 12:45:23
+ * @description：StudentRepository
+ * @version:     1.0.0
+ */
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     // 根据学生id查找学生(测试)

@@ -1,5 +1,8 @@
 package com.zjut.smartClassroom.repository;
 
+
+
+import com.zjut.smartClassroom.dataObject.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Problem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,9 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @description：ProblemAddRepository
  * @version:     1.0.0
  */
-public interface ProblemRepository extends JpaRepository<Problem, Problem> {
-    // 更新problem
-    Problem save(Problem problem);
-    // 根据problemId查找problem
-    Problem findByProblemId(int priblemId);
+public interface AnswerSituationRepository extends JpaRepository<AnswerSituation, Integer> {
+    //根据problemId查找答题情况
+    AnswerSituation findByProblemId(int problemId);
 }

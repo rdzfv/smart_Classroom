@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/08/23 12:45:23
+ * @description：baseController
+ * @version:     1.0.0
+ */
 public class baseController {
     //定义exceptionhandler解决未被controller层吸收的exception
     @ExceptionHandler(Exception.class)

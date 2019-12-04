@@ -1,5 +1,12 @@
 package com.zjut.smartClassroom.error;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/08/23 12:45:23
+ * @description：EnumBusinessError
+ * @modified By：xyy in 2019/12/04 16:53:28
+ * @version:     1.0.0
+ */
 public enum EnumBusinessError implements CommonError{
     // 通用错误类型10001
     PARAMETER_VALIDATION_ERROR(10001,"参数不合法"),
