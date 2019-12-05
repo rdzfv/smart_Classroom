@@ -9,9 +9,9 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * @author     ：dzy
- * @date       ：Created in 2019/12/03 12:45:23
- * @description：problem实体类（对应problem表）
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/05 15:45:23
+ * @description：Course实体类（对应Course表）
  * @version:     1.0.0
  */
 @Data
