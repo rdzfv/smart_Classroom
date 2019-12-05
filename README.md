@@ -8,4 +8,3 @@
     3.通过problemId修改problem详情（传入问题id[非空]）
     4.通过problemId获取problem详情（传入问题id[非空]）
     5.添加problem（传入题干[非空]，正确答案[1-4]，选项1[非空]，选项2[非空]，选项3[非空]，选项4[非空]）
-    6.通过priblemset_id获取问题详情列表
