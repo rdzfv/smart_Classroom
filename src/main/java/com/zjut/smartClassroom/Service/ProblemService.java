@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public interface ProblemService {
     // 通过problemId获取答题情况
-    AnswerSituation getProblemSetStudentAnsweringDetailByProblemSetId(int problemId)  throws BusinessException;
+    AnswerSituation getProblemSetStudentAnsweringDetailByProblemSetId(int problemId) throws BusinessException;
     // 添加问题
     Problem addProblem(Problem problem) throws BusinessException;
     // 通过id更新问题

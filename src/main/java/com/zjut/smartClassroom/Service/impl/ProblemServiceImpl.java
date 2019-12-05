@@ -98,7 +98,7 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     @Transactional
     public Problem addProblem(Problem problem) throws BusinessException {
-        Problem success= problemRepository.save(problem);
+        Problem success = problemRepository.save(problem);
         return success;
     }
 
@@ -111,21 +111,22 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public List<Problem> getProblemsByProblemSetId(int problemSetId) throws BusinessException {
         ArrayList<Problem> result = new ArrayList<Problem>();
+
         // 通过ProblemSetId获取对应的paperId
         ProblemSet problemSet = problemSetRepository.findByProblemSetId(problemSetId);
         if (problemSet == null) throw new BusinessException(EnumBusinessError.FIND_FAILED);
-        System.out.println(problemSet);
         int paperId = problemSet.getPaperId();
-        System.out.println(paperId);
+
         // 通过paperId获取problemIds
         List<ProblemPaper> problemPaperList = problemPaperRepository.findAllByPaperId(paperId);
         if (problemPaperList == null) throw new BusinessException(EnumBusinessError.FIND_FAILED);
+
         // 遍历List<ProblemPaper>，取出problemId查询题目s信息
         int size = problemPaperList.size();
-        System.out.println(size);
         for (int i = 0; i < size; i ++) {
             System.out.println(problemPaperList.get(i));
             int problemId = problemPaperList.get(i).getProblemId();
+
             // 根据problemId查询题目信息
             Problem problem = problemRepository.findByProblemId(problemId);
             if (problem == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);

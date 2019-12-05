@@ -96,8 +96,8 @@ public class ProblemController extends baseController{
     public CommonReturnType addProblem(Problem problem) throws BusinessException {
         System.out.println(problem);
         // 入参校验
-        if(StringUtils.isEmpty(problem.getProblemInfo()) ||
-                (problem.getProblemAns() != 1 && problem.getProblemAns() != 2 && problem.getProblemAns() != 3 && problem.getProblemAns() != 4)||
+        if (StringUtils.isEmpty(problem.getProblemInfo()) ||
+                (problem.getProblemAns() != 1 && problem.getProblemAns() != 2 && problem.getProblemAns() != 3 && problem.getProblemAns() != 4) ||
                 StringUtils.isEmpty(problem.getProblemChoose1()) || StringUtils.isEmpty(problem.getProblemChoose2()) ||
                 StringUtils.isEmpty(problem.getProblemChoose3()) || StringUtils.isEmpty(problem.getProblemChoose4())
         ) {
