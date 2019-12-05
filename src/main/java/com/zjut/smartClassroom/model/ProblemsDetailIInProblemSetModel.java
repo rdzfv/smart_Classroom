@@ -13,7 +13,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
-public class ProblemsDetailIInProblemSet {
+public class ProblemsDetailIInProblemSetModel {
     @Id
     private int problemId;
     private String problemInfo;

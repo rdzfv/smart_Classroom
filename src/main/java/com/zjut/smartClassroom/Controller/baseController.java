@@ -19,18 +19,18 @@ import java.util.Map;
  * @version:     1.0.0
  */
 public class baseController {
-    //定义exceptionhandler解决未被controller层吸收的exception
+    // 定义exceptionhandler解决未被controller层吸收的exception
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Object handlerException(HttpServletRequest request, HttpServletResponse response, Exception ex){
+    public Object handlerException(HttpServletRequest request, HttpServletResponse response, Exception ex) {
         Map<String,Object> responseData = new HashMap<>();
         CommonReturnType commonReturnType = new CommonReturnType();
-        if(ex instanceof BusinessException){
-            BusinessException businessException=(BusinessException)ex;
+        if (ex instanceof BusinessException) {
+            BusinessException businessException = (BusinessException) ex;
             responseData.put("errCode",businessException.getErrorCode());
             responseData.put("errMsg",businessException.getErrorMsg());
-        }else{
+        } else {
 //            responseData.put("errCode", EnumBusinessError.UNKNOWN_ERROR.getErrorCode());
 //            responseData.put("errMsg",EnumBusinessError.UNKNOWN_ERROR.getErrorMsg());
             System.out.println(ex);

@@ -6,7 +6,8 @@ import com.zjut.smartClassroom.dataObject.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
-import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSet;
+import com.zjut.smartClassroom.model.MyAnswersModel;
+import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSetModel;
 import com.zjut.smartClassroom.response.CommonReturnType;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,12 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author     ：dzy
  * @date       ：Created in 2019/12/03 12:45:23
- * @description：problemController
+ * @description： problemController
  * @version:     1.0.0
  */
 @Controller("/problem")
@@ -39,21 +39,21 @@ public class ProblemController extends baseController{
     /**
      * @author     ：dzy
      * @date       ：Created in 2019/12/03 12:45:23
-     * @description：通过练习id获取学生答题情况（传入练习id[非空]）
+     * @description： 通过ProblemSetId获取学生答题情况（传入ProblemSetId[非空]）
      * @version:     1.0.0
      */
     @RequestMapping(value = "/getProblemSetStudentAnsweringDetailByProblemSetId")
     @ResponseBody
-    public CommonReturnType getProblemSetStudentAnsweringDetailByProblemSetId(int problemId) throws BusinessException {
-        // 通过problemId查询题目详情
-        AnswerSituation answerSituation = problemService.getProblemSetStudentAnsweringDetailByProblemSetId(problemId);
+    public CommonReturnType getProblemSetStudentAnsweringDetailByProblemSetId(int problemSetId) throws BusinessException {
+        // 通过problemSetId查询题目详情
+        ArrayList<AnswerSituation> answerSituation = problemService.getProblemSetStudentAnsweringDetailByProblemSetId(problemSetId);
         return CommonReturnType.create(answerSituation);
     }
 
     /**
      * @author     ：dzy
      * @date       ：Created in 2019/12/03 12:45:23
-     * @description：通过problemId修改problem详情（传入问题id[非空]）
+     * @description： 通过problemId修改problem详情（传入问题id[非空]）
      * @version:     1.0.0
      */
     @RequestMapping(value = "/updateProblemById", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
@@ -75,7 +75,7 @@ public class ProblemController extends baseController{
     /**
      * @author     ：dzy
      * @date       ：Created in 2019/12/03 12:45:23
-     * @description：通过problemId获取problem详情（传入问题id[非空]）
+     * @description： 通过problemId获取problem详情（传入问题id[非空]）
      * @version:     1.0.0
      */
     @RequestMapping(value = "/getProblemById")
@@ -90,7 +90,7 @@ public class ProblemController extends baseController{
     /**
      * @author     ：dzy
      * @date       ：Created in 2019/12/03 12:45:23
-     * @description：添加problem（传入题干[非空]，正确答案[1-4]，选项1[非空]，选项2[非空]，选项3[非空]，选项4[非空]）
+     * @description： 添加problem（传入题干[非空]，正确答案[1-4]，选项1[非空]，选项2[非空]，选项3[非空]，选项4[非空]）
      * @version:     1.0.0
      */
     @RequestMapping(value = "/addProblem", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
@@ -114,15 +114,42 @@ public class ProblemController extends baseController{
     /**
      * @author     ：xyy
      * @date       ：Created in 2019/12/04 22:59:23
-     * @description：通过priblemset_id获取问题详情列表
+     * @description： 通过priblemset_id获取问题详情列表
      * @version:     1.0.0
      */
     @RequestMapping(value = "/getProblemsByProblemSetId")
     @ResponseBody
     public CommonReturnType getProblemsByProblemSetId(int id) throws BusinessException {
         // 通过problemSet_id获取问题详情列表
-        ArrayList<ProblemsDetailIInProblemSet> problemResults = problemService.getProblemsByProblemSetId(id);
+        ArrayList<ProblemsDetailIInProblemSetModel> problemResults = problemService.getProblemsByProblemSetId(id);
         if (problemResults == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
         return CommonReturnType.create(problemResults);
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/04 10:46:42
+     * @description： 提交我的做题结果
+     * @version:     1.0.0
+     */
+    @RequestMapping(value = "/postMyAnswer")
+    @ResponseBody
+    public CommonReturnType postMyAnswer(MyAnswersModel myAnswersModel) throws BusinessException {
+        // 入参校验
+        if (myAnswersModel.getStudentId() == 0 || StringUtils.isEmpty(myAnswersModel.getMyAnswers()) ||
+                myAnswersModel.getCourseId() == 0 || myAnswersModel.getProblemSetId() == 0
+        ) {
+            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+
+        // 通过problemSetId查询problemIdS
+        ArrayList<ProblemsDetailIInProblemSetModel> problemResults = problemService.getProblemsByProblemSetId(myAnswersModel.getProblemSetId());
+        if (problemResults == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
+
+        // 保存学生答题情况
+        int myAnswersModelResult = problemService.addMyResult(myAnswersModel.getStudentId(), myAnswersModel.getCourseId(), myAnswersModel.getProblemSetId(), problemResults, myAnswersModel.getMyAnswers());
+        if (myAnswersModelResult == 0) throw new BusinessException(EnumBusinessError.ADD_FAILED);
+        return CommonReturnType.create(myAnswersModelResult);
     }
 }

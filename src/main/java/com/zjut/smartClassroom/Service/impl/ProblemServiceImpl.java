@@ -2,12 +2,12 @@ package com.zjut.smartClassroom.Service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.mysql.cj.x.protobuf.MysqlxExpr;
 import com.zjut.smartClassroom.Service.ProblemService;
 import com.zjut.smartClassroom.dataObject.*;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
-import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSet;
+import com.zjut.smartClassroom.model.MyAnswersModel;
+import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSetModel;
 import com.zjut.smartClassroom.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,8 +29,6 @@ public class ProblemServiceImpl implements ProblemService {
     @Autowired(required = false)
     private AnswerSituationRepository answerSituationRepository;
     @Autowired(required = false)
-    private AnswerSituation answerSituation;
-    @Autowired(required = false)
     private ProblemRepository problemRepository;
     @Autowired(required = false)
     private ProblemSetRepository problemSetRepository;
@@ -40,6 +38,8 @@ public class ProblemServiceImpl implements ProblemService {
     private TeacherRepository teacherRepository;
     @Autowired(required = false)
     private CourseRepository courseRepository;
+    @Autowired(required = false)
+    private AnswerRepository answerRepository;
 
 
     /**
@@ -50,9 +50,28 @@ public class ProblemServiceImpl implements ProblemService {
      */
     @Override
     @Transactional
-    public AnswerSituation getProblemSetStudentAnsweringDetailByProblemSetId(int problemId) throws BusinessException {
-        answerSituation= answerSituationRepository.findByProblemId(problemId);
-        return  answerSituation;
+    public ArrayList<AnswerSituation> getProblemSetStudentAnsweringDetailByProblemSetId(int problemSetId) throws BusinessException {
+        ArrayList<AnswerSituation> answerSituationList = new ArrayList<>();
+
+        // 通过problemSetId查找problems
+        ArrayList<ProblemsDetailIInProblemSetModel> problemsDetailIInProblemSetModels = getProblemsByProblemSetId(problemSetId);
+        if (problemsDetailIInProblemSetModels == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        int size = problemsDetailIInProblemSetModels.size();
+        ArrayList<Integer> problemIds = new ArrayList<Integer>();
+        for (int i = 0; i < size; i ++) {
+            System.out.println(problemsDetailIInProblemSetModels.get(i).getProblemId());
+            problemIds.add(problemsDetailIInProblemSetModels.get(i).getProblemId());
+        }
+
+        // 根据problemIds查找题目详情s
+        for (int i = 0; i < size; i++) {
+            AnswerSituation answerSituation = answerSituationRepository.findByProblemId(problemIds.get(i));
+            if (answerSituation == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+            // 加入ArrayList
+            answerSituationList.add(answerSituation);
+        }
+
+        return answerSituationList;
     }
 
 
@@ -109,12 +128,12 @@ public class ProblemServiceImpl implements ProblemService {
     /**
      * @author     ：xyy
      * @date       ：Created in 2019/12/04 23:05:14
-     * @description：根据problemId获取问题详情
+     * @description：根据problemSetId获取问题详情
      * @version:     1.0.0
      */
     @Override
-    public ArrayList<ProblemsDetailIInProblemSet> getProblemsByProblemSetId(int problemSetId) throws BusinessException {
-        ArrayList<ProblemsDetailIInProblemSet> result = new ArrayList<ProblemsDetailIInProblemSet>();
+    public ArrayList<ProblemsDetailIInProblemSetModel> getProblemsByProblemSetId(int problemSetId) throws BusinessException {
+        ArrayList<ProblemsDetailIInProblemSetModel> result = new ArrayList<ProblemsDetailIInProblemSetModel>();
 
         // 通过ProblemSetId获取对应的paperId和fatherProblemSetName和fatherCourseId和fatherCourseTeacherId
         ProblemSet problemSet = problemSetRepository.findByProblemSetId(problemSetId);
@@ -141,7 +160,7 @@ public class ProblemServiceImpl implements ProblemService {
         // 遍历List<ProblemPaper>，取出problemId查询题目s信息
         int size = problemPaperList.size();
         for (int i = 0; i < size; i ++) {
-            ProblemsDetailIInProblemSet problemsDetailIInProblemSetInstance = new ProblemsDetailIInProblemSet();
+            ProblemsDetailIInProblemSetModel problemsDetailIInProblemSetModelInstance = new ProblemsDetailIInProblemSetModel();
             int problemId = problemPaperList.get(i).getProblemId();
 
             // 根据problemId查询题目信息
@@ -149,15 +168,55 @@ public class ProblemServiceImpl implements ProblemService {
             if (problem == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
 
             // 使用hutool BeanUtil进行对象拷贝（忽略null值）BeanUtil.copyProperties(data, target, )
-            BeanUtil.copyProperties(problem, problemsDetailIInProblemSetInstance, true, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+            BeanUtil.copyProperties(problem, problemsDetailIInProblemSetModelInstance, true, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
 
             // 加入父节点信息
-            problemsDetailIInProblemSetInstance.setFatherProblemSetName(problemSetName);
-            problemsDetailIInProblemSetInstance.setFatherCourseTeacher(teacherName);
-            problemsDetailIInProblemSetInstance.setFatherCourseName(courseName);
+            problemsDetailIInProblemSetModelInstance.setFatherProblemSetName(problemSetName);
+            problemsDetailIInProblemSetModelInstance.setFatherCourseTeacher(teacherName);
+            problemsDetailIInProblemSetModelInstance.setFatherCourseName(courseName);
 
-            result.add(problemsDetailIInProblemSetInstance);
+            result.add(problemsDetailIInProblemSetModelInstance);
         }
         return result;
+    }
+
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/05 13:39:19
+     * @description： 通过学生Id
+     * @version:     1.0.0
+     */
+    @Override
+    public int addMyResult(int studentId, int courseId, int problemSetId, ArrayList<ProblemsDetailIInProblemSetModel> problemResults, String myAns) throws BusinessException {
+        // 获取学生答题情况字符串解析为字符串数组
+        String[] myAnsList = myAns.split(",");
+
+        int size = problemResults.size();
+        for (int i = 0; i < size; i ++) {
+            // 校验答案正误（通过problemId获取正确答案）
+            int isTrue = 0;
+            Problem problemResult = problemRepository.findByProblemId(problemResults.get(i).getProblemId());
+            if (problemResult == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+            int correctAns = problemResult.getProblemAns();
+            if (correctAns == Integer.parseInt(myAnsList[i])) isTrue = 1;
+
+            // 构造Answer实例
+            Answer answerInstance = new Answer();
+            answerInstance.setStudentId(studentId);
+            answerInstance.setProblemId(problemResults.get(i).getProblemId());
+            answerInstance.setProblemSetId(problemSetId);
+            answerInstance.setStudentAns(Integer.parseInt(myAnsList[i]));
+            answerInstance.setIsTrue(isTrue);
+
+            // 新增答题记录
+            Answer result = answerRepository.save(answerInstance);
+            if (result == null) {
+                throw new BusinessException(EnumBusinessError.ADD_FAILED);
+            }
+        }
+
+        return 1;
     }
 }
