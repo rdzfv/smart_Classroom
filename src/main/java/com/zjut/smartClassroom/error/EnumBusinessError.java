@@ -7,7 +7,7 @@ package com.zjut.smartClassroom.error;
  * @modified By：xyy in 2019/12/04 16:53:28
  * @version:     1.0.0
  */
-public enum EnumBusinessError implements CommonError {
+public enum EnumBusinessError implements CommonError{
     // 通用错误类型10001
     PARAMETER_VALIDATION_ERROR(10001,"参数不合法"),
     // 未知错误00002
@@ -25,9 +25,9 @@ public enum EnumBusinessError implements CommonError {
     RECORD_NOT_EXIST(30005, "记录不存在，请检查输入");
 
 
-    private EnumBusinessError(int errCode,String errMsg) {
-        this.errCode = errCode;
-        this.errMsg = errMsg;
+    private EnumBusinessError(int errCode,String errMsg){
+        this.errCode=errCode;
+        this.errMsg=errMsg;
     }
 
     private int errCode;
