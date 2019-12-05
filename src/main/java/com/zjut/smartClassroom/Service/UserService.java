@@ -18,6 +18,5 @@ import java.util.Optional;
 public interface UserService{
     //通过用户id获取用户对象的方法
     Student getUserById(int id);
-    // 用户登录
     Student login(Student student) throws BusinessException;
 }

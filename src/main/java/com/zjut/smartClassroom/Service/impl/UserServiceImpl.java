@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Student getUserById(int id) {
         student = studentRepository.findByStudentid(id);
+        System.out.println(student);
         return student;
 
     }
@@ -47,6 +48,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Student login(Student student) throws BusinessException {
+        System.out.println("进入login Service");
+        System.out.println(studentRepository);
+        System.out.println(student);
         Student studentResult = studentRepository.findByOpenidAndAndSessionkeyAndStudentaccountAndStudentnameAndStudentpassword(
                 student.getOpenid(), student.getSessionkey(), student.getStudentaccount(), student.getStudentname(), student.getStudentpassword()
         );

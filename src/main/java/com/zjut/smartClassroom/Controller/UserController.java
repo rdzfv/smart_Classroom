@@ -42,7 +42,7 @@ public class UserController extends baseController {
     public CommonReturnType login(Student student) throws BusinessException {
         System.out.println(student);
         // 入参校验
-        if (StringUtils.isEmpty(student.getStudentname()) || StringUtils.isEmpty(student.getStudentaccount()) ||
+        if(StringUtils.isEmpty(student.getStudentname()) || StringUtils.isEmpty(student.getStudentaccount()) ||
                 StringUtils.isEmpty(student.getStudentpassword()) || StringUtils.isEmpty(student.getOpenid()) ||
                 StringUtils.isEmpty(student.getSessionkey())
         ) {
@@ -50,7 +50,6 @@ public class UserController extends baseController {
         }
         // 用户登录服务
         Student studentInstanse = userService.login(student);
-        if (studentInstanse == null) throw new BusinessException(EnumBusinessError.USER_NOT_VALIDATE);
         return CommonReturnType.create(studentInstanse);
     }
 
