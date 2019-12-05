@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author     ：dzy
@@ -95,8 +96,8 @@ public class ProblemController extends baseController{
     public CommonReturnType addProblem(Problem problem) throws BusinessException {
         System.out.println(problem);
         // 入参校验
-        if(StringUtils.isEmpty(problem.getProblemInfo()) ||
-                (problem.getProblemAns() != 1 && problem.getProblemAns() != 2 && problem.getProblemAns() != 3 && problem.getProblemAns() != 4)||
+        if (StringUtils.isEmpty(problem.getProblemInfo()) ||
+                (problem.getProblemAns() != 1 && problem.getProblemAns() != 2 && problem.getProblemAns() != 3 && problem.getProblemAns() != 4) ||
                 StringUtils.isEmpty(problem.getProblemChoose1()) || StringUtils.isEmpty(problem.getProblemChoose2()) ||
                 StringUtils.isEmpty(problem.getProblemChoose3()) || StringUtils.isEmpty(problem.getProblemChoose4())
         ) {
@@ -105,6 +106,21 @@ public class ProblemController extends baseController{
         // 增加问题
         Problem problemResult = problemService.addProblem(problem);
         if (problemResult == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
-        return CommonReturnType.create(problem);
+        return CommonReturnType.create(problemResult);
+    }
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/04 22:59:23
+     * @description：通过priblemset_id获取问题详情列表
+     * @version:     1.0.0
+     */
+    @RequestMapping(value = "/getProblemsByProblemSetId")
+    @ResponseBody
+    public CommonReturnType getProblemsByProblemSetId(int id) throws BusinessException {
+        // 通过problemSet_id获取问题详情列表
+        List<Problem> problemResults = problemService.getProblemsByProblemSetId(id);
+        if (problemResults == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
+        return CommonReturnType.create(problemResults);
     }
 }
