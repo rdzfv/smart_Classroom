@@ -3,8 +3,10 @@ package com.zjut.smartClassroom.Service;
 import com.zjut.smartClassroom.dataObject.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.error.BusinessException;
+import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSet;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,5 +26,5 @@ public interface ProblemService {
     // 根据id获取问题
     Problem getProblem(int problemId) throws BusinessException;
     // 通过problemSet_id获取问题详情列表
-    List<Problem> getProblemsByProblemSetId(int problemSetId) throws BusinessException;
+    ArrayList<ProblemsDetailIInProblemSet> getProblemsByProblemSetId(int problemSetId) throws BusinessException;
 }

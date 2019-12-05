@@ -7,23 +7,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.sql.Date;
 
 /**
- * @author     ：xyy
- * @date       ：Created in 2019/12/04 23:09:23
- * @description：problemSet实体类（对应problemSet表）
+ * @author     ：dzy
+ * @date       ：Created in 2019/12/03 12:45:23
+ * @description：problem实体类（对应problem表）
  * @version:     1.0.0
  */
 @Data
 @Entity
-public class ProblemSet implements Serializable {
+public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer problemSetId;
-    private Integer teacherId;
     private Integer courseId;
-    private Date problemReleaseTime;
-    private Integer paperId;
-    private String problemSetName;
+    private String courseName;
+    private Integer courseCredit;
+    private String courseMethod;
 }

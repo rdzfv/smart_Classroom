@@ -6,6 +6,7 @@ import com.zjut.smartClassroom.dataObject.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
+import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSet;
 import com.zjut.smartClassroom.response.CommonReturnType;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,7 +121,7 @@ public class ProblemController extends baseController{
     @ResponseBody
     public CommonReturnType getProblemsByProblemSetId(int id) throws BusinessException {
         // 通过problemSet_id获取问题详情列表
-        List<Problem> problemResults = problemService.getProblemsByProblemSetId(id);
+        ArrayList<ProblemsDetailIInProblemSet> problemResults = problemService.getProblemsByProblemSetId(id);
         if (problemResults == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
         return CommonReturnType.create(problemResults);
     }
