@@ -13,12 +13,12 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-public class Problem implements Serializable{
+public class Problem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int problemId;
+    private Integer problemId;
     private String problemInfo;
-    private int problemAns;
+    private Integer problemAns;
     private String problemExplain;
     private String problemChoose1;
     private String problemChoose2;

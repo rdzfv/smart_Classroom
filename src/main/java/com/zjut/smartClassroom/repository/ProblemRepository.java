@@ -13,5 +13,5 @@ public interface ProblemRepository extends JpaRepository<Problem, Problem> {
     // 更新problem
     Problem save(Problem problem);
     // 根据problemId查找problem
-    Problem findByProblemId(int priblemId);
+    Problem findByProblemId(int problemId);
 }
