@@ -59,11 +59,10 @@ public class ProblemController extends baseController{
     @RequestMapping(value = "/updateProblemById", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updateProblem(Problem problem) throws BusinessException {
-        System.out.println(problem.getProblemAns());
         // 入参校验
-        if (!(problem.getProblemAns() == 1 || problem.getProblemAns() == 2 ||
+        if (!(problem.getProblemAns() == null || problem.getProblemAns() == 1 || problem.getProblemAns() == 2 ||
                 problem.getProblemAns() == 3 || problem.getProblemAns() == 4 ||
-                problem.getProblemAns() == 0)
+                problem.getProblemAns() == 0 )
         ) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
