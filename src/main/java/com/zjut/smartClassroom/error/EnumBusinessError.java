@@ -4,14 +4,45 @@ public enum EnumBusinessError implements CommonError{
     //通用错误类型10001
     PARAMETER_VALIDATION_ERROR(10001,"参数不合法"),
     //未知错误00002
-//    UNKNOWN_ERROR(10002,"未知错误"),
+    UNKNOWN_ERROR(10002,"未知错误"),
 
     //20000开头为用户信息相关错误定义
     USER_NOT_EXIST(20001,"用户不存在"),
-    USER_ALREADY_EXIST(20002,"用户已经存在")
-    ;
+    USER_ALREADY_EXIST(20002,"用户已经存在"),
 
-    private EnumBusinessError(int errCode,String errMsg){
+    /**
+     *@author John STRAT
+     *@date 2019/12/5 21:45
+     */
+
+    // 30000开头的为练习集相关信息
+    PROBLEM_SET_NOT_EXIST(30001,"练习集不存在"),
+    PROBLEM_SET_CHANGE_FAILED(30002,"练习集修改失败"),
+    PROBLEM_SET_CHANGE_FAILED_CAUSE_BY_INVAILED_INPUT(30003,"输入参数错误"),
+    PROBLEM_SET_DELETE_FAILED(30004,"练习集删除失败"),
+
+    // 40000开头的为题目相关信息;
+    PROBLEM_NOT_EXIST(40000,"暂无练习题"),
+
+    // 50000开头的为试卷相关信息
+    PAPER_NOT_EXIST(50000,"暂无练习卷"),
+    PAPER_CREATE_FAILED(50001,"练习卷创建失败"),
+    PAPER_DELETE_FAILED(50002,"练习卷删除失败"),
+    PAPER_UPDATE_FAILED(50003,"练习卷修改失败"),
+
+    // 60000开头的为试题列表相关信息
+    PAPER_PROBLEM_CREATE_FAILED(60001,"试题添加失败"),
+    PAPER_NOT_HAVE_PROBLEM(60002,"试卷内暂无试题"),
+    PAPER_CHANGE_PROBLEM_FAILED(60003,"试卷更改试题失败");
+
+
+    /**
+     *@author John END
+     *@date 2019/12/5 21:45
+     */
+
+
+    private EnumBusinessError(int errCode, String errMsg){
         this.errCode=errCode;
         this.errMsg=errMsg;
     }
