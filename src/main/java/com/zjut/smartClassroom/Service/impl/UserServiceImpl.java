@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/02 12:45:23
+ * @description：UserService接口的实现类
+ * @version:     1.0.0
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -16,22 +22,29 @@ public class UserServiceImpl implements UserService {
     private StudentRepository studentRepository;
 
 
-    // 通过用户id获取到用户信息
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/02 12:45:23
+     * @description：通过用户id获取用户信息
+     * @version:     1.0.0
+     */
     @Override
     @Transactional
     public Student getUserById(int id) {
         Student student = studentRepository.findByStudentid(id);
-        System.out.println(student);
         return student;
 
     }
 
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/02 12:45:23
+     * @description：用户登录(传入student对象)
+     * @version:     1.0.0
+     */
     @Override
     @Transactional
     public Student login(Student student) throws BusinessException {
-        System.out.println("进入login Service");
-        System.out.println(studentRepository);
-        System.out.println(student);
         Student studentResult = studentRepository.findByOpenidAndAndSessionkeyAndStudentaccountAndStudentnameAndStudentpassword(
                 student.getOpenid(), student.getSessionkey(), student.getStudentaccount(), student.getStudentname(), student.getStudentpassword()
         );
