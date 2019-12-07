@@ -22,7 +22,7 @@ public enum EnumBusinessError implements CommonError {
     FIND_FAILED(70002, "查询不存在的记录"),
     DELETE_FAILED(70003, "删除不存在的记录"),
     ADD_FAILED(70004, "添加有误，请检查输入"),
-    RECORD_NOT_EXIST(70005, "记录不存在，请检查输入");
+    RECORD_NOT_EXIST(70005, "记录不存在，请检查输入"),
 
     /**
      *@author John STRAT

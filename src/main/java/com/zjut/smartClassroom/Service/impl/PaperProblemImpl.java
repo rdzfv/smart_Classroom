@@ -3,8 +3,8 @@ package com.zjut.smartClassroom.Service.impl;
 import com.zjut.smartClassroom.Service.PaperProblemService;
 import com.zjut.smartClassroom.dataObject.PaperProblemView;
 import com.zjut.smartClassroom.dataObject.ProblemPaper;
-import com.zjut.smartClassroom.repository.PaperProblemRepository;
 import com.zjut.smartClassroom.repository.PaperProblemViewRepository;
+import com.zjut.smartClassroom.repository.ProblemPaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ public class PaperProblemImpl implements PaperProblemService {
      */
 
     @Autowired(required = false)
-    PaperProblemRepository paperProblemRepository;
+    ProblemPaperRepository paperProblemRepository;
     @Autowired(required = false)
     PaperProblemViewRepository paperProblemViewRepository;
 

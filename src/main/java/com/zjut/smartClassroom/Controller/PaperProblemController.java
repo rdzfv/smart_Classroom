@@ -27,10 +27,6 @@ public class PaperProblemController {
 
     @Autowired(required = false)
     private PaperProblemService paperProblemService;
-    @Autowired(required = false)
-    private PaperProblemView paperProblemView;
-    @Autowired(required = false)
-    private List<PaperProblemView> paperProblemList;
 
     // 根据老师选择的题目来插入试题
     @RequestMapping("/createNewPaper")
@@ -47,7 +43,7 @@ public class PaperProblemController {
             paperProblem.setProblemId(temp);
             paperProblemService.insertProblemByPaperId(paperProblem);
         }
-        paperProblemList = paperProblemService.getDataByPaperId(paperId);
+        List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(paperId);
         if (paperProblemList.size() == 0){
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_PROBLEM_CREATE_FAILED);
             throw businessException;
@@ -60,7 +56,7 @@ public class PaperProblemController {
     @RequestMapping("/getPaperDetailByPaperId")
     @ResponseBody
     public CommonReturnType getPaperDetailByPaperId(@RequestParam("paper_id")int paperId) throws BusinessException{
-        paperProblemList = paperProblemService.getDataByPaperId(paperId);
+        List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(paperId);
         if (paperProblemList == null){
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_NOT_HAVE_PROBLEM);
             throw businessException;
@@ -80,7 +76,7 @@ public class PaperProblemController {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_CHANGE_PROBLEM_FAILED);
             throw businessException;
         }
-        paperProblemList = paperProblemService.getDataByPaperId(newPaperProblem.getPaperId());
+        List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(newPaperProblem.getPaperId());
         return CommonReturnType.create(paperProblemList);
     }
 
@@ -92,7 +88,7 @@ public class PaperProblemController {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_CHANGE_PROBLEM_FAILED);
             throw businessException;
         }
-        paperProblemList = paperProblemService.getDataByPaperId(paperId);
+        List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(paperId);
         return CommonReturnType.create(paperProblemList);
     }
 }

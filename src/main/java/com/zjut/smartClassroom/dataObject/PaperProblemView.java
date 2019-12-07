@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@IdClass(PaperProblemPK.class)
+@IdClass(ProblemPaper.class)
 public class PaperProblemView implements Serializable {
 
     /**

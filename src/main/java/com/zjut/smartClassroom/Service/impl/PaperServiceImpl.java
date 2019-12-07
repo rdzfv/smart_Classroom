@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class PaperImpl implements PaperService {
+public class PaperServiceImpl implements PaperService {
 
     /**
      *@author John

@@ -159,15 +159,10 @@ public class ProblemController extends baseController{
      *@date 2019/12/5 21:45
      */
 
-    @Autowired(required = false)
-    private List<Problem> problemList;
-    @Autowired
-    private ProblemService problemService;
-
     @RequestMapping("/getAllProblem")
     @ResponseBody
     public CommonReturnType getAllProblem() throws BusinessException {
-        problemList = problemService.getAllData();
+        List<Problem> problemList = problemService.getAllData();
         if (problemList == null){
             BusinessException businessException = new BusinessException(EnumBusinessError.PROBLEM_NOT_EXIST);
             throw businessException;
