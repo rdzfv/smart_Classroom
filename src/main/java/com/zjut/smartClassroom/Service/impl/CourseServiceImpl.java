@@ -65,7 +65,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public Course findCourseById(Integer courseId) throws BusinessException{
         Course courseResult = courseRepository.findByCourseId(courseId);
-        if (courseResult == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        if (courseResult == null) throw new BusinessException(EnumBusinessError.COURSE_NOT_EXIST);
         return courseResult;
     }
 

@@ -30,8 +30,10 @@ public enum EnumBusinessError implements CommonError {
     FIND_FAILED(30002, "查询不存在的记录"),
     DELETE_FAILED(30003, "删除不存在的记录"),
     ADD_FAILED(30004, "添加有误，请检查输入"),
-    RECORD_NOT_EXIST(30005, "记录不存在，请检查输入");
-
+    RECORD_NOT_EXIST(30005, "记录不存在，请检查输入"),
+    COURSE_NOT_EXIST(30006, "课程不存在，请检查输入"),
+    PAPER_NOT_EXIST(30007, "练习卷不存在，请检查输入"),
+    TEACHER_NOT_EXIST(30008, "教师不存在，请检查输入");
 
     private EnumBusinessError(int errCode, String errMsg) {
         this.errCode = errCode;

@@ -7,6 +7,7 @@ import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.CourseRepository;
 import com.zjut.smartClassroom.repository.PaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @Version: 1.0
  */
 
+@Service
 public class PaperServiceImpl implements PaperService {
     // 引入
     @Autowired(required = false)
@@ -30,7 +32,7 @@ public class PaperServiceImpl implements PaperService {
     public Paper findPaperById(Integer paperId) throws BusinessException {
         Paper paperResult = paperRepository.findByPaperId(paperId);
         if(paperResult == null){
-            throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+            throw new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
         }
         return paperResult;
     }

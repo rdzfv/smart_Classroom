@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.sql.Date;
 
 /**
@@ -23,7 +24,7 @@ public class ProblemSet implements Serializable {
     private Integer problemSetId;
     private Integer teacherId;
     private Integer courseId;
-    private Date problemReleaseTime;
+    private Timestamp problemReleaseTime;
     private Integer paperId;
     private String problemSetName;
 }
