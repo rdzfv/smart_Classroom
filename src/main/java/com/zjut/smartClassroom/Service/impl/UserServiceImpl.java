@@ -56,6 +56,18 @@ public class UserServiceImpl implements UserService {
         return studentResult;
     }
 
+    /**
+     * @Method findTeacherById
+     * @Author FrankWu
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.dataObject.Teacher
+     * @Exception
+     * @Date 2019/12/7
+     * @Time 16:34
+     */
+    @Override
+    @Transactional
     public Teacher findTeacherById(int teacherId) throws BusinessException{
         Teacher teacherResult = teacherRepository.findTeacherByTeacherId(teacherId);
         if(teacherResult == null){

@@ -5,6 +5,7 @@ import com.zjut.smartClassroom.dataObject.CoursePPT;
 import com.zjut.smartClassroom.repository.CoursePPTRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @ProjectName: smartClassroom
@@ -22,6 +23,18 @@ public class CoursePPTServiceImpl implements CoursePPTService {
     @Autowired(required = false)
     private CoursePPTRepository coursePPTRepository;
 
+    /**
+     * @Method addCoursePPT
+     * @Author FrankWu
+     * @Version  1.0
+     * @Description 将ppt的url添加至数据库
+     * @Return CoursePPT
+     * @Exception
+     * @Date 2019/12/7
+     * @Time 16:33
+     */
+    @Override
+    @Transactional
     public CoursePPT addCoursePPT(CoursePPT coursePPT){
         CoursePPT coursePPT1 = coursePPTRepository.save(coursePPT);
         return coursePPT1;

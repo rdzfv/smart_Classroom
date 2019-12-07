@@ -1,7 +1,9 @@
 package com.zjut.smartClassroom.Controller;
 
 import com.zjut.smartClassroom.Service.*;
-import com.zjut.smartClassroom.dataObject.*;
+import com.zjut.smartClassroom.dataObject.Course;
+import com.zjut.smartClassroom.dataObject.CoursePPT;
+import com.zjut.smartClassroom.dataObject.ProblemSet;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -12,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 
 /**
  * @ProjectName: smartClassroom
@@ -71,7 +72,7 @@ public class CourseController extends baseController {
     /**
      * @Method addProblemSetToCourse
      * @Author FrankWu
-     * @Version  1.0
+     * @Version 1.0
      * @Description 根据前端传输过来的problemSet对象中teacherId、courseId、paperId进行发布练习
      * @Return com.zjut.smartClassroom.response.CommonReturnType
      * @Exception
@@ -80,14 +81,14 @@ public class CourseController extends baseController {
      */
     @RequestMapping(value = "/addProblemSetToCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
-    public CommonReturnType addProblemSetToCourse(ProblemSet problemSet) throws  BusinessException{
+    public CommonReturnType addProblemSetToCourse(ProblemSet problemSet) throws BusinessException {
         // 检验：输入数值上是否错误
         Integer teacherId = problemSet.getTeacherId();
         Integer courseId = problemSet.getCourseId();
         Integer paperId = problemSet.getPaperId();
-        if(teacherId == null || courseId == null || paperId == null){
+        if (teacherId == null || courseId == null || paperId == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
-        }else if(courseId < 0 || paperId < 0){
+        } else if (courseId < 0 || paperId < 0) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         // 检验：寻找的id号是否存在，若不存在则会报错
@@ -100,26 +101,35 @@ public class CourseController extends baseController {
         Timestamp timestamp = new Timestamp(date.getTime());
         problemSet.setProblemReleaseTime(timestamp);
         // 若都存在，则生成练习并发布
-        ProblemSet problemSetResult =  problemSetService.addProblemSet(problemSet);
+        ProblemSet problemSetResult = problemSetService.addProblemSet(problemSet);
         return CommonReturnType.create(problemSetResult);
     }
 
+    /**
+     * @Method addPPT_ToCourse
+     * @Author FrankWu
+     * @Version 1.0
+     * @Description 根据前端传输过来的CoursePPT对象中courseId、ppt的url进行上传ppt
+     * @Return com.zjut.smartClassroom.response.CommonReturnType
+     * @Exception
+     * @Date 2019/12/7
+     * @Time 16:31
+     */
     @RequestMapping(value = "/addPPT_ToCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
-    public CommonReturnType addPPT_ToCourse(CoursePPT coursePPT) throws BusinessException{
+    public CommonReturnType addPPT_ToCourse(CoursePPT coursePPT) throws BusinessException {
         // 输出参数的校验
         Integer courseId = coursePPT.getCourseId();
         String ppt_url = coursePPT.getPpt_url();
-        if(courseId == null){
+        if (courseId == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
-        }else if(courseId < 0){
+        } else if (courseId < 0) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
-        } else if (ppt_url == null){
+        } else if (ppt_url == null) {
             throw new BusinessException(EnumBusinessError.PPT_URL_IS_NULL);
         }
         // 检验：寻找的id号是否存在，若不存在则会报错
         courseService.findCourseById(courseId);
-
         CoursePPT coursePPT1 = coursePPTService.addCoursePPT(coursePPT);
         return CommonReturnType.create(coursePPT1);
     }
