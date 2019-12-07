@@ -2,7 +2,7 @@ package com.zjut.smartClassroom.Service.impl;
 
 import com.zjut.smartClassroom.Service.ProblemService;
 import com.zjut.smartClassroom.dataObject.Problem;
-import com.zjut.smartClassroom.repository.ProblemAllRepository;
+import com.zjut.smartClassroom.repository.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +18,12 @@ public class ProblemImpl implements ProblemService {
      */
 
     @Autowired(required = false)
-    private List<Problem> problemList;
-    @Autowired(required = false)
-    private ProblemAllRepository problemAllRepository;
+    private ProblemRepository problemRepository;
 
     @Override
     @Transactional
     public List<Problem> getAllData() {
-        problemList = problemAllRepository.findAll();
+        List<Problem> problemList = problemRepository.findAll();
         System.out.println(problemList);
         if (problemList.size() != 0)
             return problemList;

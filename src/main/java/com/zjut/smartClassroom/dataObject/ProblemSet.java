@@ -1,26 +1,30 @@
 package com.zjut.smartClassroom.dataObject;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/04 23:09:23
+ * @description：problemSet实体类（对应problemSet表）
+ * @version:     1.0.0
+ */
 @Data
 @Entity
-public class ProblemSet {
-    /**
-     *@author John
-     *@date 2019/12/5 21:45
-     */
+public class ProblemSet implements Serializable {
     @Id
-    private int problemSetId;
-    private int teacherId;
-    private int courseId;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer problemSetId;
+    private Integer teacherId;
+    private Integer courseId;
     private Date problemReleaseTime;
-    private int paperId;
+    private Integer paperId;
     private String problemSetName;
     private String problemSetDetail;
     private String problemSetPicUrl;

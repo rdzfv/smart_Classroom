@@ -1,9 +1,8 @@
 package com.zjut.smartClassroom.Controller;
 
 import com.zjut.smartClassroom.Service.PaperProblemService;
-import com.zjut.smartClassroom.dataObject.Paper;
-import com.zjut.smartClassroom.dataObject.PaperProblem;
 import com.zjut.smartClassroom.dataObject.PaperProblemView;
+import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -40,9 +39,9 @@ public class PaperProblemController {
         String[] intArr = problemList.split(",");
         System.out.println(intArr);
         // 注：这边好像无法用spring进行新的创建，只能手工创建新的对象,下面的paperProblemList也是一个道理
-        PaperProblem paperProblem;
+        ProblemPaper paperProblem;
         for (String i : intArr) {
-            paperProblem = new PaperProblem();
+            paperProblem = new ProblemPaper();
             int temp = Integer.parseInt(i);
             paperProblem.setPaperId(paperId);
             paperProblem.setProblemId(temp);
@@ -73,10 +72,10 @@ public class PaperProblemController {
     @ResponseBody
     // 这里仅仅做试验，看看post情况下能不能更新，如果觉得格式写的太low的话那就干脆改成get好了
     public CommonReturnType updatePaperByPaperId(@RequestParam("paper_id")int paperId,@RequestParam("problem_id")int problemId,@RequestParam("problem_id_new")int newProblemId) throws BusinessException{
-        PaperProblem newPaperProblem = new PaperProblem();
+        ProblemPaper newPaperProblem = new ProblemPaper();
         newPaperProblem.setPaperId(paperId);
         newPaperProblem.setProblemId(problemId);
-        int flag = paperProblemService.updatePaperProblem(newPaperProblem,newProblemId);
+        int flag = paperProblemService.updatePaperProblem(newPaperProblem, newProblemId);
         if (flag != 1){
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_CHANGE_PROBLEM_FAILED);
             throw businessException;

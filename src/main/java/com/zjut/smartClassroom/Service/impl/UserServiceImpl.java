@@ -14,15 +14,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired(required = false)//引入
     private StudentRepository studentRepository;
-    @Autowired(required = false)//引入
-    private Student student;
 
 
-    //通过用户id获取到用户信息/////////////////////////////////////////////////////////////
+    // 通过用户id获取到用户信息
     @Override
     @Transactional
     public Student getUserById(int id) {
-        student = studentRepository.findByStudentid(id);
+        Student student = studentRepository.findByStudentid(id);
         System.out.println(student);
         return student;
 

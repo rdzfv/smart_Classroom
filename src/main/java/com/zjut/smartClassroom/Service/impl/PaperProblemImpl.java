@@ -1,12 +1,10 @@
 package com.zjut.smartClassroom.Service.impl;
 
 import com.zjut.smartClassroom.Service.PaperProblemService;
-import com.zjut.smartClassroom.dataObject.PaperProblem;
 import com.zjut.smartClassroom.dataObject.PaperProblemView;
-import com.zjut.smartClassroom.repository.PaperProblemDeleteByPaperIdRepository;
-import com.zjut.smartClassroom.repository.PaperProblemFindByIdRepository;
-import com.zjut.smartClassroom.repository.PaperProblemInsertRepository;
-import com.zjut.smartClassroom.repository.PaperProblemUpdateRepository;
+import com.zjut.smartClassroom.dataObject.ProblemPaper;
+import com.zjut.smartClassroom.repository.PaperProblemRepository;
+import com.zjut.smartClassroom.repository.PaperProblemViewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,21 +21,15 @@ public class PaperProblemImpl implements PaperProblemService {
      */
 
     @Autowired(required = false)
-    PaperProblemInsertRepository paperProblemInsertRepository;
+    PaperProblemRepository paperProblemRepository;
     @Autowired(required = false)
-    PaperProblemFindByIdRepository paperProblemFindByIdRepository;
-    @Autowired(required = false)
-    PaperProblemUpdateRepository paperProblemUpdateRepository;
-    @Autowired(required = false)
-    PaperProblemDeleteByPaperIdRepository paperProblemDeleteByPaperIdRepository;
-    @Autowired(required = false)
-    List<PaperProblemView> paperProblemViewList;
+    PaperProblemViewRepository paperProblemViewRepository;
 
     // 根据paperId来插入problem
     @Override
     @Transactional
-    public int insertProblemByPaperId(PaperProblem newPaperProblem) {
-        paperProblemInsertRepository.save(newPaperProblem);
+    public int insertProblemByPaperId(ProblemPaper newPaperProblem) {
+        paperProblemRepository.save(newPaperProblem);
         return 1;
     }
 
@@ -45,7 +37,7 @@ public class PaperProblemImpl implements PaperProblemService {
     @Override
     @Transactional
     public List<PaperProblemView> getDataByPaperId(int paperId) {
-        paperProblemViewList = paperProblemFindByIdRepository.findAllByPaperId(paperId);
+        List<PaperProblemView> paperProblemViewList = paperProblemViewRepository.findAllByPaperId(paperId);
         System.out.println(paperProblemViewList);
         if (paperProblemViewList.size() != 0)
             return paperProblemViewList;
@@ -54,8 +46,8 @@ public class PaperProblemImpl implements PaperProblemService {
 
     // 根据paperId来修改试卷
     @Override
-    public int updatePaperProblem(PaperProblem newPaperProblem,int newProblemId) {
-        int flag = paperProblemUpdateRepository.updatePaperProblemByPaperId(newProblemId,newPaperProblem.getPaperId(),newPaperProblem.getProblemId());
+    public int updatePaperProblem(ProblemPaper newPaperProblem,int newProblemId) {
+        int flag = paperProblemRepository.updatePaperProblemByPaperId(newProblemId,newPaperProblem.getPaperId(),newPaperProblem.getProblemId());
         System.out.println(flag);
         return flag;
     }
@@ -63,7 +55,7 @@ public class PaperProblemImpl implements PaperProblemService {
     // 根据paperId删除试卷内题目
     @Override
     public int deletePaperProblem(int paperId, int problemId) {
-        int flag = paperProblemDeleteByPaperIdRepository.deleteProblemByPaperId(paperId,problemId);
+        int flag = paperProblemRepository.deleteProblemByPaperId(paperId,problemId);
         System.out.println(flag);
         return flag;
     }

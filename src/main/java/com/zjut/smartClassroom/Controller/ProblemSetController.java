@@ -1,8 +1,8 @@
 package com.zjut.smartClassroom.Controller;
 
 import com.zjut.smartClassroom.Service.ProblemSetService;
+import com.zjut.smartClassroom.dataObject.ProblemSet;
 import com.zjut.smartClassroom.dataObject.ProblemSetCourse;
-import com.zjut.smartClassroom.dataObject.ProblemSetPart;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -47,7 +47,7 @@ public class ProblemSetController extends baseController {
     public CommonReturnType getProblemsetByProblemSetId(@RequestParam(name = "problem_set_id")int problem_set_id) throws BusinessException{
         //调用service服务获取对应的problemsetid的用户对象并返回给前端
         System.out.println("进入getProblemSetByProblemSetId接口");
-        ProblemSetPart problemset_Model = problemSetService.getDataByProblemSetId(problem_set_id);
+        ProblemSet problemset_Model = problemSetService.getDataByProblemSetId(problem_set_id);
         if (problemset_Model == null){
             BusinessException businessException = new BusinessException(EnumBusinessError.PROBLEM_SET_NOT_EXIST);
             throw businessException;
@@ -57,7 +57,7 @@ public class ProblemSetController extends baseController {
 
     @RequestMapping(value = "/updateProblemSetByProblemSetId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
-    public CommonReturnType updateProblemSetByProblemSetId(ProblemSetPart problemSetPart) throws BusinessException{
+    public CommonReturnType updateProblemSetByProblemSetId(ProblemSet problemSetPart) throws BusinessException{
         //调用service服务获取对应的problemsetid的用户对象并修改对象
         System.out.println("进入updateProblemSetByProblemSetId接口");
         int flag = problemSetService.updateDataByProblemSetId(problemSetPart);

@@ -18,24 +18,12 @@ public class PaperImpl implements PaperService {
      */
 
     @Autowired(required = false)
-    List<Paper> paperList;
-    @Autowired(required = false)
-    Paper paper;
-    @Autowired(required = false)
-    PaperAllScanRepository paperAllScanRepository;
-    @Autowired(required = false)
-    PaperInsertRepository paperInsertRepository;
-    @Autowired(required = false)
-    PaperDeleteRepository paperDeleteRepository;
-    @Autowired(required = false)
-    PaperUpdateRepository paperUpdateRepository;
-    @Autowired(required = false)
-    PaperFindByIdRepository paperFindByIdRepository;
+    PaperRepository paperRepository;
 
     @Override
     @Transactional
     public List getAllData() {
-        paperList = paperAllScanRepository.findAll();
+        List<Paper> paperList = paperRepository.findAll();
         System.out.println(paperList);
         if (paperList.size() != 0)
             return paperList;
@@ -45,21 +33,21 @@ public class PaperImpl implements PaperService {
     @Override
     @Transactional
     public int insertData(Paper newPaper) {
-        paperInsertRepository.save(newPaper);
+        paperRepository.save(newPaper);
         return 1;
     }
 
     @Override
     @Transactional
     public int deleteDataByPaperId(int paperId) {
-        int flag = paperDeleteRepository.deleteByPaperId(paperId);
+        int flag = paperRepository.deleteByPaperId(paperId);
         System.out.println(flag);
         return flag;
     }
 
     @Override
     public int updateDataByPaperId(Paper newPaper) {
-        int flag = paperUpdateRepository.updateDataByPaperId(newPaper.getPaperName(), newPaper.getPaperId());
+        int flag = paperRepository.updateDataByPaperId(newPaper.getPaperName(), newPaper.getPaperId());
         System.out.println(flag);
         return 1;
     }
@@ -67,7 +55,7 @@ public class PaperImpl implements PaperService {
     @Override
     @Transactional
     public Paper getDataByPaperId(int paperId) {
-        paper = paperFindByIdRepository.findByPaperId(paperId);
+        Paper paper = paperRepository.findByPaperId(paperId);
         System.out.println(paper);
         return paper;
     }

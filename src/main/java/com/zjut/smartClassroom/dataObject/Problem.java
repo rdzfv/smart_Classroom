@@ -2,19 +2,26 @@ package com.zjut.smartClassroom.dataObject;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
+/**
+ * @author     ：dzy
+ * @date       ：Created in 2019/12/03 12:45:23
+ * @description：problem实体类（对应problem表）
+ * @version:     1.0.0
+ */
 @Data
 @Entity
-public class Problem {
-    /**
-     *@author John
-     *@date 2019/12/5 21:45
-     */
+public class Problem implements Serializable {
     @Id
-    private int problemId;
-    private String problemInformation;
-    private String problemAns;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer problemId;
+    private String problemInfo;
+    private Integer problemAns;
     private String problemExplain;
+    private String problemChoose1;
+    private String problemChoose2;
+    private String problemChoose3;
+    private String problemChoose4;
 }
