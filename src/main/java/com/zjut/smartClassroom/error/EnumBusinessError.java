@@ -18,6 +18,7 @@ public enum EnumBusinessError implements CommonError {
 
     // 10002 传入参数为空值
     PARAMETER_IS_NULL(10002, "传入参数为空值"),
+    PPT_URL_IS_NULL(10003, "PPT的URL参数不可为空"),
 
 
     // 20000 开头为用户信息相关错误定义

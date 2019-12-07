@@ -1,13 +1,7 @@
 package com.zjut.smartClassroom.Controller;
 
-import com.zjut.smartClassroom.Service.CourseService;
-import com.zjut.smartClassroom.Service.PaperService;
-import com.zjut.smartClassroom.Service.ProblemSetService;
-import com.zjut.smartClassroom.Service.UserService;
-import com.zjut.smartClassroom.dataObject.Course;
-import com.zjut.smartClassroom.dataObject.Paper;
-import com.zjut.smartClassroom.dataObject.ProblemSet;
-import com.zjut.smartClassroom.dataObject.Teacher;
+import com.zjut.smartClassroom.Service.*;
+import com.zjut.smartClassroom.dataObject.*;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -45,6 +39,8 @@ public class CourseController extends baseController {
     private ProblemSetService problemSetService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CoursePPTService coursePPTService;
     @Autowired
     private HttpServletRequest httpServletRequest;
 
@@ -106,6 +102,26 @@ public class CourseController extends baseController {
         // 若都存在，则生成练习并发布
         ProblemSet problemSetResult =  problemSetService.addProblemSet(problemSet);
         return CommonReturnType.create(problemSetResult);
+    }
+
+    @RequestMapping(value = "/addPPT_ToCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @ResponseBody
+    public CommonReturnType addPPT_ToCourse(CoursePPT coursePPT) throws BusinessException{
+        // 输出参数的校验
+        Integer courseId = coursePPT.getCourseId();
+        String ppt_url = coursePPT.getPpt_url();
+        if(courseId == null){
+            throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
+        }else if(courseId < 0){
+            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        } else if (ppt_url == null){
+            throw new BusinessException(EnumBusinessError.PPT_URL_IS_NULL);
+        }
+        // 检验：寻找的id号是否存在，若不存在则会报错
+        courseService.findCourseById(courseId);
+
+        CoursePPT coursePPT1 = coursePPTService.addCoursePPT(coursePPT);
+        return CommonReturnType.create(coursePPT1);
     }
 
 
