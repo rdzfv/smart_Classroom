@@ -1,8 +1,13 @@
 package com.zjut.smartClassroom.Service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.zjut.smartClassroom.Service.ProblemSetService;
+import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
 import com.zjut.smartClassroom.dataObject.ProblemSetCourse;
+import com.zjut.smartClassroom.error.BusinessException;
+import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,10 +43,15 @@ public class ProblemSetServiceImpl implements ProblemSetService {
     }
 
     @Override
-    public int updateDataByProblemSetId(ProblemSet problemSetPart) {
-        int flag = problemSetRepository.updateDataByProblemSetId(problemSetPart.getProblemSetName(), problemSetPart.getProblemSetDetail(), problemSetPart.getProblemReleaseTime(), problemSetPart.getProblemSetPicUrl(), problemSetPart.getPaperId(), problemSetPart.getProblemSetId());
-        System.out.println(flag);
-        return flag;
+    public ProblemSet updateDataByProblemSetId(ProblemSet problemSetPart)  throws BusinessException {
+        // 数据库查出待更新对象
+        ProblemSet problemSetFindingResult = problemSetRepository.findByProblemSetId(problemSetPart.getProblemSetId());
+        if (problemSetFindingResult == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        // 使用hutool BeanUtil进行对象拷贝（忽略null值）
+        System.out.println(problemSetFindingResult.getProblemSetName());
+        BeanUtil.copyProperties(problemSetPart, problemSetFindingResult, true, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        ProblemSet problemSetResult = problemSetRepository.save(problemSetFindingResult);
+        return problemSetResult;
     }
 
     @Override

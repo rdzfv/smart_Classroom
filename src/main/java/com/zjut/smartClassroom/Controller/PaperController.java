@@ -22,24 +22,12 @@ public class PaperController {
 
     @Autowired
     PaperService paperService;
-    @Autowired(required = false)
-    List<Paper> paperList;
-    @Autowired(required = false)
-    Paper paper;
 
 
     @RequestMapping("/getAllPaperInfo")
     @ResponseBody
-    public CommonReturnType getAllPaperInfo() {
-//        try {
-            paperList = paperService.getAllData();
-//        }catch (Exception e){
-//            throw e;
-//        }
-//        if (paperList == null) {
-//            BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
-//            throw businessException;
-//        }
+    public CommonReturnType getAllPaperInfo() throws BusinessException {
+        List<Paper> paperList = paperService.getAllData();
         return CommonReturnType.create(paperList);
     }
 
@@ -79,7 +67,7 @@ public class PaperController {
     @RequestMapping("/getPaperByPaperId")
     @ResponseBody
     public CommonReturnType getPaperByPaperId(@RequestParam("paper_id") int paperId) throws BusinessException {
-        paper = paperService.getDataByPaperId(paperId);
+        Paper paper = paperService.getDataByPaperId(paperId);
         if (paper == null) {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
             throw businessException;
