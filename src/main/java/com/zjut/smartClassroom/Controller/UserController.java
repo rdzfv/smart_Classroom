@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 /**
  * @author     ：xyy
@@ -42,9 +41,9 @@ public class UserController extends baseController {
     public CommonReturnType login(Student student) throws BusinessException {
         System.out.println(student);
         // 入参校验
-        if (StringUtils.isEmpty(student.getStudentname()) || StringUtils.isEmpty(student.getStudentaccount()) ||
-                StringUtils.isEmpty(student.getStudentpassword()) || StringUtils.isEmpty(student.getOpenid()) ||
-                StringUtils.isEmpty(student.getSessionkey())
+        if (StringUtils.isEmpty(student.getStudentName()) || StringUtils.isEmpty(student.getStudentAccount()) ||
+                StringUtils.isEmpty(student.getStudentPassword()) || StringUtils.isEmpty(student.getOpenId()) ||
+                StringUtils.isEmpty(student.getSessionKey())
         ) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }

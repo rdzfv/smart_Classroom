@@ -23,4 +23,6 @@ public class Course implements Serializable {
     private String courseName;
     private Integer courseCredit;
     private String courseMethod;
+    private String courseDetail; // 课程描述
+    private String coursePicUrl; // 课程图标url
 }
