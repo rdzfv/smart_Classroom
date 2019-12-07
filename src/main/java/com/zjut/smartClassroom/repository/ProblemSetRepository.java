@@ -15,4 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProblemSetRepository extends JpaRepository<ProblemSet, Integer> {
     ProblemSet findByProblemSetId(int id);
+    ProblemSet save(ProblemSet problemSet);
+
 }

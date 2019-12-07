@@ -19,4 +19,8 @@ import org.springframework.stereotype.Service;
 public interface CourseService {
     // 通过id更新课程信息
     Course updateCourse(Course course) throws BusinessException;
+
+    // 通过id查询并返回课程实体
+    Course findCourseById(Integer courseId) throws BusinessException;
+
 }

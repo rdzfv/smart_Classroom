@@ -50,4 +50,23 @@ public class CourseServiceImpl implements CourseService {
         if (courseResult == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         return courseResult;
     }
+
+    /**
+     * @Method findCourseById
+     * @Author FrankWu
+     * @Version  1.0
+     * @Description 通过课程ID查询课程实体
+     * @Return com.zjut.smartClassroom.dataObject.Course
+     * @Exception BusinessException
+     * @Date 2019/12/7
+     * @Time 13:10
+     */
+    @Override
+    @Transactional
+    public Course findCourseById(Integer courseId) throws BusinessException{
+        Course courseResult = courseRepository.findByCourseId(courseId);
+        if (courseResult == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        return courseResult;
+    }
+
 }
