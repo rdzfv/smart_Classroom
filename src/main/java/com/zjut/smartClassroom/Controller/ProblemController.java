@@ -163,7 +163,7 @@ public class ProblemController extends baseController{
     @ResponseBody
     public CommonReturnType getAllProblem() throws BusinessException {
         List<Problem> problemList = problemService.getAllData();
-        if (problemList == null){
+        if (problemList == null) {
             BusinessException businessException = new BusinessException(EnumBusinessError.PROBLEM_NOT_EXIST);
             throw businessException;
         }
