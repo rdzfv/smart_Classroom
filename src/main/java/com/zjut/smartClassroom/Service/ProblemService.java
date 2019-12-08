@@ -8,6 +8,7 @@ import com.zjut.smartClassroom.model.MyAnswersModel;
 import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSetModel;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -30,4 +31,11 @@ public interface ProblemService {
     ArrayList<ProblemsDetailIInProblemSetModel> getProblemsByProblemSetId(int problemSetId) throws BusinessException;
     // 保存做题记录
     int addMyResult(int studentId, int courseId, int problemSetId, ArrayList<ProblemsDetailIInProblemSetModel> problemResults, String myAnsList) throws BusinessException ;
+
+    /**
+     *@author John
+     *@date 2019/12/5 21:45
+     */
+    // 查询所有题目
+    List<Problem> getAllData();
 }
