@@ -22,25 +22,25 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
- * @author     ：dzy
- * @date       ：Created in 2019/12/03 12:45:23
+ * @author ：dzy
+ * @date ：Created in 2019/12/03 12:45:23
  * @description： problemController
- * @version:     1.0.0
+ * @version: 1.0.0
  */
 @Controller("/problem")
 @RequestMapping("/problem")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class ProblemController extends baseController{
+public class ProblemController extends baseController {
     @Autowired
     private ProblemService problemService;
     @Autowired
     private HttpServletRequest httpServletRequest;
 
     /**
-     * @author     ：dzy
-     * @date       ：Created in 2019/12/03 12:45:23
+     * @author ：dzy
+     * @date ：Created in 2019/12/03 12:45:23
      * @description： 通过ProblemSetId获取学生答题情况（传入ProblemSetId[非空]）
-     * @version:     1.0.0
+     * @version: 1.0.0
      */
     @RequestMapping(value = "/getProblemSetStudentAnsweringDetailByProblemSetId")
     @ResponseBody
@@ -51,17 +51,17 @@ public class ProblemController extends baseController{
     }
 
     /**
-     * @author     ：dzy
-     * @date       ：Created in 2019/12/03 12:45:23
+     * @author ：dzy
+     * @date ：Created in 2019/12/03 12:45:23
      * @description： 通过problemId修改problem详情（传入问题id[非空]）
-     * @version:     1.0.0
+     * @version: 1.0.0
      */
     @RequestMapping(value = "/updateProblemById", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updateProblem(Problem problem) throws BusinessException {
         System.out.println(problem.getProblemAns());
         // 入参校验
-        if (!(problem.getProblemAns() == 1 || problem.getProblemAns() == 2 ||
+        if (!(problem.getProblemAns() == null || problem.getProblemAns() == 1 || problem.getProblemAns() == 2 ||
                 problem.getProblemAns() == 3 || problem.getProblemAns() == 4 ||
                 problem.getProblemAns() == 0)
         ) {
@@ -73,10 +73,10 @@ public class ProblemController extends baseController{
     }
 
     /**
-     * @author     ：dzy
-     * @date       ：Created in 2019/12/03 12:45:23
+     * @author ：dzy
+     * @date ：Created in 2019/12/03 12:45:23
      * @description： 通过problemId获取problem详情（传入问题id[非空]）
-     * @version:     1.0.0
+     * @version: 1.0.0
      */
     @RequestMapping(value = "/getProblemById")
     @ResponseBody
@@ -88,10 +88,10 @@ public class ProblemController extends baseController{
     }
 
     /**
-     * @author     ：dzy
-     * @date       ：Created in 2019/12/03 12:45:23
+     * @author ：dzy
+     * @date ：Created in 2019/12/03 12:45:23
      * @description： 添加problem（传入题干[非空]，正确答案[1-4]，选项1[非空]，选项2[非空]，选项3[非空]，选项4[非空]）
-     * @version:     1.0.0
+     * @version: 1.0.0
      */
     @RequestMapping(value = "/addProblem", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
@@ -112,10 +112,10 @@ public class ProblemController extends baseController{
     }
 
     /**
-     * @author     ：xyy
-     * @date       ：Created in 2019/12/04 22:59:23
+     * @author ：xyy
+     * @date ：Created in 2019/12/04 22:59:23
      * @description： 通过priblemset_id获取问题详情列表
-     * @version:     1.0.0
+     * @version: 1.0.0
      */
     @RequestMapping(value = "/getProblemsByProblemSetId")
     @ResponseBody
@@ -128,10 +128,10 @@ public class ProblemController extends baseController{
 
 
     /**
-     * @author     ：xyy
-     * @date       ：Created in 2019/12/04 10:46:42
+     * @author ：xyy
+     * @date ：Created in 2019/12/04 10:46:42
      * @description： 提交我的做题结果
-     * @version:     1.0.0
+     * @version: 1.0.0
      */
     @RequestMapping(value = "/postMyAnswer")
     @ResponseBody

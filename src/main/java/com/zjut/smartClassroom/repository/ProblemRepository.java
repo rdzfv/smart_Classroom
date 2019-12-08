@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version:     1.0.0
  */
 public interface ProblemRepository extends JpaRepository<Problem, Problem> {
-    // 更新problem
+    // 添加problem
     Problem save(Problem problem);
     // 根据problemId查找problem
     Problem findByProblemId(int problemId);
