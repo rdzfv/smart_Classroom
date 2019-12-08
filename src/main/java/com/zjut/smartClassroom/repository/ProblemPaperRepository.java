@@ -37,6 +37,15 @@ public interface ProblemPaperRepository extends JpaRepository<ProblemPaper, Prob
     // 根据paper_id更改试卷试题
     @Modifying
     @Transactional
-    @Query("update ProblemPaper p set p.problemId = ?1 where p.paperId=?2 and p.problemId=?3")
-    int updatePaperProblemByPaperId(int problemIdNew,int paperId,int problemIdOld);
+    @Query("update ProblemPaper p set p.problemId = ?1 where p.paperId = ?2 and p.problemId = ?3")
+    int updatePaperProblemByPaperId(int problemIdNew, int paperId, int problemIdOld);
+
+
+    /**
+     *@author xyy
+     *@date 2019/12/8 17:06
+     */
+
+    // 根据paperId和problemId查找记录
+    ProblemPaper findByPaperIdAndProblemId(int paperId, int problemId);
 }

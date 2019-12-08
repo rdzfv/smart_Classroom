@@ -76,12 +76,12 @@ public class PaperProblemController extends baseController{
     public CommonReturnType updatePaperByPaperId(UpdatePaperProblemModel updatePaperProblemModel) throws BusinessException {
         // 入参校验
         Integer paperId = updatePaperProblemModel.getPaperId();
-        Integer newProblemId = updatePaperProblemModel.getNewProblemId();
-        if (paperId == null || newProblemId == null) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        if (paperId == null) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         ProblemPaper newPaperProblem = new ProblemPaper();
         newPaperProblem.setPaperId(paperId);
-        // 如果传参旧问题id，则进行替换业务
-        if (updatePaperProblemModel.getProblemId() != null) {
+        // 如果传参旧问题id和新问题id，则进行替换业务
+        if (updatePaperProblemModel.getNewProblemId() != null && updatePaperProblemModel.getProblemId() != null) {
+            Integer newProblemId = updatePaperProblemModel.getNewProblemId();
             Integer problemId = updatePaperProblemModel.getProblemId();
             newPaperProblem.setProblemId(problemId);
             int flag = paperProblemService.updatePaperProblem(newPaperProblem, newProblemId);
@@ -89,18 +89,20 @@ public class PaperProblemController extends baseController{
                 BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_CHANGE_PROBLEM_FAILED);
                 throw businessException;
             }
+        } else if (updatePaperProblemModel.getNewProblemId() == null) {
+            // 如果未传参新问题id，则进行删除业务
+            Integer problemId = updatePaperProblemModel.getProblemId();
+            int flag = paperProblemService.deletePaperProblem(paperId, problemId);
+            if (flag == 0) throw new BusinessException(EnumBusinessError.DELETE_FAILED);
+
         } else {
             // 如果未传参旧问题id，则进行插入业务
+            Integer newProblemId = updatePaperProblemModel.getNewProblemId();
             ProblemPaper problemPaperInstance = new ProblemPaper();
             problemPaperInstance.setPaperId(paperId);
             problemPaperInstance.setProblemId(newProblemId);
-            // 判断paperId是否合法
-            Paper paperResult = paperRepository.findByPaperId(paperId);
-            if (paperResult == null) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
-            Problem problemResult = problemRepository.findByProblemId(newProblemId);
-            if (problemResult == null) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
-            ProblemPaper problemPaperResult = problemPaperRepository.save(problemPaperInstance);
-            if (problemPaperResult == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
+            int flag = paperProblemService.insertProblemByPaperId(problemPaperInstance);
+            if (flag == 0) throw new BusinessException(EnumBusinessError.ADD_FAILED);
         }
 
         List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(newPaperProblem.getPaperId());

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface PaperRepository extends JpaRepository<Paper,Integer> {
+public interface PaperRepository extends JpaRepository<Paper, Integer> {
     /**
      *@author John
      *@date 2019/12/5 21:45
@@ -26,6 +26,6 @@ public interface PaperRepository extends JpaRepository<Paper,Integer> {
     // 根据试卷id更改试卷概要
     @Modifying
     @Transactional
-    @Query("update  Paper p set p.paperName=?1 where p.paperId=?2")
-    int updateDataByPaperId(String paperName,int paperId);
+    @Query("update  Paper p set p.paperName = ?1 where p.paperId = ?2")
+    int updateDataByPaperId(String paperName, int paperId);
 }

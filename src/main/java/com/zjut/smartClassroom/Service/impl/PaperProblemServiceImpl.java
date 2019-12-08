@@ -41,6 +41,16 @@ public class PaperProblemServiceImpl implements PaperProblemService {
     @Override
     @Transactional
     public int insertProblemByPaperId(ProblemPaper newPaperProblem) throws BusinessException {
+        // 判断paperId是否合法
+        Paper paperResult = paperRepository.findByPaperId(newPaperProblem.getPaperId());
+        if (paperResult == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
+        // 判断problemId是否存在
+        Problem problemResult = problemRepository.findByProblemId(newPaperProblem.getProblemId());
+        if (problemResult == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
+        // problemId是否已经被添加
+        ProblemPaper problemPaperResult = paperProblemRepository.findByPaperIdAndProblemId(newPaperProblem.getPaperId(), newPaperProblem.getProblemId());
+        if (problemPaperResult != null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
+
         paperProblemRepository.save(newPaperProblem);
         return 1;
     }
@@ -60,6 +70,16 @@ public class PaperProblemServiceImpl implements PaperProblemService {
     // 根据paperId删除试卷内题目
     @Override
     public int deletePaperProblem(int paperId, int problemId) throws BusinessException {
+        // 判断paperId是否合法
+        Paper paperResult = paperRepository.findByPaperId(paperId);
+        if (paperResult == null) throw new BusinessException(EnumBusinessError.DELETE_FAILED);
+        // 判断problemId是否存在
+        Problem problemResult = problemRepository.findByProblemId(problemId);
+        if (problemResult == null) throw new BusinessException(EnumBusinessError.DELETE_FAILED);
+        // problemId是否已经被添加
+        ProblemPaper problemPaperResult = paperProblemRepository.findByPaperIdAndProblemId(paperId, problemId);
+        if (problemPaperResult == null) throw new BusinessException(EnumBusinessError.DELETE_FAILED);
+
         int flag = paperProblemRepository.deleteProblemByPaperId(paperId, problemId);
         System.out.println(flag);
         return flag;

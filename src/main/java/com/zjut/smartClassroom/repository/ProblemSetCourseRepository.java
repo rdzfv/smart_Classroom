@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProblemSetCourseRepository extends JpaRepository<ProblemSetCourse,Integer> {
+public interface ProblemSetCourseRepository extends JpaRepository<ProblemSetCourse, Integer> {
 
     /**
      *@author John

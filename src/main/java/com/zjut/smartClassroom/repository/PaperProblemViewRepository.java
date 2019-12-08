@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PaperProblemViewRepository extends JpaRepository<PaperProblemView,Integer> {
+public interface PaperProblemViewRepository extends JpaRepository<PaperProblemView, Integer> {
 
     /**
      *@author John

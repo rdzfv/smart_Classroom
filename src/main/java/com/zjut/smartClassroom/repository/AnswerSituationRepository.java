@@ -13,6 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version:     1.0.0
  */
 public interface AnswerSituationRepository extends JpaRepository<AnswerSituation, Integer> {
-    //根据problemId查找答题情况
+    // 根据problemId查找答题情况
     AnswerSituation findByProblemId(int problemId);
 }
