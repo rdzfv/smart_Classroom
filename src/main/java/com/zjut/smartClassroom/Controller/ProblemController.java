@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ：dzy
@@ -151,4 +152,25 @@ public class ProblemController extends baseController {
         if (myAnswersModelResult == 0) throw new BusinessException(EnumBusinessError.ADD_FAILED);
         return CommonReturnType.create(myAnswersModelResult);
     }
+
+
+    /**
+     *@author John
+     *@date 2019/12/5 21:45
+     */
+
+    @RequestMapping("/getAllProblem")
+    @ResponseBody
+    public CommonReturnType getAllProblem() throws BusinessException {
+        List<Problem> problemList = problemService.getAllData();
+        if (problemList == null) {
+            BusinessException businessException = new BusinessException(EnumBusinessError.PROBLEM_NOT_EXIST);
+            throw businessException;
+        }
+        return CommonReturnType.create(problemList);
+    }
+
+    /**
+     * John结束部分
+     */
 }

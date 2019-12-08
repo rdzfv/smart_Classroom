@@ -219,4 +219,14 @@ public class ProblemServiceImpl implements ProblemService {
 
         return 1;
     }
+
+    @Override
+    @Transactional
+    public List<Problem> getAllData() {
+        List<Problem> problemList = problemRepository.findAll();
+        System.out.println(problemList);
+        if (problemList.size() != 0)
+            return problemList;
+        return null;
+    }
 }

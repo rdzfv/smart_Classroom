@@ -26,4 +26,6 @@ public class ProblemSet implements Serializable {
     private Date problemReleaseTime;
     private Integer paperId;
     private String problemSetName;
+    private String problemSetDetail;
+    private String problemSetPicUrl;
 }

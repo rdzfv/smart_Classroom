@@ -20,8 +20,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired(required = false)//引入
     private StudentRepository studentRepository;
-    @Autowired(required = false)//引入
-    private Student student;
 
 
     /**
@@ -33,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Student getUserById(int id) {
-        student = studentRepository.findByStudentid(id);
+        Student student = studentRepository.findByStudentid(id);
         return student;
 
     }
