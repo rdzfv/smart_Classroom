@@ -30,7 +30,7 @@ import java.util.ArrayList;
 @Controller("/problem")
 @RequestMapping("/problem")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class ProblemController extends baseController{
+public class ProblemController extends BaseController {
     @Autowired
     private ProblemService problemService;
     @Autowired
