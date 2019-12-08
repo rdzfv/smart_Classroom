@@ -18,7 +18,7 @@ import java.util.Map;
  * @description：baseController
  * @version:     1.0.0
  */
-public class baseController {
+public class BaseController {
     // 定义exceptionhandler解决未被controller层吸收的exception
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)

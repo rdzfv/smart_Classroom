@@ -14,14 +14,14 @@ import java.util.List;
 @Controller("/paper")
 @RequestMapping("/paper")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class PaperController {
+public class PaperController extends BaseController {
     /**
      *@author John
      *@date 2019/12/5 21:45
      */
 
     @Autowired
-    PaperService paperService;
+    private PaperService paperService;
 
 
     @RequestMapping("/getAllPaperInfo")

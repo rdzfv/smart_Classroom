@@ -2,6 +2,8 @@ package com.zjut.smartClassroom.Service.impl;
 
 import com.zjut.smartClassroom.Service.PaperService;
 import com.zjut.smartClassroom.dataObject.Paper;
+import com.zjut.smartClassroom.error.BusinessException;
+import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +34,10 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     @Transactional
-    public int insertData(Paper newPaper) {
-        paperRepository.save(newPaper);
+    public int insertData(Paper newPaper) throws BusinessException {
+        Paper paperResult = paperRepository.save(newPaper);
+        System.out.println("成功插入的paper:" + paperResult);
+        if (paperResult == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
         return 1;
     }
 
@@ -54,8 +58,9 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     @Transactional
-    public Paper getDataByPaperId(int paperId) {
+    public Paper getDataByPaperId(int paperId) throws BusinessException{
         Paper paper = paperRepository.findByPaperId(paperId);
+        if (paper == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         System.out.println(paper);
         return paper;
     }

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller("/problemSet")
 @RequestMapping("/problemSet")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class ProblemSetController extends baseController {
+public class ProblemSetController extends BaseController {
 
     /**
      *@author John

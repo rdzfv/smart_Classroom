@@ -2,9 +2,7 @@ package com.zjut.smartClassroom.Controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.zjut.smartClassroom.Service.PaperProblemService;
-import com.zjut.smartClassroom.dataObject.Paper;
 import com.zjut.smartClassroom.dataObject.PaperProblemView;
-import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller("/paperProblem")
@@ -25,7 +22,7 @@ import java.util.List;
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 
 
-public class PaperProblemController extends baseController{
+public class PaperProblemController extends BaseController {
 
     /**
      *@author John

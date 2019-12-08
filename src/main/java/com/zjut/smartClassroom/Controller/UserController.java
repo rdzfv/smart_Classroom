@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 /**
  * @author     ：xyy
@@ -22,7 +21,7 @@ import java.util.Optional;
 @Controller("/user")
 @RequestMapping("/user")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class UserController extends baseController {
+public class UserController extends BaseController {
     // 引入
     @Autowired
     private UserService userService;
