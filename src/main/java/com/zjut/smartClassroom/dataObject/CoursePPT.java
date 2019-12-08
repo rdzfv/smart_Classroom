@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @Package: com.zjut.smartClassroom.dataObject
  * @ClassName: CoursePPT
  * @Author: FrankWu
- * @Description: 课程与PPT
+ * @Description: 课程ID、PPT_URL、教师ID
  * @Date: 2019/12/7 16:01
  * @Version: 1.0
  */
@@ -25,5 +25,6 @@ public class CoursePPT implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer coursePPT_Id;
     private Integer courseId;
+    private Integer teacherId;
     private String ppt_url; // ppt的链接
 }

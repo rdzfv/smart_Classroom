@@ -4,6 +4,7 @@ import com.zjut.smartClassroom.Service.*;
 import com.zjut.smartClassroom.dataObject.Course;
 import com.zjut.smartClassroom.dataObject.CoursePPT;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
+import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -121,15 +122,17 @@ public class CourseController extends baseController {
         // 输出参数的校验
         Integer courseId = coursePPT.getCourseId();
         String ppt_url = coursePPT.getPpt_url();
-        if (courseId == null) {
+        Integer teacherId = coursePPT.getTeacherId();
+        if (courseId == null || teacherId == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
-        } else if (courseId < 0) {
+        } else if (courseId < 0 || teacherId == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         } else if (ppt_url == null) {
             throw new BusinessException(EnumBusinessError.PPT_URL_IS_NULL);
         }
         // 检验：寻找的id号是否存在，若不存在则会报错
         courseService.findCourseById(courseId);
+        userService.findTeacherById(teacherId);
         CoursePPT coursePPT1 = coursePPTService.addCoursePPT(coursePPT);
         return CommonReturnType.create(coursePPT1);
     }
