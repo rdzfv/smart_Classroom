@@ -21,9 +21,7 @@ public class PaperProblemView implements Serializable {
     @Id
     private int problemId;
     private String paperName;
-    private String problemInformation;
+    private String problemInfo;
     private String problemAns;
     private String problemExplain;
-
-
 }
