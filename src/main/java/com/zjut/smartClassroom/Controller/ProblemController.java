@@ -31,7 +31,7 @@ import java.util.List;
 @Controller("/problem")
 @RequestMapping("/problem")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class ProblemController extends BaseController {
+public class ProblemController extends baseController {
     @Autowired
     private ProblemService problemService;
     @Autowired

@@ -22,7 +22,7 @@ import java.util.List;
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 
 
-public class PaperProblemController extends BaseController {
+public class PaperProblemController extends baseController {
 
     /**
      *@author John

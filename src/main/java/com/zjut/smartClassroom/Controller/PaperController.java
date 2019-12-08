@@ -14,7 +14,7 @@ import java.util.List;
 @Controller("/paper")
 @RequestMapping("/paper")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class PaperController extends BaseController {
+public class PaperController extends baseController {
     /**
      *@author John
      *@date 2019/12/5 21:45

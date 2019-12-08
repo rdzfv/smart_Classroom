@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller("/user")
 @RequestMapping("/user")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class UserController extends BaseController {
+public class UserController extends baseController {
     // 引入
     @Autowired
     private UserService userService;
