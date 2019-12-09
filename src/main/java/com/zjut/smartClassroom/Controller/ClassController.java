@@ -25,7 +25,7 @@ import java.util.ArrayList;
 @Controller("/class")
 @RequestMapping("/class")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class ClassController extends baseController {
+public class ClassController extends BaseController {
     @Autowired
     ClassService classService;
     @Autowired
@@ -55,9 +55,9 @@ public class ClassController extends baseController {
     @ResponseBody
     public CommonReturnType addClass(Class class_) throws BusinessException {
         // 入参校验
-        if ( !(class_.getClassOpenyear() == null) || StringUtils.isEmpty(class_.getCourseId() + "") ||
-                StringUtils.isEmpty(class_.getTeacherId() + "") || StringUtils.isEmpty(class_.getClassClassroom() + "") ||
-                StringUtils.isEmpty(class_.getClassOpenyear() + "") || StringUtils.isEmpty(class_.getClassName())
+        if ( (class_.getClassOpenyear() == null) || class_.getCourseId() == null ||
+                class_.getTeacherId() == null || StringUtils.isEmpty(class_.getClassClassroom()) ||
+                class_.getClassOpenyear() == null || StringUtils.isEmpty(class_.getClassName())
         ) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }

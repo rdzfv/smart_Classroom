@@ -10,8 +10,8 @@ import java.util.Objects;
 
 @Data
 public class ClassPK implements Serializable {
-    private int teacherId;
-    private int courseId;
+    private Integer teacherId;
+    private Integer courseId;
 
     @Override
     public boolean equals(Object o) {

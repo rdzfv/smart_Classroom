@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller("/course")
 @RequestMapping("/course")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
-public class CourseController extends baseController {
+public class CourseController extends BaseController {
     @Autowired
     private CourseService courseService;
     @Autowired

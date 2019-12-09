@@ -4,9 +4,13 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.zjut.smartClassroom.Service.ClassService;
 import com.zjut.smartClassroom.dataObject.Class;
+import com.zjut.smartClassroom.dataObject.Course;
+import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.ClassRepository;
+import com.zjut.smartClassroom.repository.CourseRepository;
+import com.zjut.smartClassroom.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +25,13 @@ import java.util.ArrayList;
  */
 @Service
 public class ClassServiceImpl implements ClassService {
-    //引入
+    // 引入
     @Autowired(required = false)
     private ClassRepository classRepository;
+    @Autowired(required = false)
+    private TeacherRepository teacherRepository;
+    @Autowired(required = false)
+    private CourseRepository courseRepository;
 
     /**
      * @author ：dzy
@@ -53,6 +61,13 @@ public class ClassServiceImpl implements ClassService {
      */
     @Override
     public Class addClass(Class class_) throws BusinessException {
+        // 验证teacherId是否存在
+        Teacher teacherResult = teacherRepository.findByTeacherId(class_.getTeacherId());
+        if (teacherResult == null) throw new BusinessException(EnumBusinessError.FIND_FAILED);
+        // 验证courseId是否存在
+        Course courseResult = courseRepository.findByCourseId(class_.getCourseId());
+        if (courseResult == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+
         Class success = classRepository.save(class_);
         return success;
     }
