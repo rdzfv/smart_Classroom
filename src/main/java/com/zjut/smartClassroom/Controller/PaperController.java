@@ -5,12 +5,15 @@ import com.zjut.smartClassroom.dataObject.Paper;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api("paper接口")
 @Controller("/paper")
 @RequestMapping("/paper")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
@@ -23,7 +26,7 @@ public class PaperController extends BaseController {
     @Autowired
     private PaperService paperService;
 
-
+    @ApiOperation("获取全部paper信息")
     @RequestMapping("/getAllPaperInfo")
     @ResponseBody
     public CommonReturnType getAllPaperInfo() throws BusinessException {
@@ -31,6 +34,7 @@ public class PaperController extends BaseController {
         return CommonReturnType.create(paperList);
     }
 
+    @ApiOperation("创建paper")
     @RequestMapping(value = "/insertPaper", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType insertPaper(Paper newPaper) throws BusinessException {
@@ -42,6 +46,7 @@ public class PaperController extends BaseController {
         return CommonReturnType.create(flag);
     }
 
+    @ApiOperation("通过paperId删除paper")
     @RequestMapping("/deletePaperBypaperId")
     @ResponseBody
     public CommonReturnType deletePaperBypaperId(@RequestParam("paper_id") int paperId) throws BusinessException {
@@ -53,6 +58,7 @@ public class PaperController extends BaseController {
         return CommonReturnType.create(flag);
     }
 
+    @ApiOperation("通过paperId更新paper")
     @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updatePaperByPaperId(Paper newPaper) throws BusinessException {
@@ -64,6 +70,7 @@ public class PaperController extends BaseController {
         return CommonReturnType.create(flag);
     }
 
+    @ApiOperation("通过paperId获取paper")
     @RequestMapping("/getPaperByPaperId")
     @ResponseBody
     public CommonReturnType getPaperByPaperId(@RequestParam("paper_id") int paperId) throws BusinessException {

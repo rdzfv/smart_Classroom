@@ -11,12 +11,15 @@ import com.zjut.smartClassroom.repository.PaperRepository;
 import com.zjut.smartClassroom.repository.ProblemPaperRepository;
 import com.zjut.smartClassroom.repository.ProblemRepository;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api("paperProblem接口")
 @Controller("/paperProblem")
 @RequestMapping("/paperProblem")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
@@ -39,7 +42,8 @@ public class PaperProblemController extends BaseController {
     private ProblemRepository problemRepository;
 
     // 根据老师选择的题目来插入试题
-    @RequestMapping("/createNewPaper")
+    @ApiOperation("根据老师选择的题目来插入试题")
+    @RequestMapping(value = "/createNewPaper", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType createNewPaper(@RequestParam("problemList")String problemList, @RequestParam("paperName")String paperName) throws BusinessException {
         // 入参校验
@@ -49,6 +53,7 @@ public class PaperProblemController extends BaseController {
     }
 
     // 根据paperId查询paper内的题目等详细信息
+    @ApiOperation("根据paperId查询paper内的题目等详细信息")
     @RequestMapping("/getPaperDetailByPaperId")
     @ResponseBody
     public CommonReturnType getPaperDetailByPaperId(@RequestParam("paper_id") int paperId) throws BusinessException {
@@ -56,6 +61,7 @@ public class PaperProblemController extends BaseController {
         return CommonReturnType.create(paperProblemList);
     }
 
+    @ApiOperation("根据paperId删除paper")
     @RequestMapping("/deletePaperProblemByPaperId")
     @ResponseBody
     public CommonReturnType deletePaperProblemByPaperId(@RequestParam("paper_id") int paperId, @RequestParam("problem_id") int problemId) throws BusinessException {
@@ -68,6 +74,7 @@ public class PaperProblemController extends BaseController {
         return CommonReturnType.create(paperProblemList);
     }
 
+    @ApiOperation("根据paperId更新paper")
     @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updatePaperByPaperId(UpdatePaperProblemModel updatePaperProblemModel) throws BusinessException {

@@ -11,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @author ：dzy
@@ -24,6 +28,7 @@ import java.util.ArrayList;
  */
 @Controller("/class")
 @RequestMapping("/class")
+@Api("教学班接口")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 public class ClassController extends BaseController {
     @Autowired
@@ -37,6 +42,7 @@ public class ClassController extends BaseController {
      * @description： 获取所有教学班信息
      * @version: 1.0.0
      */
+    @ApiOperation("获取所有教学班信息")
     @RequestMapping(value = "/getAllClass")
     @ResponseBody
     public CommonReturnType getAllClass() throws BusinessException {
@@ -48,10 +54,11 @@ public class ClassController extends BaseController {
     /**
      * @author ：dzy
      * @date ：Created in 2019/12/06 9:30:23
-     * @description： 获取所有教学班信息
+     * @description： 添加班级
      * @version: 1.0.0
      */
-    @RequestMapping(value = "/addClass")
+    @ApiOperation("添加教学班级")
+    @RequestMapping(value = "/addClass", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType addClass(Class class_) throws BusinessException {
         // 入参校验
@@ -73,7 +80,8 @@ public class ClassController extends BaseController {
      * @description： 更新教学班信息
      * @version: 1.0.0
      */
-    @RequestMapping(value = "/updateClass")
+    @ApiOperation("更新教学班级信息")
+    @RequestMapping(value = "/updateClass", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updateClass(Class class_) throws BusinessException {
         if (StringUtils.isEmpty(class_.getTeacherId() + "") || StringUtils.isEmpty(class_.getCourseId() + "")) {

@@ -8,6 +8,8 @@ import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +30,7 @@ import java.util.Date;
  * @Date: 2019/12/7 09:08
  * @Version: 1.0
  */
-
+@Api("课程接口")
 @Controller("/course")
 @RequestMapping("/course")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
@@ -56,6 +58,7 @@ public class CourseController extends BaseController {
      * @Date 2019/12/7
      * @Time 09:35
      */
+    @ApiOperation("更新courseId")
     @RequestMapping(value = "/updateCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updateCourse(Course course) throws BusinessException {
@@ -80,6 +83,7 @@ public class CourseController extends BaseController {
      * @Date 2019/12/7
      * @Time 14:35
      */
+    @ApiOperation("为course添加problemSet")
     @RequestMapping(value = "/addProblemSetToCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType addProblemSetToCourse(ProblemSet problemSet) throws BusinessException {
@@ -116,6 +120,7 @@ public class CourseController extends BaseController {
      * @Date 2019/12/7
      * @Time 16:31
      */
+    @ApiOperation("为course添加PPT")
     @RequestMapping(value = "/addPPT_ToCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType addPPT_ToCourse(CoursePPT coursePPT) throws BusinessException {

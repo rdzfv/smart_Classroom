@@ -6,6 +6,7 @@ import com.zjut.smartClassroom.dataObject.ProblemSetCourse;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class ProblemSetController extends BaseController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
+    @ApiOperation("通过courseId获取problemSet")
     @RequestMapping("/getProblemSetByCourseId")
     @ResponseBody
     public CommonReturnType getProblemsetByCourseId(@RequestParam(name = "course_id") int course_id) throws BusinessException {
@@ -42,6 +44,7 @@ public class ProblemSetController extends BaseController {
         return CommonReturnType.create(problemset_Model);
     }
 
+    @ApiOperation("通过problemSetId获取problemSet")
     @RequestMapping("/getProblemSetByProblemSetId")
     @ResponseBody
     public CommonReturnType getProblemsetByProblemSetId(@RequestParam(name = "problem_set_id") int problem_set_id) throws BusinessException{
@@ -55,6 +58,7 @@ public class ProblemSetController extends BaseController {
         return CommonReturnType.create(problemset_Model);
     }
 
+    @ApiOperation("通过problemSetId更新problemSet")
     @RequestMapping(value = "/updateProblemSetByProblemSetId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updateProblemSetByProblemSetId(ProblemSet problemSetPart) throws BusinessException {
@@ -68,6 +72,7 @@ public class ProblemSetController extends BaseController {
         return CommonReturnType.create(problemSetResult);
     }
 
+    @ApiOperation("通过problemSetId删除problemSet")
     @RequestMapping("/deleteProblemSetByProblemSetId")
     @ResponseBody
     public CommonReturnType deleteProblemSetByProblemSetId(@RequestParam("problem_set_id") int id) throws BusinessException{

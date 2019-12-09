@@ -6,6 +6,8 @@ import com.zjut.smartClassroom.dataObject.Student;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description：userController
  * @version:     1.0.0
  */
+@Api("用户模块")
 @Controller("/user")
 @RequestMapping("/user")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
@@ -36,6 +39,7 @@ public class UserController extends BaseController {
      * @description：用户登录接口（传入学生姓名[非空]、账户名[非空]、密码[非空]、openid[非空]、sessionkey[非空]）
      * @version:     1.0.0
      */
+    @ApiOperation("学生登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType login(Student student) throws BusinessException {

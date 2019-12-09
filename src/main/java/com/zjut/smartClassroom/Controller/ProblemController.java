@@ -9,6 +9,8 @@ import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.model.MyAnswersModel;
 import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSetModel;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -27,6 +29,7 @@ import java.util.ArrayList;
  * @description： problemController
  * @version:     1.0.0
  */
+@Api("problem接口")
 @Controller("/problem")
 @RequestMapping("/problem")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
@@ -42,6 +45,7 @@ public class ProblemController extends BaseController {
      * @description： 通过ProblemSetId获取学生答题情况（传入ProblemSetId[非空]）
      * @version:     1.0.0
      */
+    @ApiOperation("通过problemSetId获取学生答题情况")
     @RequestMapping(value = "/getProblemSetStudentAnsweringDetailByProblemSetId")
     @ResponseBody
     public CommonReturnType getProblemSetStudentAnsweringDetailByProblemSetId(int problemSetId) throws BusinessException {
@@ -56,6 +60,7 @@ public class ProblemController extends BaseController {
      * @description： 通过problemId修改problem详情（传入问题id[非空]）
      * @version:     1.0.0
      */
+    @ApiOperation("通过problemId修改problem详情")
     @RequestMapping(value = "/updateProblemById", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType updateProblem(Problem problem) throws BusinessException {
@@ -77,6 +82,7 @@ public class ProblemController extends BaseController {
      * @description： 通过problemId获取problem详情（传入问题id[非空]）
      * @version:     1.0.0
      */
+    @ApiOperation("通过problemId获取problem详情")
     @RequestMapping(value = "/getProblemById")
     @ResponseBody
     public CommonReturnType getProblem(int problemId) throws BusinessException {
@@ -92,6 +98,7 @@ public class ProblemController extends BaseController {
      * @description： 添加problem（传入题干[非空]，正确答案[1-4]，选项1[非空]，选项2[非空]，选项3[非空]，选项4[非空]）
      * @version:     1.0.0
      */
+    @ApiOperation("添加problem")
     @RequestMapping(value = "/addProblem", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType addProblem(Problem problem) throws BusinessException {
@@ -113,9 +120,10 @@ public class ProblemController extends BaseController {
     /**
      * @author     ：xyy
      * @date       ：Created in 2019/12/04 22:59:23
-     * @description： 通过priblemset_id获取问题详情列表
+     * @description： 通过problemset_id获取问题详情列表
      * @version:     1.0.0
      */
+    @ApiOperation("通过problemset_id获取问题详情列表")
     @RequestMapping(value = "/getProblemsByProblemSetId")
     @ResponseBody
     public CommonReturnType getProblemsByProblemSetId(int id) throws BusinessException {
@@ -132,7 +140,7 @@ public class ProblemController extends BaseController {
      * @description： 提交我的做题结果
      * @version:     1.0.0
      */
-    @RequestMapping(value = "/postMyAnswer")
+    @RequestMapping(value = "/postMyAnswer", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
     @ResponseBody
     public CommonReturnType postMyAnswer(MyAnswersModel myAnswersModel) throws BusinessException {
         // 入参校验
