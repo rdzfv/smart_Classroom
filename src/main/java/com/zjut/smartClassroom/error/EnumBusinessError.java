@@ -1,11 +1,11 @@
 package com.zjut.smartClassroom.error;
 
 /**
- * @author     ：xyy
- * @date       ：Created in 2019/08/23 12:45:23
+ * @author ：xyy
+ * @date ：Created in 2019/08/23 12:45:23
  * @description：EnumBusinessError
  * @modified By：xyy in 2019/12/04 16:53:28
- * @version:     1.0.0
+ * @version: 1.0.0
  */
 public enum EnumBusinessError implements CommonError {
     // 通用错误类型10001
@@ -13,8 +13,12 @@ public enum EnumBusinessError implements CommonError {
     // 未知错误00002
     UNKNOWN_ERROR(10002,"未知错误"),
 
-    // 20000开头为用户信息相关错误定义
-    USER_NOT_VALIDATE(20001,"用户身份验证未通过"),
+    // 10002 传入参数为空值
+    PARAMETER_IS_NULL(10002, "传入参数为空值"),
+
+
+    // 20000 开头为用户信息相关错误定义
+    USER_NOT_VALIDATE(20001, "用户身份验证未通过"),
     USER_ACCOUNT_ISARREARAGE(20003, "会员身份验证合法，但已欠费"),
 
     // 70000开头为数据库执行操作相关错误定义
@@ -56,13 +60,14 @@ public enum EnumBusinessError implements CommonError {
      */
 
 
-    private EnumBusinessError(int errCode,String errMsg) {
+    private EnumBusinessError(int errCode, String errMsg) {
         this.errCode = errCode;
         this.errMsg = errMsg;
     }
 
     private int errCode;
     private String errMsg;
+
     @Override
     public int getErrorCode() {
         return this.errCode;

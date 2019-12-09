@@ -20,11 +20,11 @@ import java.io.Serializable;
 public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer studentid;
-    private String studentname;
-    private String studentpassword;
-    private Integer studentsex;
-    private String studentaccount;
-    private String openid;
-    private String sessionkey;
+    private Integer studentId;
+    private String studentName;
+    private String studentPassword;
+    private Integer studentSex;
+    private String studentAccount;
+    private String openId;
+    private String sessionKey;
 }
