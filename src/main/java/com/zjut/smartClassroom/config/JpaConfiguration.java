@@ -21,7 +21,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/02 12:45:23
+ * @description：jpa配置类
+ * @version:     1.0.0
+ */
 @Configuration
 @EnableJpaRepositories("com.zjut.smartClassroom.repository")
 public class JpaConfiguration {

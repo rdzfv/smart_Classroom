@@ -1,5 +1,11 @@
 package com.zjut.smartClassroom.response;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/08/23 12:45:23
+ * @description：CommonError
+ * @version:     1.0.0
+ */
 public class CommonReturnType {
     //表明对应请求的返回处理结果室"success"或"false"
     private String status;
@@ -9,7 +15,7 @@ public class CommonReturnType {
     public static CommonReturnType create(Object result){
         return CommonReturnType.create(result,"success");
     }
-    public static CommonReturnType create(Object result,String status){
+    public static CommonReturnType create(Object result,String status) {
         CommonReturnType type = new CommonReturnType();
         type.setStatus(status);
         type.setData(result);

@@ -8,16 +8,17 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.xyy</groupId>
-	<artifactId>map</artifactId>
+	<groupId>com.zjut</groupId>
+	<artifactId>smartClassroom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>smartClassroom</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>12</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
+		<!--	SpringBoot核心依赖		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -44,141 +45,83 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-autoconfigure -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 			<version>2.1.6.RELEASE</version>
-		</dependency>
-
-		<!-- lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.8</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.3.0</version>
 		</dependency>
+
+
+		<!--		lombok		-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--		mysql		-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!--		druid数据源		-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+
+		<!--		commons		-->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.3</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-dependency-plugin</artifactId>
-			<version>3.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.10</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.json/json -->
+
+		<!--		maven		-->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+
+		<!--		json		-->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20160810</version>
 		</dependency>
+
+		<!--		hutool		-->
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
 			<version>4.1.14</version>
 		</dependency>
 	</dependencies>
-	<!--	<dependencies>-->
-	<!--		<dependency>-->
-	<!--			<groupId>org.springframework.boot</groupId>-->
-	<!--			<artifactId>spring-boot-starter-data-rest</artifactId>-->
-	<!--		</dependency>-->
-	<!--		<dependency>-->
-	<!--			<groupId>org.springframework.boot</groupId>-->
-	<!--			<artifactId>spring-boot-starter-jdbc</artifactId>-->
-	<!--		</dependency>-->
-	<!--		<dependency>-->
-	<!--			<groupId>org.springframework.boot</groupId>-->
-	<!--			<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-	<!--		</dependency>-->
-	<!--		<dependency>-->
-	<!--			<groupId>org.springframework.boot</groupId>-->
-	<!--			<artifactId>spring-boot-starter-web</artifactId>-->
-	<!--		</dependency>-->
-	<!--		<dependency>-->
-	<!--			<groupId>org.springframework.boot</groupId>-->
-	<!--			<artifactId>spring-boot-starter-web-services</artifactId>-->
-	<!--		</dependency>-->
-
-	<!--		<dependency>-->
-	<!--			<groupId>com.microsoft.sqlserver</groupId>-->
-	<!--			<artifactId>mssql-jdbc</artifactId>-->
-	<!--			<scope>runtime</scope>-->
-	<!--		</dependency>-->
-	<!--		<dependency>-->
-	<!--			<groupId>org.springframework.boot</groupId>-->
-	<!--			<artifactId>spring-boot-starter-test</artifactId>-->
-	<!--			<scope>test</scope>-->
-	<!--		</dependency>-->
-	<!--		<dependency>-->
-	<!--			<groupId>org.springframework.boot</groupId>-->
-	<!--			<artifactId>spring-boot-starter-web</artifactId>-->
-	<!--		</dependency>-->
-	<!--	</dependencies>-->
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.mybatis.generator</groupId>-->
-<!--				<artifactId>mybatis-generator-maven-plugin</artifactId>-->
-<!--				<version>1.3.5</version>-->
-<!--				<configuration>-->
-<!--					<verbose>true</verbose>-->
-<!--					<overwrite>true</overwrite>-->
-<!--					<configurationFile>src/main/resources/mybatis-generator.xml</configurationFile>-->
-<!--				</configuration>-->
-<!--				<dependencies>-->
-<!--					<dependency>-->
-<!--						<groupId>mysql</groupId>-->
-<!--						<artifactId>mysql-connector-java</artifactId>-->
-<!--						<version>8.0.11</version>-->
-<!--					</dependency>-->
-<!--					&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 &ndash;&gt;-->
-<!--					<dependency>-->
-<!--						<groupId>org.apache.commons</groupId>-->
-<!--						<artifactId>commons-lang3</artifactId>-->
-<!--						<version>3.8.1</version>-->
-<!--					</dependency>-->
-<!--					&lt;!&ndash; https://mvnrepository.com/artifact/com.alibaba/fastjson &ndash;&gt;-->
-<!--					<dependency>-->
-<!--						<groupId>com.alibaba</groupId>-->
-<!--						<artifactId>fastjson</artifactId>-->
-<!--						<version>1.2.51</version>-->
-<!--					</dependency>-->
-<!--				</dependencies>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 </project>
