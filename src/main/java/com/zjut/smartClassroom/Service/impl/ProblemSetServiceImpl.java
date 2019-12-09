@@ -61,4 +61,22 @@ public class ProblemSetServiceImpl implements ProblemSetService {
         System.out.println(flag);
         return flag;
     }
+
+    /**
+     * @Method addProblemSet
+     * @Author FrankWu
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.dataObject.ProblemSet
+     * @Exception
+     * @Date 2019/12/7
+     * @Time 14:45
+     */
+    @Override
+    @Transactional
+    public ProblemSet addProblemSet(ProblemSet problemSet) throws BusinessException{
+        ProblemSet success = problemSetRepository.save(problemSet);
+        return success;
+    }
+
 }

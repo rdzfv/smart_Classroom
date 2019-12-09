@@ -1,6 +1,7 @@
 package com.zjut.smartClassroom.Service;
 
 import com.zjut.smartClassroom.dataObject.CoursePPT;
+import com.zjut.smartClassroom.error.BusinessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,5 +16,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CoursePPTService {
-    CoursePPT addCoursePPT(CoursePPT coursePPT);
+    CoursePPT addCoursePPT(CoursePPT coursePPT) throws BusinessException;
 }

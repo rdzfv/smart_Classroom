@@ -149,7 +149,7 @@ public class ProblemServiceImpl implements ProblemService {
         String courseName = courseInstance.getCourseName();
 
         // 通过fatherCourseTeacherId获取fatherTeacherName
-        Teacher teacherInstance = teacherRepository.findTeacherByTeacherId(fatherCourseTeacherId);
+        Teacher teacherInstance = teacherRepository.findByTeacherId(fatherCourseTeacherId);
         if (teacherInstance == null) throw new BusinessException(EnumBusinessError.FIND_FAILED);
         String teacherName = teacherInstance.getTeacherName();
 

@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Teacher findTeacherById(int teacherId) throws BusinessException{
-        Teacher teacherResult = teacherRepository.findTeacherByTeacherId(teacherId);
+        Teacher teacherResult = teacherRepository.findByTeacherId(teacherId);
         if(teacherResult == null){
             throw new BusinessException(EnumBusinessError.TEACHER_NOT_EXIST);
         }

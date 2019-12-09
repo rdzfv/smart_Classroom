@@ -32,8 +32,7 @@ public enum EnumBusinessError implements CommonError {
     ADD_FAILED(70004, "添加有误，请检查输入"),
     RECORD_NOT_EXIST(70005, "记录不存在，请检查输入"),
     COURSE_NOT_EXIST(30006, "课程不存在，请检查输入"),
-    PAPER_NOT_EXIST(30007, "练习卷不存在，请检查输入"),
-    TEACHER_NOT_EXIST(30008, "教师不存在，请检查输入");
+    TEACHER_NOT_EXIST(30008, "教师不存在，请检查输入"),
 
     /**
      *@author John STRAT

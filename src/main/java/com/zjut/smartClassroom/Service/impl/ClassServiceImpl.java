@@ -47,7 +47,7 @@ public class ClassServiceImpl implements ClassService {
         //查找所有教学班信息
         classList = classRepository.findBy();
         int size = classList.size();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i ++) {
             if (classList.get(i) == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         }
         return classList;
@@ -81,7 +81,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public Class updateClass(Class class_) throws BusinessException {
         //查询待更新教学班
-        Class classFindingResult = classRepository.findByTeacherIdAndCourseId(class_.getTeacherId(),class_.getCourseId());
+        Class classFindingResult = classRepository.findByTeacherIdAndCourseId(class_.getTeacherId(), class_.getCourseId());
         if (classFindingResult == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         System.out.println(classFindingResult.getClassOpenyear());
         // 使用hutool BeanUtil进行对象拷贝（忽略null值）
