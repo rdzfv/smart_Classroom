@@ -8,13 +8,17 @@ package com.zjut.smartClassroom.error;
  * @version: 1.0.0
  */
 public enum EnumBusinessError implements CommonError {
-    // 通用错误类型10001
-    PARAMETER_VALIDATION_ERROR(10001,"参数不合法"),
-    // 未知错误00002
-    UNKNOWN_ERROR(10002,"未知错误"),
+    // 00002 未知错误
+    UNKNOWN_ERROR(10002, "未知错误"),
+
+
+    // 10001 通用错误类型
+    PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
+
 
     // 10002 传入参数为空值
     PARAMETER_IS_NULL(10002, "传入参数为空值"),
+    PPT_URL_IS_NULL(10003, "PPT的URL参数不可为空"),
 
 
     // 20000 开头为用户信息相关错误定义
@@ -27,6 +31,9 @@ public enum EnumBusinessError implements CommonError {
     DELETE_FAILED(70003, "删除不存在的记录"),
     ADD_FAILED(70004, "添加有误，请检查输入"),
     RECORD_NOT_EXIST(70005, "记录不存在，请检查输入"),
+    COURSE_NOT_EXIST(30006, "课程不存在，请检查输入"),
+    PAPER_NOT_EXIST(30007, "练习卷不存在，请检查输入"),
+    TEACHER_NOT_EXIST(30008, "教师不存在，请检查输入");
 
     /**
      *@author John STRAT
@@ -52,13 +59,6 @@ public enum EnumBusinessError implements CommonError {
     PAPER_PROBLEM_CREATE_FAILED(60001,"试题添加失败"),
     PAPER_NOT_HAVE_PROBLEM(60002,"试卷内暂无试题"),
     PAPER_CHANGE_PROBLEM_FAILED(60003,"试卷更改试题失败");
-
-
-    /**
-     *@author John END
-     *@date 2019/12/5 21:45
-     */
-
 
     private EnumBusinessError(int errCode, String errMsg) {
         this.errCode = errCode;

@@ -5,6 +5,7 @@ import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.StudentRepository;
 import com.zjut.smartClassroom.Service.*;
 import com.zjut.smartClassroom.dataObject.*;
+import com.zjut.smartClassroom.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired(required = false)//引入
     private StudentRepository studentRepository;
+    @Autowired(required = false)//引入
+    private TeacherRepository teacherRepository;
+    @Autowired(required = false)//引入
+    private Student student;
 
 
     /**
@@ -49,5 +54,25 @@ public class UserServiceImpl implements UserService {
                 student.getOpenId(), student.getSessionKey(), student.getStudentAccount(), student.getStudentName(), student.getStudentPassword()
         );
         return studentResult;
+    }
+
+    /**
+     * @Method findTeacherById
+     * @Author FrankWu
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.dataObject.Teacher
+     * @Exception
+     * @Date 2019/12/7
+     * @Time 16:34
+     */
+    @Override
+    @Transactional
+    public Teacher findTeacherById(int teacherId) throws BusinessException{
+        Teacher teacherResult = teacherRepository.findTeacherByTeacherId(teacherId);
+        if(teacherResult == null){
+            throw new BusinessException(EnumBusinessError.TEACHER_NOT_EXIST);
+        }
+        return teacherResult;
     }
 }

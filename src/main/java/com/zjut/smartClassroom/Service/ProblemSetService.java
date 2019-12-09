@@ -18,4 +18,6 @@ public interface ProblemSetService {
 
     int deleteDataByProblemSetId(int id) throws BusinessException ;
 
+    ProblemSet addProblemSet(ProblemSet problemSet) throws BusinessException;
+
 }

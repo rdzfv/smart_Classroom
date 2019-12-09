@@ -65,5 +65,23 @@ public class PaperServiceImpl implements PaperService {
         return paper;
     }
 
-
+    /**
+     * @Method findPaperById
+     * @Author FrankWu
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.dataObject.Paper
+     * @Exception
+     * @Date 2019/12/7
+     * @Time 16:34
+     */
+    @Override
+    @Transactional
+    public Paper findPaperById(Integer paperId) throws BusinessException {
+        Paper paperResult = paperRepository.findByPaperId(paperId);
+        if(paperResult == null){
+            throw new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
+        }
+        return paperResult;
+    }
 }

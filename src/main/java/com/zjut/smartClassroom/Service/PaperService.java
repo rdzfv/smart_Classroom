@@ -23,4 +23,6 @@ public interface PaperService {
     int updateDataByPaperId(Paper newPaper) throws BusinessException;
     // 根据paperId查询试卷信息
     Paper getDataByPaperId(int paperId) throws BusinessException;
+    // 通过练习卷ID查询练习卷实体
+    Paper findPaperById(Integer paperId) throws BusinessException;
 }

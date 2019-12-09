@@ -1,7 +1,6 @@
 package com.zjut.smartClassroom.repository;
 
 
-
 import com.zjut.smartClassroom.dataObject.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Problem;
 import org.springframework.data.jpa.repository.JpaRepository;
