@@ -27,7 +27,7 @@ public class PaperController extends BaseController {
     private PaperService paperService;
 
     @ApiOperation("获取全部paper信息")
-    @RequestMapping("/getAllPaperInfo")
+    @RequestMapping(value = "/getAllPaperInfo", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getAllPaperInfo() throws BusinessException {
         List<Paper> paperList = paperService.getAllData();
@@ -35,9 +35,9 @@ public class PaperController extends BaseController {
     }
 
     @ApiOperation("创建paper")
-    @RequestMapping(value = "/insertPaper", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/insertPaper", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType insertPaper(Paper newPaper) throws BusinessException {
+    public CommonReturnType insertPaper(@RequestBody() Paper newPaper) throws BusinessException {
         int flag = paperService.insertData(newPaper);
         if (flag != 1) {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_CREATE_FAILED);
@@ -47,7 +47,7 @@ public class PaperController extends BaseController {
     }
 
     @ApiOperation("通过paperId删除paper")
-    @RequestMapping("/deletePaperBypaperId")
+    @RequestMapping(value = "/deletePaperBypaperId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType deletePaperBypaperId(@RequestParam("paper_id") int paperId) throws BusinessException {
         int flag = paperService.deleteDataByPaperId(paperId);
@@ -59,9 +59,9 @@ public class PaperController extends BaseController {
     }
 
     @ApiOperation("通过paperId更新paper")
-    @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType updatePaperByPaperId(Paper newPaper) throws BusinessException {
+    public CommonReturnType updatePaperByPaperId(@RequestBody() Paper newPaper) throws BusinessException {
         int flag = paperService.updateDataByPaperId(newPaper);
         if (flag != 1) {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_UPDATE_FAILED);
@@ -71,7 +71,7 @@ public class PaperController extends BaseController {
     }
 
     @ApiOperation("通过paperId获取paper")
-    @RequestMapping("/getPaperByPaperId")
+    @RequestMapping(value = "/getPaperByPaperId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getPaperByPaperId(@RequestParam("paper_id") int paperId) throws BusinessException {
         Paper paper = paperService.getDataByPaperId(paperId);

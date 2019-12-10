@@ -30,7 +30,7 @@ public class ProblemSetController extends BaseController {
     private HttpServletRequest httpServletRequest;
 
     @ApiOperation("通过courseId获取problemSet")
-    @RequestMapping("/getProblemSetByCourseId")
+    @RequestMapping(value = "/getProblemSetByCourseId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getProblemsetByCourseId(@RequestParam(name = "course_id") int course_id) throws BusinessException {
         //调用service服务获取对应的courseid的用户对象并返回给前端
@@ -45,7 +45,7 @@ public class ProblemSetController extends BaseController {
     }
 
     @ApiOperation("通过problemSetId获取problemSet")
-    @RequestMapping("/getProblemSetByProblemSetId")
+    @RequestMapping(value = "/getProblemSetByProblemSetId" ,method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getProblemsetByProblemSetId(@RequestParam(name = "problem_set_id") int problem_set_id) throws BusinessException{
         //调用service服务获取对应的problemsetid的用户对象并返回给前端
@@ -59,9 +59,9 @@ public class ProblemSetController extends BaseController {
     }
 
     @ApiOperation("通过problemSetId更新problemSet")
-    @RequestMapping(value = "/updateProblemSetByProblemSetId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/updateProblemSetByProblemSetId", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType updateProblemSetByProblemSetId(ProblemSet problemSetPart) throws BusinessException {
+    public CommonReturnType updateProblemSetByProblemSetId(@RequestBody() ProblemSet problemSetPart) throws BusinessException {
         //调用service服务获取对应的problemsetid的用户对象并修改对象
         System.out.println("进入updateProblemSetByProblemSetId接口");
         ProblemSet problemSetResult = problemSetService.updateDataByProblemSetId(problemSetPart);
@@ -73,7 +73,7 @@ public class ProblemSetController extends BaseController {
     }
 
     @ApiOperation("通过problemSetId删除problemSet")
-    @RequestMapping("/deleteProblemSetByProblemSetId")
+    @RequestMapping(value = "/deleteProblemSetByProblemSetId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType deleteProblemSetByProblemSetId(@RequestParam("problem_set_id") int id) throws BusinessException{
         int flag = problemSetService.deleteDataByProblemSetId(id);

@@ -43,26 +43,26 @@ public class PaperProblemController extends BaseController {
 
     // 根据老师选择的题目来插入试题
     @ApiOperation("根据老师选择的题目来插入试题")
-    @RequestMapping(value = "/createNewPaper", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/createNewPaper", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType createNewPaper(@RequestParam("problemList")String problemList, @RequestParam("paperName")String paperName) throws BusinessException {
+    public CommonReturnType createNewPaper(@RequestParam() String problemList, @RequestParam() String paperName) throws BusinessException {
         // 入参校验
         if (StringUtils.isEmpty(problemList) || StringUtils.isEmpty(paperName)) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
-        int flag = paperProblemService.createNewPaper(problemList, paperName);
-        return CommonReturnType.create(flag);
+        List<PaperProblemView> paperProblemViews = paperProblemService.createNewPaper(problemList, paperName);
+        return CommonReturnType.create(paperProblemViews);
     }
 
     // 根据paperId查询paper内的题目等详细信息
     @ApiOperation("根据paperId查询paper内的题目等详细信息")
-    @RequestMapping("/getPaperDetailByPaperId")
+    @RequestMapping(value = "/getPaperDetailByPaperId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getPaperDetailByPaperId(@RequestParam("paper_id") int paperId) throws BusinessException {
         List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(paperId);
         return CommonReturnType.create(paperProblemList);
     }
 
-    @ApiOperation("根据paperId删除paper")
-    @RequestMapping("/deletePaperProblemByPaperId")
+    @ApiOperation("根据paperId删除PaperProblem")
+    @RequestMapping(value = "/deletePaperProblemByPaperId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType deletePaperProblemByPaperId(@RequestParam("paper_id") int paperId, @RequestParam("problem_id") int problemId) throws BusinessException {
         int flag = paperProblemService.deletePaperProblem(paperId, problemId);
@@ -75,9 +75,9 @@ public class PaperProblemController extends BaseController {
     }
 
     @ApiOperation("根据paperId更新paper")
-    @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType updatePaperByPaperId(UpdatePaperProblemModel updatePaperProblemModel) throws BusinessException {
+    public CommonReturnType updatePaperByPaperId(@RequestBody() UpdatePaperProblemModel updatePaperProblemModel) throws BusinessException {
         // 入参校验
         Integer paperId = updatePaperProblemModel.getPaperId();
         if (paperId == null) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);

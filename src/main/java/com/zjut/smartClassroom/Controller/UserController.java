@@ -40,9 +40,9 @@ public class UserController extends BaseController {
      * @version:     1.0.0
      */
     @ApiOperation("学生登录")
-    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType login(Student student) throws BusinessException {
+    public CommonReturnType login(@RequestBody() Student student) throws BusinessException {
         System.out.println(student);
         // 入参校验
         if (StringUtils.isEmpty(student.getStudentName()) || StringUtils.isEmpty(student.getStudentAccount()) ||

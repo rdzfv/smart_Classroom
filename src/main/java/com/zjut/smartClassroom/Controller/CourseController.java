@@ -12,10 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -58,10 +55,10 @@ public class CourseController extends BaseController {
      * @Date 2019/12/7
      * @Time 09:35
      */
-    @ApiOperation("更新courseId")
-    @RequestMapping(value = "/updateCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @ApiOperation("更新course")
+    @RequestMapping(value = "/updateCourse", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType updateCourse(Course course) throws BusinessException {
+    public CommonReturnType updateCourse(@RequestBody() Course course) throws BusinessException {
         // 入参校验
         if (course == null || course.getCourseId() == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
@@ -84,9 +81,9 @@ public class CourseController extends BaseController {
      * @Time 14:35
      */
     @ApiOperation("为course添加problemSet")
-    @RequestMapping(value = "/addProblemSetToCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/addProblemSetToCourse", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType addProblemSetToCourse(ProblemSet problemSet) throws BusinessException {
+    public CommonReturnType addProblemSetToCourse(@RequestBody() ProblemSet problemSet) throws BusinessException {
         // 检验：输入数值上是否错误
         Integer teacherId = problemSet.getTeacherId();
         Integer courseId = problemSet.getCourseId();
@@ -121,9 +118,9 @@ public class CourseController extends BaseController {
      * @Time 16:31
      */
     @ApiOperation("为course添加PPT")
-    @RequestMapping(value = "/addPPT_ToCourse", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/addPPT_ToCourse", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType addPPT_ToCourse(CoursePPT coursePPT) throws BusinessException {
+    public CommonReturnType addPPT_ToCourse(@RequestBody() CoursePPT coursePPT) throws BusinessException {
         // 输出参数的校验
         Integer courseId = coursePPT.getCourseId();
         String ppt_url = coursePPT.getPpt_url();

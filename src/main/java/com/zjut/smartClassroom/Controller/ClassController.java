@@ -9,10 +9,7 @@ import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -43,7 +40,7 @@ public class ClassController extends BaseController {
      * @version: 1.0.0
      */
     @ApiOperation("获取所有教学班信息")
-    @RequestMapping(value = "/getAllClass")
+    @RequestMapping(value = "/getAllClass", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getAllClass() throws BusinessException {
         // 通过problemSetId查询题目详情
@@ -58,9 +55,9 @@ public class ClassController extends BaseController {
      * @version: 1.0.0
      */
     @ApiOperation("添加教学班级")
-    @RequestMapping(value = "/addClass", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/addClass", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType addClass(Class class_) throws BusinessException {
+    public CommonReturnType addClass(@RequestBody() Class class_) throws BusinessException {
         // 入参校验
         if ( (class_.getClassOpenyear() == null) || class_.getCourseId() == null ||
                 class_.getTeacherId() == null || StringUtils.isEmpty(class_.getClassClassroom()) ||
@@ -81,9 +78,9 @@ public class ClassController extends BaseController {
      * @version: 1.0.0
      */
     @ApiOperation("更新教学班级信息")
-    @RequestMapping(value = "/updateClass", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @RequestMapping(value = "/updateClass", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType updateClass(Class class_) throws BusinessException {
+    public CommonReturnType updateClass(@RequestBody() Class class_) throws BusinessException {
         if (StringUtils.isEmpty(class_.getTeacherId() + "") || StringUtils.isEmpty(class_.getCourseId() + "")) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
