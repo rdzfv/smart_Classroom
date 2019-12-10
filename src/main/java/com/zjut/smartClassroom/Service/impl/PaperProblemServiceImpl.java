@@ -86,7 +86,7 @@ public class PaperProblemServiceImpl implements PaperProblemService {
     }
 
     @Override
-    public int createNewPaper(String problemList, String paperName) throws BusinessException {
+    public List<PaperProblemView> createNewPaper(String problemList, String paperName) throws BusinessException {
         // 创建paper
         Paper paper = new Paper();
         paper.setPaperName(paperName);
@@ -114,7 +114,7 @@ public class PaperProblemServiceImpl implements PaperProblemService {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_PROBLEM_CREATE_FAILED);
             throw businessException;
         }
-        return 1;
+        return paperProblemList;
     }
 
     @Override

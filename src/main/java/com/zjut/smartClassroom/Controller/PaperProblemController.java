@@ -11,12 +11,15 @@ import com.zjut.smartClassroom.repository.PaperRepository;
 import com.zjut.smartClassroom.repository.ProblemPaperRepository;
 import com.zjut.smartClassroom.repository.ProblemRepository;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api("paperProblem接口")
 @Controller("/paperProblem")
 @RequestMapping("/paperProblem")
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
@@ -39,24 +42,27 @@ public class PaperProblemController extends BaseController {
     private ProblemRepository problemRepository;
 
     // 根据老师选择的题目来插入试题
-    @RequestMapping("/createNewPaper")
+    @ApiOperation("根据老师选择的题目来插入试题")
+    @RequestMapping(value = "/createNewPaper", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType createNewPaper(@RequestParam("problemList")String problemList, @RequestParam("paperName")String paperName) throws BusinessException {
+    public CommonReturnType createNewPaper(@RequestParam() String problemList, @RequestParam() String paperName) throws BusinessException {
         // 入参校验
         if (StringUtils.isEmpty(problemList) || StringUtils.isEmpty(paperName)) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
-        int flag = paperProblemService.createNewPaper(problemList, paperName);
-        return CommonReturnType.create(flag);
+        List<PaperProblemView> paperProblemViews = paperProblemService.createNewPaper(problemList, paperName);
+        return CommonReturnType.create(paperProblemViews);
     }
 
     // 根据paperId查询paper内的题目等详细信息
-    @RequestMapping("/getPaperDetailByPaperId")
+    @ApiOperation("根据paperId查询paper内的题目等详细信息")
+    @RequestMapping(value = "/getPaperDetailByPaperId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getPaperDetailByPaperId(@RequestParam("paper_id") int paperId) throws BusinessException {
         List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(paperId);
         return CommonReturnType.create(paperProblemList);
     }
 
-    @RequestMapping("/deletePaperProblemByPaperId")
+    @ApiOperation("根据paperId删除PaperProblem")
+    @RequestMapping(value = "/deletePaperProblemByPaperId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType deletePaperProblemByPaperId(@RequestParam("paper_id") int paperId, @RequestParam("problem_id") int problemId) throws BusinessException {
         int flag = paperProblemService.deletePaperProblem(paperId, problemId);
@@ -68,9 +74,10 @@ public class PaperProblemController extends BaseController {
         return CommonReturnType.create(paperProblemList);
     }
 
-    @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded;charset=UTF-8"})
+    @ApiOperation("根据paperId更新paper")
+    @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType updatePaperByPaperId(UpdatePaperProblemModel updatePaperProblemModel) throws BusinessException {
+    public CommonReturnType updatePaperByPaperId(@RequestBody() UpdatePaperProblemModel updatePaperProblemModel) throws BusinessException {
         // 入参校验
         Integer paperId = updatePaperProblemModel.getPaperId();
         if (paperId == null) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);

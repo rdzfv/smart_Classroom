@@ -24,7 +24,7 @@ public interface PaperProblemService {
     // 根据paperId删除试卷内题目
     int deletePaperProblem(int paperId, int problemId) throws BusinessException;
     // 创建新的paper
-    int createNewPaper(String proListStr, String paperName) throws BusinessException;
+    List<PaperProblemView> createNewPaper(String proListStr, String paperName) throws BusinessException;
     // 根据paperId修改试卷的相关信息
     int updatePaperProblem(ProblemPaper newPaperProblem, int newProblemId) throws BusinessException;
 }
