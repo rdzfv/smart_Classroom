@@ -39,4 +39,22 @@ public class CoursePPTServiceImpl implements CoursePPTService {
         CoursePPT coursePPT1 = coursePPTRepository.save(coursePPT);
         return coursePPT1;
     }
+
+    /**
+     * @Method deleteBypptId
+     * @Author Hefz
+     * @Version  1.0
+     * @Description
+     * @Return int
+     * @Exception
+     * @Date 2019/12/11
+     * @Time 10:48 PM
+     */
+    @Override
+    @Transactional
+    public int deleteBypptId(int pptId) {
+        int flag = coursePPTRepository.deleteBypptId(pptId);
+        System.out.println(flag);
+        return flag;
+    }
 }

@@ -141,6 +141,18 @@ public class CourseController extends BaseController {
         return CommonReturnType.create(coursePPT1);
     }
 
+    @ApiOperation("通过pptId删除ppt")
+    @RequestMapping(value = "/deletePPTBypptId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType deletePPTBypptId(@RequestParam("ppt_id") int pptId) throws BusinessException {
+        int flag = coursePPTService.deleteBypptId(pptId);
+        if (flag != 1) {
+            BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_DELETE_FAILED);
+            throw businessException;
+        }
+        return CommonReturnType.create(flag);
+    }
+
     /**
      * @Method findByteacherId
      * @Author Hefz
