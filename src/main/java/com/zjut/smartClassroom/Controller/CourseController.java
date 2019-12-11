@@ -1,10 +1,7 @@
 package com.zjut.smartClassroom.Controller;
 
 import com.zjut.smartClassroom.Service.*;
-import com.zjut.smartClassroom.dataObject.Course;
-import com.zjut.smartClassroom.dataObject.CoursePPT;
-import com.zjut.smartClassroom.dataObject.ProblemSet;
-import com.zjut.smartClassroom.dataObject.Teacher;
+import com.zjut.smartClassroom.dataObject.*;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -44,6 +41,8 @@ public class CourseController extends BaseController {
     private CoursePPTService coursePPTService;
     @Autowired
     private HttpServletRequest httpServletRequest;
+    @Autowired(required = false)
+    private TeacherCourseInformationService teacherCourseInformationService;
 
     /**
      * @Method updateCourse
@@ -139,5 +138,23 @@ public class CourseController extends BaseController {
         return CommonReturnType.create(coursePPT1);
     }
 
-
+    /**
+     * @Method findByteacherId
+     * @Author Hefz
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.response.CommonReturnType
+     * @Exception
+     * @Date 2019/12/11
+     * @Time 3:32 PM
+     */
+    @ApiOperation("通过courset_id获取课程列表")
+    @RequestMapping(value = "/getMyCourse", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType findByteacherId(int teacherId) throws BusinessException {
+        // 通过course_id获取问题详情列表
+        TeacherCourseInformation courseResults = teacherCourseInformationService.findByteacherId(teacherId);
+        if (courseResults == null) throw new BusinessException(EnumBusinessError.TEACHER_NOT_EXIST);
+        return CommonReturnType.create(courseResults);
+    }
 }
