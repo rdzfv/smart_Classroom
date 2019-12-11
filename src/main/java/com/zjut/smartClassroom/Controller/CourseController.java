@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -43,6 +44,8 @@ public class CourseController extends BaseController {
     private HttpServletRequest httpServletRequest;
     @Autowired(required = false)
     private TeacherCourseInformationService teacherCourseInformationService;
+    @Autowired(required = false)
+    private StudentCourseInformationService studentCourseInformationService;
 
     /**
      * @Method updateCourse
@@ -148,13 +151,31 @@ public class CourseController extends BaseController {
      * @Date 2019/12/11
      * @Time 3:32 PM
      */
-    @ApiOperation("通过courset_id获取课程列表")
-    @RequestMapping(value = "/getMyCourse", method = RequestMethod.GET)
+    @ApiOperation("通过teacher_id获取课程列表")
+    @RequestMapping(value = "/getTeacherCourse", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType findByteacherId(int teacherId) throws BusinessException {
-        // 通过course_id获取问题详情列表
-        TeacherCourseInformation courseResults = teacherCourseInformationService.findByteacherId(teacherId);
-        if (courseResults == null) throw new BusinessException(EnumBusinessError.TEACHER_NOT_EXIST);
-        return CommonReturnType.create(courseResults);
+        // 通过teacher_id获取问题详情列表
+        ArrayList<TeacherCourseInformation> courseList = teacherCourseInformationService.findByteacherId(teacherId);
+        return CommonReturnType.create(courseList);
+    }
+
+    /**
+     * @Method findBystudentId
+     * @Author Hefz
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.response.CommonReturnType
+     * @Exception
+     * @Date 2019/12/11
+     * @Time 8:58 PM
+     */
+    @ApiOperation("通过student_id获取课程列表")
+    @RequestMapping(value = "/getStudentCourse", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType findBystudentId(int studentId) throws BusinessException {
+        // 通过student_id获取问题详情列表
+        ArrayList<StudentCourseInformation> courseList = studentCourseInformationService.findBystudentId(studentId);
+        return CommonReturnType.create(courseList);
     }
 }

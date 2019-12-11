@@ -47,6 +47,8 @@ public class ClassServiceImpl implements ClassService {
         //查找所有教学班信息
         classList = classRepository.findBy();
         int size = classList.size();
+        //当size为0时，记录也不存在
+        if(size==0) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         for (int i = 0; i < size; i ++) {
             if (classList.get(i) == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         }
