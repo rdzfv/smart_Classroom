@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 /**
- * @author     ：xyy
+ * @author     ：xyy,Hefz
  * @date       ：Created in 2019/12/02 12:45:23
  * @description：UserService接口
  * @version:     1.0.0
@@ -20,5 +20,8 @@ public interface UserService{
     Student getUserById(int id);
     // 用户登录
     Student login(Student student) throws BusinessException;
+    Teacher login(Teacher student) throws BusinessException;
+
+
     Teacher findTeacherById(int teacherId) throws BusinessException;
 }

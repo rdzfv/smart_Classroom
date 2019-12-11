@@ -3,6 +3,7 @@ package com.zjut.smartClassroom.Controller;
 import com.alibaba.druid.util.StringUtils;
 import com.zjut.smartClassroom.Service.UserService;
 import com.zjut.smartClassroom.dataObject.Student;
+import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -55,6 +56,34 @@ public class UserController extends BaseController {
         Student studentInstanse = userService.login(student);
         if (studentInstanse == null) throw new BusinessException(EnumBusinessError.USER_NOT_VALIDATE);
         return CommonReturnType.create(studentInstanse);
+    }
+
+    /**
+     * @Method login
+     * @Author Hefz
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.response.CommonReturnType
+     * @Exception
+     * @Date 2019/12/11
+     * @Time 11:37 PM
+     */
+    @ApiOperation("教师登录")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType login(@RequestBody() Teacher teacher) throws BusinessException {
+        System.out.println(teacher);
+        // 入参校验
+        if (StringUtils.isEmpty(teacher.getTeacherName()) || StringUtils.isEmpty(teacher.getTeacherAccount()) ||
+                StringUtils.isEmpty(teacher.getTeacherPassword()) || StringUtils.isEmpty(teacher.getOpenid()) ||
+                StringUtils.isEmpty(teacher.getSessionKey())
+        ) {
+            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        // 用户登录服务
+        Teacher teacherInstanse = userService.login(teacher);
+        if (teacherInstanse == null) throw new BusinessException(EnumBusinessError.USER_NOT_VALIDATE);
+        return CommonReturnType.create(teacherInstanse);
     }
 
 }

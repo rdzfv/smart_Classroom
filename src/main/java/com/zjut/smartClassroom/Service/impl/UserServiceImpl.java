@@ -57,6 +57,26 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * @Method login
+     * @Author Hefz
+     * @Version  1.0
+     * @Description
+     * @Return com.zjut.smartClassroom.dataObject.Teacher
+     * @Exception
+     * @Date 2019/12/11
+     * @Time 11:34 PM
+     */
+    @Override
+    @Transactional
+    public Teacher login(Teacher teacher) throws BusinessException {
+        Teacher teacherResult = teacherRepository.findByOpenIdAndSessionKeyAndTeacherAccountAndTeacherNameAndTeacherPassword(
+                teacher.getOpenid(), teacher.getSessionKey(),teacher.getTeacherAccount(), teacher.getTeacherName(), teacher.getTeacherPassword()
+        );
+        return teacherResult;
+    }
+
+
+    /**
      * @Method findTeacherById
      * @Author FrankWu
      * @Version  1.0
