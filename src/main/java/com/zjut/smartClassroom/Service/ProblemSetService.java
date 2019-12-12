@@ -5,6 +5,8 @@ import com.zjut.smartClassroom.dataObject.ProblemSetCourse;
 import com.zjut.smartClassroom.error.BusinessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public interface ProblemSetService {
     // 通过课程id获取对象方法
@@ -19,5 +21,9 @@ public interface ProblemSetService {
     int deleteDataByProblemSetId(int id) throws BusinessException ;
 
     ProblemSet addProblemSet(ProblemSet problemSet) throws BusinessException;
+
+
+    // 通过teacher_id获取作业集
+    ArrayList<ProblemSet> findByteacherId(int teacherId) throws BusinessException;
 
 }

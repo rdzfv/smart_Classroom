@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service
 public class ProblemSetServiceImpl implements ProblemSetService {
 
@@ -79,4 +81,29 @@ public class ProblemSetServiceImpl implements ProblemSetService {
         return success;
     }
 
+    /**
+     * @Method findByteacherId
+     * @Author Hefz
+     * @Version  1.0
+     * @Description
+     * @Return java.util.ArrayList<com.zjut.smartClassroom.dataObject.ProblemSet>
+     * @Exception
+     * @Date 2019/12/12
+     * @Time 2:46 PM
+     */
+    // 通过teacher_id获取作业集
+    @Override
+    @Transactional
+    public ArrayList<ProblemSet> findByteacherId(int teacherId) throws BusinessException{
+        ArrayList<ProblemSet> problemList = new ArrayList<>();
+
+        //查找教师所教的所有课程
+        problemList = problemSetRepository.findByteacherId(teacherId);
+        int size = problemList.size();
+        if(size==0) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        for( int i=0; i<size; i++){
+            if (problemList.get(i) == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        }
+        return problemList;
+    }
 }

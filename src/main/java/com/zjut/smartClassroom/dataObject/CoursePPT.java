@@ -23,7 +23,7 @@ import java.io.Serializable;
 public class CoursePPT implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer coursePPT_Id;
+    private Integer pptId;
     private Integer courseId;
     private Integer teacherId;
     private String ppt_url; // ppt的链接

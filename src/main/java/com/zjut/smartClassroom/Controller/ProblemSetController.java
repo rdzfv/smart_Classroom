@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 
 @Controller("/problemSet")
@@ -88,5 +89,14 @@ public class ProblemSetController extends BaseController {
     /**
      * John结束部分
      */
+    @ApiOperation("通过teacher_id获取练习集")
+    @RequestMapping(value = "/getProblemSetByTeacherId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType findByteacherId(int teacherId) throws BusinessException {
+        // 通过teacher_id获取问题详情列表
+        ArrayList<ProblemSet> courseList = problemSetService.findByteacherId(teacherId);
+        return CommonReturnType.create(courseList);
+    }
+
 
 }
