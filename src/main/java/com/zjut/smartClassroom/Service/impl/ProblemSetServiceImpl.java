@@ -3,9 +3,8 @@ package com.zjut.smartClassroom.Service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.zjut.smartClassroom.Service.ProblemSetService;
-import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
-import com.zjut.smartClassroom.dataObject.ProblemSetCourse;
+import com.zjut.smartClassroom.view.ProblemSetCourse;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.*;
@@ -43,6 +42,7 @@ public class ProblemSetServiceImpl implements ProblemSetService {
     }
 
     @Override
+    @Transactional
     public ProblemSet updateDataByProblemSetId(ProblemSet problemSetPart)  throws BusinessException {
         // 数据库查出待更新对象
         ProblemSet problemSetFindingResult = problemSetRepository.findByProblemSetId(problemSetPart.getProblemSetId());
@@ -76,6 +76,7 @@ public class ProblemSetServiceImpl implements ProblemSetService {
     @Transactional
     public ProblemSet addProblemSet(ProblemSet problemSet) throws BusinessException{
         ProblemSet success = problemSetRepository.save(problemSet);
+        if(success == null)throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         return success;
     }
 

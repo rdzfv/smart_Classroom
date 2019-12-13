@@ -1,6 +1,6 @@
 package com.zjut.smartClassroom.repository;
 
-import com.zjut.smartClassroom.dataObject.ProblemSetCourse;
+import com.zjut.smartClassroom.view.ProblemSetCourse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

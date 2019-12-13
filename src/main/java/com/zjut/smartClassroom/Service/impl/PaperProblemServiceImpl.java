@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.zjut.smartClassroom.Service.PaperProblemService;
 import com.zjut.smartClassroom.dataObject.Paper;
-import com.zjut.smartClassroom.dataObject.PaperProblemView;
+import com.zjut.smartClassroom.view.PaperProblemView;
 import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import com.zjut.smartClassroom.error.BusinessException;

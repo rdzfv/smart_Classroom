@@ -2,7 +2,7 @@ package com.zjut.smartClassroom.Controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.zjut.smartClassroom.Service.PaperProblemService;
-import com.zjut.smartClassroom.dataObject.PaperProblemView;
+import com.zjut.smartClassroom.view.PaperProblemView;
 import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;

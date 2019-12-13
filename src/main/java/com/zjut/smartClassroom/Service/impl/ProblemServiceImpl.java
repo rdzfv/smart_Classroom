@@ -6,9 +6,9 @@ import com.zjut.smartClassroom.Service.ProblemService;
 import com.zjut.smartClassroom.dataObject.*;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
-import com.zjut.smartClassroom.model.MyAnswersModel;
 import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSetModel;
 import com.zjut.smartClassroom.repository.*;
+import com.zjut.smartClassroom.view.AnswerSituation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;

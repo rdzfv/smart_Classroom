@@ -4,10 +4,10 @@ import com.zjut.smartClassroom.Service.*;
 import com.zjut.smartClassroom.dataObject.Course;
 import com.zjut.smartClassroom.dataObject.CoursePPT;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
-import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import com.zjut.smartClassroom.view.StudentCourseDetailView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ProjectName: smartClassroom
@@ -127,7 +128,7 @@ public class CourseController extends BaseController {
         Integer teacherId = coursePPT.getTeacherId();
         if (courseId == null || teacherId == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
-        } else if (courseId < 0 || teacherId == null) {
+        } else if (courseId < 0 || teacherId < 0) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         } else if (ppt_url == null) {
             throw new BusinessException(EnumBusinessError.PPT_URL_IS_NULL);
@@ -139,5 +140,16 @@ public class CourseController extends BaseController {
         return CommonReturnType.create(coursePPT1);
     }
 
-
+    @ApiOperation("通过学生id获取课程信息")
+    @RequestMapping(value = "/returnCourseDetailByStudentId", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType returnCourseDetailByStudentId(@RequestBody() Integer studentId) throws BusinessException{
+        if(studentId == null){
+            throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
+        } else if(studentId < 0){
+            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        List<StudentCourseDetailView> list = courseService.findCourseDetailByStudentId(studentId);
+        return CommonReturnType.create(list);
+    }
 }

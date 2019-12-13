@@ -1,7 +1,7 @@
 package com.zjut.smartClassroom.Service;
 
 import com.zjut.smartClassroom.dataObject.Paper;
-import com.zjut.smartClassroom.dataObject.PaperProblemView;
+import com.zjut.smartClassroom.view.PaperProblemView;
 import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import com.zjut.smartClassroom.error.BusinessException;
 import org.springframework.stereotype.Service;

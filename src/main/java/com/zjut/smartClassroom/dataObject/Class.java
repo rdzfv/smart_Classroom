@@ -1,10 +1,9 @@
 package com.zjut.smartClassroom.dataObject;
 
 import lombok.Data;
+import lombok.Generated;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -17,6 +16,9 @@ import java.io.Serializable;
 @Entity
 @IdClass(ClassPK.class)
 public class Class implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer classId;
     @Id
     private Integer teacherId;
     @Id

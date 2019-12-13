@@ -3,7 +3,9 @@ package com.zjut.smartClassroom.Service;
 import com.zjut.smartClassroom.dataObject.Course;
 import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.error.BusinessException;
+import com.zjut.smartClassroom.view.StudentCourseDetailView;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 /**
  * @ProjectName: smartClassroom
@@ -23,4 +25,6 @@ public interface CourseService {
     // 通过id查询并返回课程实体
     Course findCourseById(Integer courseId) throws BusinessException;
 
+    // 通过学号返回选修的课程信息
+    List<StudentCourseDetailView> findCourseDetailByStudentId(Integer studentId) throws  BusinessException;
 }
