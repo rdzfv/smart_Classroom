@@ -141,9 +141,9 @@ public class CourseController extends BaseController {
     }
 
     @ApiOperation("通过学生id获取课程信息")
-    @RequestMapping(value = "/returnCourseDetailByStudentId", method = RequestMethod.POST)
+    @RequestMapping(value = "/returnCourseDetailByStudentId", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType returnCourseDetailByStudentId(@RequestBody() Integer studentId) throws BusinessException{
+    public CommonReturnType returnCourseDetailByStudentId(Integer studentId) throws BusinessException{
         if(studentId == null){
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
         } else if(studentId < 0){
