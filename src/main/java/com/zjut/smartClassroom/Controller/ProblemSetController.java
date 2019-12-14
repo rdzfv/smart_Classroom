@@ -2,7 +2,7 @@ package com.zjut.smartClassroom.Controller;
 
 import com.zjut.smartClassroom.Service.ProblemSetService;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
-import com.zjut.smartClassroom.dataObject.ProblemSetCourse;
+import com.zjut.smartClassroom.view.ProblemSetCourse;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;

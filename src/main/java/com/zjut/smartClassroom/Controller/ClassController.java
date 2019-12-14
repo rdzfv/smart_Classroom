@@ -2,7 +2,6 @@ package com.zjut.smartClassroom.Controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.zjut.smartClassroom.Service.ClassService;
-import com.zjut.smartClassroom.dataObject.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Class;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 /**

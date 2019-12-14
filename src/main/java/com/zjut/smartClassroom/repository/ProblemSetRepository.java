@@ -33,6 +33,8 @@ public interface ProblemSetRepository extends JpaRepository<ProblemSet, Integer>
     // 根据练习集id查询练习集情况
     ProblemSet findByProblemSetId(Integer problemSetid);
 
+    ProblemSet save(ProblemSet problemSet);
+
     // 根据练习集id修改练习集
     @Modifying
     @Transactional
