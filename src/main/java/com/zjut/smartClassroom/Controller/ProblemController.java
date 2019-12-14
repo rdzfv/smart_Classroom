@@ -141,8 +141,13 @@ public class ProblemController extends BaseController {
     @ResponseBody
     public CommonReturnType postMyAnswer(@RequestBody() MyAnswersModel myAnswersModel) throws BusinessException {
         // 入参校验
-        if (myAnswersModel.getStudentId() == 0 || StringUtils.isEmpty(myAnswersModel.getMyAnswers()) ||
-                myAnswersModel.getCourseId() == 0 || myAnswersModel.getProblemSetId() == 0
+        System.out.println(myAnswersModel);
+        System.out.println(myAnswersModel.getStudentId());
+        System.out.println(myAnswersModel.getMyAnswers());
+        System.out.println(myAnswersModel.getCourseId());
+        System.out.println(myAnswersModel.getProblemSetId());
+        if (myAnswersModel.getStudentId() == null || StringUtils.isEmpty(myAnswersModel.getMyAnswers()) ||
+                myAnswersModel.getCourseId() == null || myAnswersModel.getProblemSetId() == null
         ) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }

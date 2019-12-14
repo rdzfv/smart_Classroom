@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,6 +23,8 @@ public interface PaperRepository extends JpaRepository<Paper, Integer> {
     int deleteByPaperId(Integer paperId);
     // 根据paperId寻找试卷概要
     Paper findByPaperId(Integer paperId);
+    // 根据problemSetId寻找全部试卷
+    ArrayList<Paper> findAllByProblemSetId(Integer problemSet);
 
     // 根据试卷id更改试卷概要
     @Modifying

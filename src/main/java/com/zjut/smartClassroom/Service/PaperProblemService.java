@@ -2,10 +2,12 @@ package com.zjut.smartClassroom.Service;
 
 import com.zjut.smartClassroom.dataObject.Paper;
 import com.zjut.smartClassroom.dataObject.PaperProblemView;
+import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import com.zjut.smartClassroom.error.BusinessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,4 +29,6 @@ public interface PaperProblemService {
     List<PaperProblemView> createNewPaper(String proListStr, String paperName) throws BusinessException;
     // 根据paperId修改试卷的相关信息
     int updatePaperProblem(ProblemPaper newPaperProblem, int newProblemId) throws BusinessException;
+    // 根据paperId获取problems
+    ArrayList<Problem> getProblemsByPaperId(int paperId) throws BusinessException;
 }

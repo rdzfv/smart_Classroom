@@ -66,9 +66,10 @@ public class ProblemServiceImpl implements ProblemService {
         // 根据problemIds查找题目详情s
         for (int i = 0; i < size; i++) {
             AnswerSituation answerSituation = answerSituationRepository.findByProblemId(problemIds.get(i));
-            if (answerSituation == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
             // 加入ArrayList
-            answerSituationList.add(answerSituation);
+            if (answerSituation != null) {
+                answerSituationList.add(answerSituation);
+            }
         }
 
         return answerSituationList;

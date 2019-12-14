@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,6 +61,8 @@ public class PaperProblemServiceImpl implements PaperProblemService {
     @Transactional
     public List<PaperProblemView> getDataByPaperId(int paperId)  throws BusinessException {
         // 判断id是否合法
+        System.out.println(paperId);
+        System.out.println(paperRepository.findByPaperId(paperId));
         if (paperRepository.findByPaperId(paperId) == null) throw new BusinessException(EnumBusinessError.FIND_FAILED);
         List<PaperProblemView> paperProblemViewList = paperProblemViewRepository.findAllByPaperId(paperId);
         System.out.println(paperProblemViewList);
@@ -137,4 +140,22 @@ public class PaperProblemServiceImpl implements PaperProblemService {
         return flag;
     }
 
+
+    /**
+     *@author xyy
+     *@date 2019/12/12 22:27
+     */
+    public ArrayList<Problem> getProblemsByPaperId(int paperId) throws BusinessException{
+        ArrayList<Problem> problems = new ArrayList<>();
+        List<ProblemPaper> problemPapers = paperProblemRepository.findAllByPaperId(paperId);
+        if (problemPapers == null) throw new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
+        int size = problemPapers.size();
+        for (int i = 0; i < size; i ++) {
+            int problemId = problemPapers.get(i).getProblemId();
+            Problem problem = problemRepository.findByProblemId(problemId);
+            if (problem == null) throw new BusinessException(EnumBusinessError.PROBLEM_NOT_EXIST);
+            problems.add(problem);
+        }
+        return problems;
+    }
 }

@@ -18,10 +18,9 @@ import java.io.Serializable;
 @IdClass(ClassPK.class)
 public class Class implements Serializable {
     @Id
+    private Integer classId;
     private Integer teacherId;
-    @Id
     private Integer courseId;
-
     private String classClassroom;
     private String className;
     private Integer classOpenyear;
