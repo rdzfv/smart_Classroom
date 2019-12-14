@@ -35,11 +35,11 @@ public interface ProblemSetRepository extends JpaRepository<ProblemSet, Integer>
 
     ProblemSet save(ProblemSet problemSet);
 
-    // 根据练习集id修改练习集
-    @Modifying
-    @Transactional
-    @Query("update ProblemSet p set p.problemSetName = ?1,p.problemSetDetail = ?2,p.problemReleaseTime = ?3,p.problemSetPicUrl = ?4,p.paperId = ?5 where p.problemSetId = ?6")
-    int updateDataByProblemSetId(String problemSetName, String problemSetDetail, Date problemReleaseTime, String problemSetPicUrl, int paperId, int problemSetId);
+//    // 根据练习集id修改练习集
+//    @Modifying
+//    @Transactional
+//    @Query("update ProblemSet p set p.problemSetName = ?1,p.problemSetDetail = ?2,p.problemReleaseTime = ?3,p.problemSetPicUrl = ?4,p.paperId = ?5 where p.problemSetId = ?6")
+//    int updateDataByProblemSetId(String problemSetName, String problemSetDetail, Date problemReleaseTime, String problemSetPicUrl, int paperId, int problemSetId);
 
     ArrayList<ProblemSet> findAllByProblemSetId(int problemSetId);
 }
