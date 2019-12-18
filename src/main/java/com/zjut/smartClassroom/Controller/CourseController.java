@@ -144,7 +144,7 @@ public class CourseController extends BaseController {
     /**
      * @author     ：xyy
      * @date       ：Created in 2019/12/18
-     * @description： 通过
+     * @description： 通过courseId查询全部ppt
      * @version:     1.0.0
      */
     @ApiOperation("通过courseId查询全部ppt")
