@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -139,17 +140,19 @@ public class CourseController extends BaseController {
         CoursePPT coursePPT1 = coursePPTService.addCoursePPT(coursePPT);
         return CommonReturnType.create(coursePPT1);
     }
-
-    @ApiOperation("通过学生id获取课程信息")
-    @RequestMapping(value = "/returnCourseDetailByStudentId", method = RequestMethod.GET)
+  
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/18
+     * @description： 通过courseId查询全部ppt
+     * @version:     1.0.0
+     */
+    @ApiOperation("通过courseId查询全部ppt")
+    @RequestMapping(value = "/getPPTsByCourseId", method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType returnCourseDetailByStudentId(Integer studentId) throws BusinessException{
-        if(studentId == null){
-            throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
-        } else if(studentId < 0){
-            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
-        List<StudentCourseDetailView> list = courseService.findCourseDetailByStudentId(studentId);
-        return CommonReturnType.create(list);
+    public CommonReturnType getPPTsByCourseId(int courseId) throws BusinessException {
+        // 通过courseId查询全部ppt
+        ArrayList<CoursePPT> coursePPTs = coursePPTService.findPPTsByCourseId(courseId);
+        return CommonReturnType.create(coursePPTs);
     }
 }

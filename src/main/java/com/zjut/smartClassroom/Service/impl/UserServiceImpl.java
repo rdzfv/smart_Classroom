@@ -68,11 +68,28 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public Teacher findTeacherById(int teacherId) throws BusinessException{
+    public Teacher findTeacherById(int teacherId) throws BusinessException {
         Teacher teacherResult = teacherRepository.findByTeacherId(teacherId);
-        if(teacherResult == null){
+        if (teacherResult == null) {
             throw new BusinessException(EnumBusinessError.TEACHER_NOT_EXIST);
         }
         return teacherResult;
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/18
+     * @description: 通过学号获取学生信息
+     * @version:     1.0.0
+     */
+    @Override
+    @Transactional
+    public Student getStudentInfoByStudentAccount(int studentId) throws BusinessException{
+        Student studentResult = studentRepository.findByStudentId(studentId);
+        if (studentResult == null){
+            throw new BusinessException(EnumBusinessError.STUDENT_NOT_EXIST);
+        }
+        return studentResult;
     }
 }

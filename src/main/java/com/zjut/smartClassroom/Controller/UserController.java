@@ -57,4 +57,20 @@ public class UserController extends BaseController {
         return CommonReturnType.create(studentInstanse);
     }
 
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/18
+     * @description： 通过学号获取学生信息
+     * @version:     1.0.0
+     */
+    @ApiOperation("通过学号获取学生信息")
+    @RequestMapping(value = "/getStudentInfoByStudentAccount", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getStudentInfoByStudentAccount(int studentId) throws BusinessException {
+        // 获取学生信息服务
+        Student studentInstanse = userService.getStudentInfoByStudentAccount(studentId);
+        if (studentInstanse == null) throw new BusinessException(EnumBusinessError.USER_NOT_VALIDATE);
+        return CommonReturnType.create(studentInstanse);
+    }
 }

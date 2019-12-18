@@ -3,6 +3,8 @@ package com.zjut.smartClassroom.repository;
 import com.zjut.smartClassroom.dataObject.CoursePPT;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.ArrayList;
+
 /**
  * @ProjectName: smartClassroom
  * @Package: com.zjut.smartClassroom.repository
@@ -16,4 +18,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CoursePPTRepository extends JpaRepository<CoursePPT, Integer> {
     CoursePPT save(CoursePPT coursePPT);
+    ArrayList<CoursePPT> findCoursePPTSByCourseId(int courseId);
 }
