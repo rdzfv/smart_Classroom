@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -140,4 +141,18 @@ public class CourseController extends BaseController {
     }
 
 
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/18
+     * @description： 通过
+     * @version:     1.0.0
+     */
+    @ApiOperation("通过courseId查询全部ppt")
+    @RequestMapping(value = "/getPPTsByCourseId", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType getPPTsByCourseId(int courseId) throws BusinessException {
+        // 通过courseId查询全部ppt
+        ArrayList<CoursePPT> coursePPTs = coursePPTService.findPPTsByCourseId(courseId);
+        return CommonReturnType.create(coursePPTs);
+    }
 }
