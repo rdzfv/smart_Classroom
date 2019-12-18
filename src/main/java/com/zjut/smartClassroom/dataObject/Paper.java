@@ -16,6 +16,7 @@ public class Paper {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int paperId;
+    private Integer paperId;
     private String paperName;
+    private Integer problemSetId;
 }

@@ -1,5 +1,6 @@
-package com.zjut.smartClassroom.dataObject;
+package com.zjut.smartClassroom.view;
 
+import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import lombok.Data;
 
 import javax.persistence.Entity;

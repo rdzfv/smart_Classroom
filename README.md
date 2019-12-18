@@ -105,6 +105,5 @@
     （传入teacherId[非空],courseId[非空],classOpenyear,classClassroom,classOpenyear,className）
     
 ### 待解决的问题：
-    1.集成swagger配置（用于自动生成在线接口文档）
-    2.继承七牛配置（用于上传功能）
-    3.解决微信小程序后台sessionkey验证工具类
+    1.解决微信小程序后台sessionkey验证工具类
+    2.实现上传功能

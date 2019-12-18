@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api("paper接口")
@@ -38,8 +39,8 @@ public class PaperController extends BaseController {
     @RequestMapping(value = "/insertPaper", method = RequestMethod.POST)
     @ResponseBody
     public CommonReturnType insertPaper(@RequestBody() Paper newPaper) throws BusinessException {
-        int flag = paperService.insertData(newPaper);
-        if (flag != 1) {
+        Paper flag = paperService.insertData(newPaper);
+        if (flag == null) {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_CREATE_FAILED);
             throw businessException;
         }
@@ -62,8 +63,8 @@ public class PaperController extends BaseController {
     @RequestMapping(value = "/updatePaperByPaperId", method = RequestMethod.POST)
     @ResponseBody
     public CommonReturnType updatePaperByPaperId(@RequestBody() Paper newPaper) throws BusinessException {
-        int flag = paperService.updateDataByPaperId(newPaper);
-        if (flag != 1) {
+        Paper flag = paperService.updateDataByPaperId(newPaper);
+        if (flag == null) {
             BusinessException businessException = new BusinessException(EnumBusinessError.PAPER_UPDATE_FAILED);
             throw businessException;
         }
@@ -80,5 +81,17 @@ public class PaperController extends BaseController {
             throw businessException;
         }
         return CommonReturnType.create(paper);
+    }
+
+    /**
+     *@author xyy
+     *@date 2019/12/12 22:07
+     */
+    @ApiOperation("通过problemSetId获取paperList")
+    @RequestMapping(value = "/getPaperListByProblemSetId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getPaperListByProblemSetId(int problemSetId) throws BusinessException {
+        ArrayList<Paper> paperIds = paperService.getPaperListByProblemSetId(problemSetId);
+        return CommonReturnType.create(paperIds);
     }
 }

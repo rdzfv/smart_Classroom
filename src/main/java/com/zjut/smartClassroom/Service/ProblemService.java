@@ -1,10 +1,8 @@
 package com.zjut.smartClassroom.Service;
 
-import com.zjut.smartClassroom.dataObject.Answer;
-import com.zjut.smartClassroom.dataObject.AnswerSituation;
+import com.zjut.smartClassroom.view.AnswerSituation;
 import com.zjut.smartClassroom.dataObject.Problem;
 import com.zjut.smartClassroom.error.BusinessException;
-import com.zjut.smartClassroom.model.MyAnswersModel;
 import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSetModel;
 import org.springframework.stereotype.Service;
 

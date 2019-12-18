@@ -6,9 +6,9 @@ import com.zjut.smartClassroom.Service.ProblemService;
 import com.zjut.smartClassroom.dataObject.*;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
-import com.zjut.smartClassroom.model.MyAnswersModel;
 import com.zjut.smartClassroom.model.ProblemsDetailIInProblemSetModel;
 import com.zjut.smartClassroom.repository.*;
+import com.zjut.smartClassroom.view.AnswerSituation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -66,9 +66,10 @@ public class ProblemServiceImpl implements ProblemService {
         // 根据problemIds查找题目详情s
         for (int i = 0; i < size; i++) {
             AnswerSituation answerSituation = answerSituationRepository.findByProblemId(problemIds.get(i));
-            if (answerSituation == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
             // 加入ArrayList
-            answerSituationList.add(answerSituation);
+            if (answerSituation != null) {
+                answerSituationList.add(answerSituation);
+            }
         }
 
         return answerSituationList;

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -32,9 +33,13 @@ public interface ProblemSetRepository extends JpaRepository<ProblemSet, Integer>
     // 根据练习集id查询练习集情况
     ProblemSet findByProblemSetId(Integer problemSetid);
 
-    // 根据练习集id修改练习集
-    @Modifying
-    @Transactional
-    @Query("update ProblemSet p set p.problemSetName = ?1,p.problemSetDetail = ?2,p.problemReleaseTime = ?3,p.problemSetPicUrl = ?4,p.paperId = ?5 where p.problemSetId = ?6")
-    int updateDataByProblemSetId(String problemSetName, String problemSetDetail, Date problemReleaseTime, String problemSetPicUrl, int paperId, int problemSetId);
+    ProblemSet save(ProblemSet problemSet);
+
+//    // 根据练习集id修改练习集
+//    @Modifying
+//    @Transactional
+//    @Query("update ProblemSet p set p.problemSetName = ?1,p.problemSetDetail = ?2,p.problemReleaseTime = ?3,p.problemSetPicUrl = ?4,p.paperId = ?5 where p.problemSetId = ?6")
+//    int updateDataByProblemSetId(String problemSetName, String problemSetDetail, Date problemReleaseTime, String problemSetPicUrl, int paperId, int problemSetId);
+
+    ArrayList<ProblemSet> findAllByProblemSetId(int problemSetId);
 }

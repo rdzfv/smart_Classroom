@@ -1,4 +1,4 @@
-package com.zjut.smartClassroom.dataObject;
+package com.zjut.smartClassroom.view;
 
 import lombok.Data;
 
@@ -30,4 +30,5 @@ public class AnswerSituation implements Serializable {
     private Integer studentAns2;
     private Integer studentAns3;
     private Integer studentAns4;
+    private Integer studentId;
 }

@@ -2,13 +2,16 @@ package com.zjut.smartClassroom.Service.impl;
 
 import com.zjut.smartClassroom.Service.PaperService;
 import com.zjut.smartClassroom.dataObject.Paper;
+import com.zjut.smartClassroom.dataObject.ProblemSet;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.*;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +24,8 @@ public class PaperServiceImpl implements PaperService {
 
     @Autowired(required = false)
     PaperRepository paperRepository;
+    @Autowired(required = false)
+    ProblemSetRepository problemSetRepository;
 
     @Override
     @Transactional
@@ -34,11 +39,11 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     @Transactional
-    public int insertData(Paper newPaper) throws BusinessException {
+    public Paper insertData(Paper newPaper) throws BusinessException {
         Paper paperResult = paperRepository.save(newPaper);
         System.out.println("成功插入的paper:" + paperResult);
         if (paperResult == null) throw new BusinessException(EnumBusinessError.ADD_FAILED);
-        return 1;
+        return paperResult;
     }
 
     @Override
@@ -50,10 +55,9 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public int updateDataByPaperId(Paper newPaper) {
-        int flag = paperRepository.updateDataByPaperId(newPaper.getPaperName(), newPaper.getPaperId());
-        System.out.println(flag);
-        return 1;
+    public Paper updateDataByPaperId(Paper newPaper) {
+        Paper paperResult = paperRepository.save(newPaper);
+        return paperResult;
     }
 
     @Override
@@ -83,5 +87,16 @@ public class PaperServiceImpl implements PaperService {
             throw new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
         }
         return paperResult;
+    }
+
+
+    /**
+     *@author xyy
+     *@date 2019/12/12 22:14
+     */
+    public ArrayList<Paper> getPaperListByProblemSetId(Integer problemSetId) throws BusinessException {
+        ArrayList<Paper> papers = paperRepository.findAllByProblemSetId(problemSetId);
+        if (papers == null) throw new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
+        return papers;
     }
 }

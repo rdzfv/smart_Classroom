@@ -4,10 +4,10 @@ import com.zjut.smartClassroom.Service.*;
 import com.zjut.smartClassroom.dataObject.Course;
 import com.zjut.smartClassroom.dataObject.CoursePPT;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
-import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import com.zjut.smartClassroom.view.StudentCourseDetailView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ProjectName: smartClassroom
@@ -128,7 +129,7 @@ public class CourseController extends BaseController {
         Integer teacherId = coursePPT.getTeacherId();
         if (courseId == null || teacherId == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
-        } else if (courseId < 0 || teacherId == null) {
+        } else if (courseId < 0 || teacherId < 0) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         } else if (ppt_url == null) {
             throw new BusinessException(EnumBusinessError.PPT_URL_IS_NULL);
@@ -139,8 +140,7 @@ public class CourseController extends BaseController {
         CoursePPT coursePPT1 = coursePPTService.addCoursePPT(coursePPT);
         return CommonReturnType.create(coursePPT1);
     }
-
-
+  
     /**
      * @author     ：xyy
      * @date       ：Created in 2019/12/18

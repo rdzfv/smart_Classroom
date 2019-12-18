@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.sql.Date;
 
 /**
  * @author     ：xyy
@@ -27,6 +26,4 @@ public class ProblemSet implements Serializable {
     private Timestamp problemReleaseTime;
     private Integer paperId;
     private String problemSetName;
-    private String problemSetDetail;
-    private String problemSetPicUrl;
 }

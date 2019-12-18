@@ -7,9 +7,12 @@ import com.zjut.smartClassroom.dataObject.Course;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.*;
+import com.zjut.smartClassroom.view.StudentCourseDetailView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @ProjectName: smartClassroom
@@ -24,8 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CourseServiceImpl implements CourseService {
     // 引入
-    @Autowired(required = false)
+    @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    StudentCourseDetailViewRepository studentCourseDetailViewRepository;
 
     /**
      * @Method updateCourse
@@ -69,4 +74,21 @@ public class CourseServiceImpl implements CourseService {
         return courseResult;
     }
 
+    /**
+     * @Method findCourseDetailByStudentId
+     * @Author FrankWu
+     * @Version  1.0
+     * @Description 通过前端传回来的学生ID，返回学生选修的课程详细信息
+     * @Return java.util.List<com.zjut.smartClassroom.view.StudentCourseDetailView>
+     * @Exception
+     * @Date 2019/12/13
+     * @Time 19:58
+     */
+    @Override
+    @Transactional
+    public List<StudentCourseDetailView> findCourseDetailByStudentId(Integer studentId) throws  BusinessException{
+        List<StudentCourseDetailView> list = studentCourseDetailViewRepository.findStudentCourseDetailViewsByStudentId(studentId);
+        if (list == null || list.size() == 0) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        return list;
+    }
 }

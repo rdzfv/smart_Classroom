@@ -2,7 +2,8 @@ package com.zjut.smartClassroom.Controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.zjut.smartClassroom.Service.PaperProblemService;
-import com.zjut.smartClassroom.dataObject.PaperProblemView;
+import com.zjut.smartClassroom.dataObject.Problem;
+import com.zjut.smartClassroom.view.PaperProblemView;
 import com.zjut.smartClassroom.dataObject.ProblemPaper;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api("paperProblem接口")
@@ -111,5 +113,18 @@ public class PaperProblemController extends BaseController {
 
         List<PaperProblemView> paperProblemList = paperProblemService.getDataByPaperId(newPaperProblem.getPaperId());
         return CommonReturnType.create(paperProblemList);
+    }
+
+
+    /**
+     *@author xyy
+     *@date 2019/12/12 22:23
+     */
+    @ApiOperation("通过paperId获取problems详情")
+    @RequestMapping(value = "/getProblemsByPaperId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getProblemsByPaperId(int paperId) throws BusinessException {
+        ArrayList<Problem> problems = paperProblemService.getProblemsByPaperId(paperId);
+        return CommonReturnType.create(problems);
     }
 }
