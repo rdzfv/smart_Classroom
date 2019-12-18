@@ -57,7 +57,17 @@ public enum EnumBusinessError implements CommonError {
     // 60000开头的为试题列表相关信息
     PAPER_PROBLEM_CREATE_FAILED(60001,"试题添加失败"),
     PAPER_NOT_HAVE_PROBLEM(60002,"试卷内暂无试题"),
-    PAPER_CHANGE_PROBLEM_FAILED(60003,"试卷更改试题失败");
+    PAPER_CHANGE_PROBLEM_FAILED(60003,"试卷更改试题失败"),
+
+
+    /**
+     * @Author Hefz
+     * @Date 2019/12/18
+     * @Time 10:27 AM
+     */
+    // 80000开头的为试卷相关信息
+    STUDENT_NOT_EXIST(80001,"暂无该学生");
+
 
     private EnumBusinessError(int errCode, String errMsg) {
         this.errCode = errCode;
