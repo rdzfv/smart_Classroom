@@ -1,15 +1,12 @@
 /*
 Navicat MySQL Data Transfer
-
 Source Server         : BUS
 Source Server Version : 80016
 Source Host           : localhost:3306
 Source Database       : smart_classroom
-
 Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
-
 Date: 2019-12-14 13:03:12
 */
 
@@ -83,6 +80,7 @@ DROP TABLE IF EXISTS `courseppt`;
 CREATE TABLE `courseppt` (
   `courseppt_id` int(11) NOT NULL AUTO_INCREMENT,
   `course_id` int(11) DEFAULT NULL,
+  `ppt_name` varchar(255) DEFAULT NULL,
   `ppt_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `teacher_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`courseppt_id`)
@@ -91,7 +89,7 @@ CREATE TABLE `courseppt` (
 -- ----------------------------
 -- Records of courseppt
 -- ----------------------------
-INSERT INTO `courseppt` VALUES ('1', '1', 'urlurlrurl', '1');
+INSERT INTO `courseppt` VALUES ('1', '1', 'JavaEE Spring第一节课','urlurlrurl', '1');
 
 -- ----------------------------
 -- Table structure for my_answers_model
@@ -293,28 +291,28 @@ CREATE TABLE `update_paper_problem_model` (
 -- View structure for answer_situation
 -- ----------------------------
 DROP VIEW IF EXISTS `answer_situation`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`javaee`@`localhost` SQL SECURITY INVOKER VIEW `answer_situation` AS select `problem`.`problem_id` AS `problem_id`,`answer`.`problem_set_id` AS `problem_set_id`,`answer`.`problem_id` AS `problem_id1`,`problem`.`problem_info` AS `problem_info`,`problem`.`problem_choose1` AS `problem_choose1`,`problem`.`problem_choose2` AS `problem_choose2`,`problem`.`problem_choose3` AS `problem_choose3`,`problem`.`problem_choose4` AS `problem_choose4`,`problem`.`problem_ans` AS `problem_ans`,`problem`.`problem_explain` AS `problem_explain`,`problem_set`.`problem_set_id` AS `father_problem_set_id`,`problem_set`.`teacher_id` AS `teacher_id`,`problem_set`.`course_id` AS `course_id`,`teacher`.`teacher_id` AS `teacher_id1`,`teacher`.`teacher_name` AS `father_teacher_name`,`course`.`course_name` AS `father_course_name`,`course`.`course_id` AS `course_id1`,count(if((`answer`.`student_ans` = 1),TRUE,NULL)) AS `student_ans1`,count(if((`answer`.`student_ans` = 2),TRUE,NULL)) AS `student_ans2`,count(if((`answer`.`student_ans` = 3),TRUE,NULL)) AS `student_ans3`,count(if((`answer`.`student_ans` = 4),TRUE,NULL)) AS `student_ans4`,`answer`.`student_id` AS `student_id` from ((((`answer` join `problem`) join `problem_set`) join `teacher`) join `course`) where ((`answer`.`problem_set_id` = `problem_set`.`problem_set_id`) and (`answer`.`problem_id` = `problem`.`problem_id`) and (`problem_set`.`teacher_id` = `teacher`.`teacher_id`) and (`course`.`course_id` = `problem_set`.`course_id`)) group by `problem`.`problem_id`,`answer`.`problem_set_id`,`answer`.`problem_id`,`problem`.`problem_info`,`problem`.`problem_ans`,`problem`.`problem_explain`,`problem_set`.`problem_set_id`,`problem_set`.`teacher_id`,`problem_set`.`course_id`,`teacher`.`teacher_id`,`teacher`.`teacher_name`,`course`.`course_name`,`course`.`course_id` ;
+CREATE VIEW `answer_situation` AS select `problem`.`problem_id` AS `problem_id`,`answer`.`problem_set_id` AS `problem_set_id`,`answer`.`problem_id` AS `problem_id1`,`problem`.`problem_info` AS `problem_info`,`problem`.`problem_choose1` AS `problem_choose1`,`problem`.`problem_choose2` AS `problem_choose2`,`problem`.`problem_choose3` AS `problem_choose3`,`problem`.`problem_choose4` AS `problem_choose4`,`problem`.`problem_ans` AS `problem_ans`,`problem`.`problem_explain` AS `problem_explain`,`problem_set`.`problem_set_id` AS `father_problem_set_id`,`problem_set`.`teacher_id` AS `teacher_id`,`problem_set`.`course_id` AS `course_id`,`teacher`.`teacher_id` AS `teacher_id1`,`teacher`.`teacher_name` AS `father_teacher_name`,`course`.`course_name` AS `father_course_name`,`course`.`course_id` AS `course_id1`,count(if((`answer`.`student_ans` = 1),TRUE,NULL)) AS `student_ans1`,count(if((`answer`.`student_ans` = 2),TRUE,NULL)) AS `student_ans2`,count(if((`answer`.`student_ans` = 3),TRUE,NULL)) AS `student_ans3`,count(if((`answer`.`student_ans` = 4),TRUE,NULL)) AS `student_ans4`,`answer`.`student_id` AS `student_id` from ((((`answer` join `problem`) join `problem_set`) join `teacher`) join `course`) where ((`answer`.`problem_set_id` = `problem_set`.`problem_set_id`) and (`answer`.`problem_id` = `problem`.`problem_id`) and (`problem_set`.`teacher_id` = `teacher`.`teacher_id`) and (`course`.`course_id` = `problem_set`.`course_id`)) group by `problem`.`problem_id`,`answer`.`problem_set_id`,`answer`.`problem_id`,`problem`.`problem_info`,`problem`.`problem_ans`,`problem`.`problem_explain`,`problem_set`.`problem_set_id`,`problem_set`.`teacher_id`,`problem_set`.`course_id`,`teacher`.`teacher_id`,`teacher`.`teacher_name`,`course`.`course_name`,`course`.`course_id` ;
 
 -- ----------------------------
 -- View structure for paper_problem_view
 -- ----------------------------
 DROP VIEW IF EXISTS `paper_problem_view`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`javaee`@`localhost` SQL SECURITY DEFINER VIEW `paper_problem_view` AS select `problem_paper`.`paper_id` AS `paper_id`,`paper`.`paper_name` AS `paper_name`,`problem`.`problem_info` AS `problem_info`,`problem`.`problem_ans` AS `problem_ans`,`problem`.`problem_explain` AS `problem_explain`,`problem_paper`.`problem_id` AS `problem_id` from ((`problem_paper` join `paper` on((`problem_paper`.`paper_id` = `paper`.`paper_id`))) join `problem` on((`problem_paper`.`problem_id` = `problem`.`problem_id`))) ;
+CREATE VIEW `paper_problem_view` AS select `problem_paper`.`paper_id` AS `paper_id`,`paper`.`paper_name` AS `paper_name`,`problem`.`problem_info` AS `problem_info`,`problem`.`problem_ans` AS `problem_ans`,`problem`.`problem_explain` AS `problem_explain`,`problem_paper`.`problem_id` AS `problem_id` from ((`problem_paper` join `paper` on((`problem_paper`.`paper_id` = `paper`.`paper_id`))) join `problem` on((`problem_paper`.`problem_id` = `problem`.`problem_id`))) ;
 
 -- ----------------------------
 -- View structure for problem_set_course
 -- ----------------------------
 DROP VIEW IF EXISTS `problem_set_course`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`javaee`@`localhost` SQL SECURITY DEFINER VIEW `problem_set_course` AS select `problem_set`.`problem_set_id` AS `problem_set_id`,`problem_set`.`problem_set_name` AS `problem_set_name`,`problem_set`.`problem_set_detail` AS `problem_set_detail`,`problem_set`.`problem_set_pic_url` AS `problem_set_pic_url`,`course`.`course_name` AS `course_name`,`teacher`.`teacher_name` AS `teacher_name`,`course`.`course_id` AS `course_id` from ((`problem_set` join `course` on((`problem_set`.`course_id` = `course`.`course_id`))) join `teacher` on((`problem_set`.`teacher_id` = `teacher`.`teacher_id`))) ;
+CREATE VIEW `problem_set_course` AS select `problem_set`.`problem_set_id` AS `problem_set_id`,`problem_set`.`problem_set_name` AS `problem_set_name`,`problem_set`.`problem_set_detail` AS `problem_set_detail`,`problem_set`.`problem_set_pic_url` AS `problem_set_pic_url`,`course`.`course_name` AS `course_name`,`teacher`.`teacher_name` AS `teacher_name`,`course`.`course_id` AS `course_id` from ((`problem_set` join `course` on((`problem_set`.`course_id` = `course`.`course_id`))) join `teacher` on((`problem_set`.`teacher_id` = `teacher`.`teacher_id`))) ;
 
 -- ----------------------------
 -- View structure for problem_set_part
 -- ----------------------------
 DROP VIEW IF EXISTS `problem_set_part`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`javaee`@`localhost` SQL SECURITY DEFINER VIEW `problem_set_part` AS select `problem_set`.`problem_set_id` AS `problem_set_id`,`problem_set`.`problem_set_name` AS `problem_set_name`,`problem_set`.`problem_set_detail` AS `problem_set_detail`,`problem_set`.`problem_release_time` AS `problem_release_time`,`problem_set`.`problem_set_pic_url` AS `problem_set_pic_url`,`problem_set`.`paper_id` AS `paper_id` from `problem_set` ;
+CREATE VIEW `problem_set_part` AS select `problem_set`.`problem_set_id` AS `problem_set_id`,`problem_set`.`problem_set_name` AS `problem_set_name`,`problem_set`.`problem_set_detail` AS `problem_set_detail`,`problem_set`.`problem_release_time` AS `problem_release_time`,`problem_set`.`problem_set_pic_url` AS `problem_set_pic_url`,`problem_set`.`paper_id` AS `paper_id` from `problem_set` ;
 
 -- ----------------------------
 -- View structure for student_course_detail_view
 -- ----------------------------
 DROP VIEW IF EXISTS `student_course_detail_view`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`javaee`@`localhost` SQL SECURITY DEFINER VIEW `student_course_detail_view` AS select `student`.`student_id` AS `student_id`,`student`.`student_name` AS `student_name`,`class`.`class_name` AS `class_name`,`class`.`class_id` AS `class_id`,`course`.`course_id` AS `course_id`,`course`.`course_name` AS `course_name`,`teacher`.`teacher_id` AS `teacher_id`,`teacher`.`teacher_name` AS `teacher_name`,`course`.`course_pic_url` AS `course_pic_url`,`course`.`course_detail` AS `course_detail`,`course`.`course_credit` AS `course_credit`,`course`.`course_method` AS `course_method` from ((((`student_class` join `student`) join `class`) join `course`) join `teacher`) where ((`student_class`.`student_id` = `student`.`student_id`) and (`student_class`.`class_id` = `class`.`class_id`) and (`class`.`course_id` = `course`.`course_id`) and (`class`.`teacher_id` = `teacher`.`teacher_id`)) ;
+CREATE VIEW `student_course_detail_view` AS select `student`.`student_id` AS `student_id`,`student`.`student_name` AS `student_name`,`class`.`class_name` AS `class_name`,`class`.`class_id` AS `class_id`,`course`.`course_id` AS `course_id`,`course`.`course_name` AS `course_name`,`teacher`.`teacher_id` AS `teacher_id`,`teacher`.`teacher_name` AS `teacher_name`,`course`.`course_pic_url` AS `course_pic_url`,`course`.`course_detail` AS `course_detail`,`course`.`course_credit` AS `course_credit`,`course`.`course_method` AS `course_method` from ((((`student_class` join `student`) join `class`) join `course`) join `teacher`) where ((`student_class`.`student_id` = `student`.`student_id`) and (`student_class`.`class_id` = `class`.`class_id`) and (`class`.`course_id` = `course`.`course_id`) and (`class`.`teacher_id` = `teacher`.`teacher_id`)) ;
