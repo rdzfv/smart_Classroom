@@ -41,15 +41,13 @@ public class ClassServiceImpl implements ClassService {
      */
     @Override
     @Transactional
-    public ArrayList<Class> getAllClass() throws BusinessException {
+    public ArrayList<Class> getAllClass(int teacherId) throws BusinessException {
         ArrayList<Class> classList = new ArrayList<>();
 
         //查找所有教学班信息
-        classList = classRepository.findBy();
-        int size = classList.size();
-        for (int i = 0; i < size; i ++) {
-            if (classList.get(i) == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
-        }
+        classList = classRepository.findAllByTeacherId(teacherId);
+        if (classList == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+
         return classList;
     }
 

@@ -24,7 +24,8 @@ public class CoursePPT implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer coursePPT_Id;
+    private String pptName;
     private Integer courseId;
     private Integer teacherId;
-    private String ppt_url; // ppt的链接
+    private String pptUrl; // ppt的链接
 }

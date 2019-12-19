@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public interface ClassRepository extends JpaRepository<Class, Class> {
     //查询所有教学班信息
-    ArrayList<Class> findBy();
+    ArrayList<Class> findAllByTeacherId(int teacherId);
 
     //新增教学班信息
     Class save(Class class_);

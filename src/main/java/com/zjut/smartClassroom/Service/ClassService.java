@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @Service
 public interface ClassService {
     //获取全部教学班的信息
-    ArrayList<Class> getAllClass() throws BusinessException;
+    ArrayList<Class> getAllClass(int teacherId) throws BusinessException;
 
     //修改教学班信息
     Class updateClass(Class class_) throws BusinessException;

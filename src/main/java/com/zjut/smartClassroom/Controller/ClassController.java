@@ -34,15 +34,15 @@ public class ClassController extends BaseController {
     /**
      * @author ：dzy
      * @date ：Created in 2019/12/05 20:30:23
-     * @description： 获取所有教学班信息
+     * @description： 获取教师教授的全部课程
      * @version: 1.0.0
      */
-    @ApiOperation("获取所有教学班信息")
-    @RequestMapping(value = "/getAllClass", method = RequestMethod.GET)
+    @ApiOperation("获取教师教授的全部课程")
+    @RequestMapping(value = "/getClassesByTeahcerid", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getAllClass() throws BusinessException {
+    public CommonReturnType getAllClass(int teacherId) throws BusinessException {
         // 通过problemSetId查询题目详情
-        ArrayList<Class> classList = classService.getAllClass();
+        ArrayList<Class> classList = classService.getAllClass(teacherId);
         return CommonReturnType.create(classList);
     }
 

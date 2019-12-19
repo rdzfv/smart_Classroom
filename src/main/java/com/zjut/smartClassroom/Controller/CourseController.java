@@ -125,7 +125,7 @@ public class CourseController extends BaseController {
     public CommonReturnType addPPT_ToCourse(@RequestBody() CoursePPT coursePPT) throws BusinessException {
         // 输出参数的校验
         Integer courseId = coursePPT.getCourseId();
-        String ppt_url = coursePPT.getPpt_url();
+        String ppt_url = coursePPT.getPptUrl();
         Integer teacherId = coursePPT.getTeacherId();
         if (courseId == null || teacherId == null) {
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
