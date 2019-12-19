@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author     ：dzy
@@ -160,5 +161,21 @@ public class ProblemController extends BaseController {
         int myAnswersModelResult = problemService.addMyResult(myAnswersModel.getStudentId(), myAnswersModel.getCourseId(), myAnswersModel.getProblemSetId(), problemResults, myAnswersModel.getMyAnswers());
         if (myAnswersModelResult == 0) throw new BusinessException(EnumBusinessError.ADD_FAILED);
         return CommonReturnType.create(myAnswersModelResult);
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/19 22:22
+     * @description： 获取全部problem
+     * @version:     1.0.0
+     */
+    @ApiOperation("获取全部problem")
+    @RequestMapping(value = "/getAllProblems", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getAllProblems() throws BusinessException {
+        // 通过problemSet_id获取问题详情列表
+        List<Problem> problemResults = problemService.getAllData();
+        return CommonReturnType.create(problemResults);
     }
 }

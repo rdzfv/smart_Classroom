@@ -5,6 +5,7 @@ import com.zjut.smartClassroom.error.BusinessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ：dzy
@@ -14,8 +15,11 @@ import java.util.ArrayList;
  */
 @Service
 public interface ClassService {
-    //获取全部教学班的信息
-    ArrayList<Class> getAllClass(int teacherId) throws BusinessException;
+    // 获取全部教学班的信息
+    ArrayList<Class> getAllClassByTeacherId(int teacherId) throws BusinessException;
+
+    // 获取全部班级信息
+    List<Class> getAllClass() throws BusinessException;
 
     //修改教学班信息
     Class updateClass(Class class_) throws BusinessException;

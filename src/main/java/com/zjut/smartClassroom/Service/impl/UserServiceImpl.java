@@ -23,8 +23,6 @@ public class UserServiceImpl implements UserService {
     private StudentRepository studentRepository;
     @Autowired(required = false)//引入
     private TeacherRepository teacherRepository;
-    @Autowired(required = false)//引入
-    private Student student;
 
 
     /**
@@ -91,5 +89,20 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EnumBusinessError.STUDENT_NOT_EXIST);
         }
         return studentResult;
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/19 21:24
+     * @description：用户登录(传入Teacher对象)
+     * @version:     1.0.0
+     */
+    @Override
+    public Teacher teacherLogin(Teacher teacher) throws BusinessException {
+        Teacher teacherResult = teacherRepository.findByOpenidAndSessionKeyAndTeacherAccountAndTeacherNameAndTeacherPassword(
+                teacher.getOpenid(), teacher.getSessionKey(), teacher.getTeacherAccount(), teacher.getTeacherName(), teacher.getTeacherPassword()
+        );
+        return teacherResult;
     }
 }

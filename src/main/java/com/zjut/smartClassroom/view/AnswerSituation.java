@@ -31,4 +31,5 @@ public class AnswerSituation implements Serializable {
     private Integer studentAns3;
     private Integer studentAns4;
     private Integer studentId;
+    private Integer isTrue;
 }

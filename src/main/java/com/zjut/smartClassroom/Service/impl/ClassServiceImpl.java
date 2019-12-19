@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ：dzy
@@ -36,12 +37,12 @@ public class ClassServiceImpl implements ClassService {
     /**
      * @author ：dzy
      * @date ：Created in 2019/12/05 20:00:23
-     * @description：获取所有的教学班信息
+     * @description： 获取教师本人教授的所有的教学班信息
      * @version: 1.0.0
      */
     @Override
     @Transactional
-    public ArrayList<Class> getAllClass(int teacherId) throws BusinessException {
+    public ArrayList<Class> getAllClassByTeacherId(int teacherId) throws BusinessException {
         ArrayList<Class> classList = new ArrayList<>();
 
         //查找所有教学班信息
@@ -50,6 +51,26 @@ public class ClassServiceImpl implements ClassService {
 
         return classList;
     }
+
+
+    /**
+     * @author ：xyy
+     * @date ：Created in 2019/12/19 22:19
+     * @description： 获取所有的教学班信息
+     * @version: 1.0.0
+     */
+    @Override
+    @Transactional
+    public List<Class> getAllClass() throws BusinessException {
+        List<Class> classList = new ArrayList<>();
+
+        //查找所有教学班信息
+        classList = classRepository.findAll();
+        if (classList == null) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+
+        return classList;
+    }
+
 
     /**
      * @author ：dzy

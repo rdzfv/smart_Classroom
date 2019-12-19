@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -34,15 +36,15 @@ public class ClassController extends BaseController {
     /**
      * @author ：dzy
      * @date ：Created in 2019/12/05 20:30:23
-     * @description： 获取教师教授的全部课程
+     * @description： 获取教师教授的全部班级
      * @version: 1.0.0
      */
-    @ApiOperation("获取教师教授的全部课程")
+    @ApiOperation("获取教师教授的全部班级")
     @RequestMapping(value = "/getClassesByTeahcerid", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getAllClass(int teacherId) throws BusinessException {
+    public CommonReturnType getAllClassByTeacherId(int teacherId) throws BusinessException {
         // 通过problemSetId查询题目详情
-        ArrayList<Class> classList = classService.getAllClass(teacherId);
+        ArrayList<Class> classList = classService.getAllClassByTeacherId(teacherId);
         return CommonReturnType.create(classList);
     }
 
@@ -85,5 +87,21 @@ public class ClassController extends BaseController {
         //更新教学班
         Class classResult = classService.updateClass(class_);
         return CommonReturnType.create(classResult);
+    }
+
+
+    /**
+     * @author ：xyy
+     * @date ：Created in 2019/12/05 22:15
+     * @description： 获取全部班级
+     * @version: 1.0.0
+     */
+    @ApiOperation("获取全部班级")
+    @RequestMapping(value = "/getAllClasses", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getAllClass() throws BusinessException {
+        // 通过problemSetId查询题目详情
+        List<Class> classList = classService.getAllClass();
+        return CommonReturnType.create(classList);
     }
 }

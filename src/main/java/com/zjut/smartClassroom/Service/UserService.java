@@ -24,4 +24,10 @@ public interface UserService{
     Teacher findTeacherById(int teacherId) throws BusinessException;
     // 通过学号获取学号信息
     Student getStudentInfoByStudentAccount(int studentId) throws BusinessException;
+    // 教师登录
+    Teacher teacherLogin(Teacher teacher) throws BusinessException;
+
+
+
+    // Teacher getTeacherInfoByTeacherAccount(int teacher) throws BusinessException;
 }

@@ -3,10 +3,12 @@ package com.zjut.smartClassroom.Controller;
 import com.zjut.smartClassroom.Service.*;
 import com.zjut.smartClassroom.dataObject.Course;
 import com.zjut.smartClassroom.dataObject.CoursePPT;
+import com.zjut.smartClassroom.dataObject.Paper;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
+import com.zjut.smartClassroom.view.ProblemSetCourse;
 import com.zjut.smartClassroom.view.StudentCourseDetailView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -161,11 +163,46 @@ public class CourseController extends BaseController {
      * @version:     1.0.0
      */
     @ApiOperation("通过courseId查询全部ppt")
-    @RequestMapping(value = "/getPPTsByCourseId", method = RequestMethod.POST)
+    @RequestMapping(value = "/getPPTsByCourseId", method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getPPTsByCourseId(int courseId) throws BusinessException {
         // 通过courseId查询全部ppt
         ArrayList<CoursePPT> coursePPTs = coursePPTService.findPPTsByCourseId(courseId);
         return CommonReturnType.create(coursePPTs);
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/18
+     * @description： 为course添加paper
+     * @version:     1.0.0
+     */
+    @ApiOperation("为course添加paper")
+    @RequestMapping(value = "/addPaperToCourseByCourceId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType addPaperToCourseByCourceId(int courseId, int paperId, int teacherId) throws BusinessException {
+        int problemSetId;
+        // 查看该课程下有没有problemset
+        ProblemSetCourse problemSetCourse = problemSetService.getDataByCourseId(courseId);
+        if (problemSetCourse == null) { // 如果不存在probemSet那就新建一个
+            ProblemSet problemSet = new ProblemSet();
+            problemSet.setCourseId(courseId);
+            problemSet.setTeacherId(teacherId);
+            ProblemSet problemSetResult = problemSetService.addProblemSet(problemSet);
+            // 获取problemSetId
+            problemSetId = problemSetResult.getProblemSetId();
+        } else { // 如果存在problemSet那就获取problemSet下的paper
+            problemSetId = problemSetCourse.getProblemSetId();
+        }
+        // 通过paperId获取paper
+        Paper paperResult = paperService.findPaperById(paperId);
+        paperResult.setProblemSetId(problemSetId);
+        // 更新
+        Paper paper = paperService.updateDataByPaperId(paperResult);
+        if (paper == null) throw new BusinessException(EnumBusinessError.UPDATE_FAILED);
+        // 返回更新后的paperList
+        List<Paper> paperLists = paperService.getPaperListByProblemSetId(problemSetId);
+        return CommonReturnType.create(paperLists);
     }
 }

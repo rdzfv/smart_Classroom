@@ -3,6 +3,7 @@ package com.zjut.smartClassroom.Controller;
 import com.alibaba.druid.util.StringUtils;
 import com.zjut.smartClassroom.Service.UserService;
 import com.zjut.smartClassroom.dataObject.Student;
+import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.response.CommonReturnType;
@@ -72,5 +73,46 @@ public class UserController extends BaseController {
         Student studentInstanse = userService.getStudentInfoByStudentAccount(studentId);
         if (studentInstanse == null) throw new BusinessException(EnumBusinessError.USER_NOT_VALIDATE);
         return CommonReturnType.create(studentInstanse);
+    }
+
+
+//    /**
+//     * @author     ：xyy
+//     * @date       ：Created in 2019/12/19
+//     * @description： 通过教师账号获取教师信息
+//     * @version:     1.0.0
+//     */
+//    @ApiOperation("通过教师账号获取学生信息")
+//    @RequestMapping(value = "/getTeacherInfoByTeacherAccount", method = RequestMethod.GET)
+//    @ResponseBody
+//    public CommonReturnType getTeacherInfoByTeacherAccount(int teacherId) throws BusinessException {
+//        // 获取教师信息服务
+//        Teacher teacherInstance = userService.getTeacherInfoByTeacherAccount(teacherId);
+//        if (teacherInstance == null) throw new BusinessException(EnumBusinessError.USER_NOT_VALIDATE);
+//        return CommonReturnType.create(teacherInstance);
+//    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/19 21:23
+     * @description：用户登录接口（传入教师姓名[非空]、账户名[非空]、密码[非空]、openid[非空]、sessionkey[非空]）
+     * @version:     1.0.0
+     */
+    @ApiOperation("教师登录")
+    @RequestMapping(value = "/TeacherLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType teacherLogin(@RequestBody() Teacher teacher) throws BusinessException {
+        // 入参校验
+        if (StringUtils.isEmpty(teacher.getTeacherName()) || StringUtils.isEmpty(teacher.getOpenid()) ||
+                StringUtils.isEmpty(teacher.getSessionKey()) || StringUtils.isEmpty(teacher.getTeacherAccount()) ||
+                StringUtils.isEmpty(teacher.getTeacherPassword())
+        ) {
+            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        // 用户登录服务
+        Teacher teacherInstanse = userService.teacherLogin(teacher);
+        if (teacherInstanse == null) throw new BusinessException(EnumBusinessError.USER_NOT_VALIDATE);
+        return CommonReturnType.create(teacherInstanse);
     }
 }
