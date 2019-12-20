@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
     Teacher findByTeacherId(int teacherId);
     Teacher findByOpenidAndSessionKeyAndTeacherAccountAndTeacherNameAndTeacherPassword(String openId, String sessioonkey, String teacherAccount, String teacherName, String teacherPassword);
+    Teacher findByTeacherAccountAndTeacherNameAndTeacherPassword(String account, String name, String password);
+    Teacher findByOpenid(String openid);
 }

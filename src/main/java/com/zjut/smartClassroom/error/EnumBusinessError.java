@@ -14,6 +14,7 @@ public enum EnumBusinessError implements CommonError {
 
     // 10001 通用错误类型
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
+    ILLEGAL_REQUEST(10004, "不合法的请求，已拒绝"),
 
 
     // 10002 传入参数为空值

@@ -11,6 +11,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.httpclient.util.URIUtil;
 import org.apache.commons.lang.StringUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
@@ -380,6 +382,18 @@ public class Utils {
         int s = random.nextInt(max) % (max - min + 1) + min;
         return s;
 
+    }
+
+
+    public JSONObject String2Json(String str) {
+        // str = "{\"access_token\":\"28_utpdqC_XK9om8Ri4upzSm-qw73jjhyxgmkJEkzVQ1MtkjLefoYLan7b1CFqa9RUJgshSw0V2SevLCrR5cHFkKnrtKgpP5x1vW3wc5UVEUPZyrdEdRXk1OGxNBd3leY15Blot5bnkkavQZuVPZZVcAFATTP\",\"expires_in\":7200}";
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj = (JSONObject)(new JSONParser().parse(str));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
     }
 
 

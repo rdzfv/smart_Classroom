@@ -20,5 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     Student findByStudentAccount(String studentAccount);
     // 根据学生姓名，账号，密码，openId, sessionId查找学生账户
     Student findByOpenIdAndSessionKeyAndStudentAccountAndStudentNameAndStudentPassword(String openId, String sessionKey, String account, String name, String password);
+    Student findByOpenId(String openid);
+    Student findByStudentAccountAndAndStudentNameAndStudentPassword(String account, String name, String password);
 }
 
