@@ -25,6 +25,13 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.*;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description：
+ * @version:     1.0.0
+ */
+
 public class Utils {
     public static final byte[] intToByteArray(int value) {
         byte[] bytes = ByteBuffer.allocate(4).putInt(value).array();

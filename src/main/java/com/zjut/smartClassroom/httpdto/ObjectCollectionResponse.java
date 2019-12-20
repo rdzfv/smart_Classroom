@@ -11,6 +11,14 @@ import java.util.Collection;
 
 import java.util.Collection;
 
+
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description：
+ * @version:     1.0.0
+ */
+
 @Data
 @NoArgsConstructor
 public class ObjectCollectionResponse<T> extends BaseResponse {

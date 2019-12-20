@@ -12,6 +12,14 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 
+
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description：
+ * @version:     1.0.0
+ */
+
 public class UploadUtils {
 
     private static final Logger logger = LogManager.getLogger(UploadUtils.class);

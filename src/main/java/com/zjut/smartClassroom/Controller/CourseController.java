@@ -1,5 +1,6 @@
 package com.zjut.smartClassroom.Controller;
 
+import com.alibaba.druid.util.StringUtils;
 import com.zjut.smartClassroom.Service.*;
 import com.zjut.smartClassroom.dataObject.Course;
 import com.zjut.smartClassroom.dataObject.CoursePPT;
@@ -155,7 +156,7 @@ public class CourseController extends BaseController {
         List<StudentCourseDetailView> list = courseService.findCourseDetailByStudentId(studentId);
         return CommonReturnType.create(list);
     }
-  
+
     /**
      * @author     ：xyy
      * @date       ：Created in 2019/12/18
@@ -204,5 +205,30 @@ public class CourseController extends BaseController {
         // 返回更新后的paperList
         List<Paper> paperLists = paperService.getPaperListByProblemSetId(problemSetId);
         return CommonReturnType.create(paperLists);
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/20
+     * @description： 创建课程
+     * @version:     1.0.0
+     */
+    @ApiOperation("创建课程")
+    @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType createCourse(@RequestBody() Course course) throws BusinessException {
+        // 入参校验
+//        System.out.println(StringUtils.isEmpty(course.getCourseDetail()));
+//        System.out.println(StringUtils.isEmpty(course.getCourseMethod()));
+//        System.out.println(StringUtils.isEmpty(course.getCourseName()));
+//        System.out.println(StringUtils.isEmpty(course.getCoursePicUrl()));
+
+        if (StringUtils.isEmpty(course.getCourseDetail()) || StringUtils.isEmpty(course.getCourseMethod()) || StringUtils.isEmpty(course.getCourseName())
+            || StringUtils.isEmpty(course.getCoursePicUrl()) || course.getCourseCredit() == 0
+        ) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        // 创建课程
+        Course courseResult = courseService.createCourse(course);
+        return CommonReturnType.create(courseResult);
     }
 }

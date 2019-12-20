@@ -3,6 +3,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description：
+ * @version:     1.0.0
+ */
 @Data
 public class Setting implements Serializable {
 

@@ -3,6 +3,14 @@ package com.zjut.smartClassroom.httpdto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description：
+ * @version:     1.0.0
+ */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ObjectDataResponse<T> extends BaseResponse {

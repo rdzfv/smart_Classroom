@@ -15,6 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description： 上传
+ * @version:     1.0.0
+ */
 
 @Controller("/upload")
 @RequestMapping("/upload")

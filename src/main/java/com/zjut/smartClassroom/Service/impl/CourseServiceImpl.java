@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.zjut.smartClassroom.Service.CourseService;
 import com.zjut.smartClassroom.dataObject.Course;
+import com.zjut.smartClassroom.dataObject.Teacher;
 import com.zjut.smartClassroom.error.BusinessException;
 import com.zjut.smartClassroom.error.EnumBusinessError;
 import com.zjut.smartClassroom.repository.*;
@@ -90,5 +91,19 @@ public class CourseServiceImpl implements CourseService {
         List<StudentCourseDetailView> list = studentCourseDetailViewRepository.findStudentCourseDetailViewsByStudentId(studentId);
         if (list == null || list.size() == 0) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
         return list;
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/20 09:39
+     * @description： 创建课程
+     * @version:     1.0.0
+     */
+    @Override
+    public Course createCourse(Course course) throws BusinessException {
+        Course courseResult = courseRepository.save(course);
+        if (courseResult == null) throw new BusinessException(EnumBusinessError.UPDATE_FAILED);
+        return course;
     }
 }

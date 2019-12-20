@@ -6,6 +6,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description： 七牛配置
+ * @version:     1.0.0
+ */
+
 public class QiniuConfiguration {
     private static QiniuConfiguration instance;
     private Map<String, String> qiniuConf;

@@ -3,6 +3,13 @@ package com.zjut.smartClassroom.httpdto;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description：
+ * @version:     1.0.0
+ */
+
 public class MsgCodeUtils {
 
     public static final int SUCCESS        = 200;

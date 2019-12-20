@@ -33,6 +33,15 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
+
+
+/**
+ * @author     ：xyy
+ * @date       ：Created in 2019/12/20
+ * @description：
+ * @version:     1.0.0
+ */
+
 public class Utils {
     public static final byte[] intToByteArray(int value) {
         byte[] bytes = ByteBuffer.allocate(4).putInt(value).array();

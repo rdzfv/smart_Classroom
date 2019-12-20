@@ -21,10 +21,10 @@ import java.util.List;
 public interface CourseService {
     // 通过id更新课程信息
     Course updateCourse(Course course) throws BusinessException;
-
     // 通过id查询并返回课程实体
     Course findCourseById(Integer courseId) throws BusinessException;
-
     // 通过学号返回选修的课程信息
     List<StudentCourseDetailView> findCourseDetailByStudentId(Integer studentId) throws  BusinessException;
+    // 创建课程
+    Course createCourse(Course course) throws BusinessException;
 }
