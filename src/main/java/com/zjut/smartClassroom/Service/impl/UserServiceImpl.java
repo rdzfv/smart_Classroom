@@ -107,13 +107,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Teacher teacherBinding(Teacher teacher) throws BusinessException {
-
+        // 数据库查出待更新对象
         Teacher teacherResult = teacherRepository.findByTeacherAccountAndTeacherNameAndTeacherPassword(
                 teacher.getTeacherAccount(), teacher.getTeacherName(), teacher.getTeacherPassword()
         );
         if (teacherResult == null) throw new BusinessException(EnumBusinessError.TEACHER_NOT_EXIST);
+        // 使用hutool BeanUtil进行对象拷贝（忽略null值）
+        BeanUtil.copyProperties(teacher, teacherResult, true, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         // 把openId写入数据库
-        Teacher teacherResultAfterAddingOpenid = teacherRepository.save(teacher);
+        Teacher teacherResultAfterAddingOpenid = teacherRepository.save(teacherResult);
         return teacherResultAfterAddingOpenid;
     }
 

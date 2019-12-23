@@ -106,4 +106,33 @@ public class CourseServiceImpl implements CourseService {
         if (courseResult == null) throw new BusinessException(EnumBusinessError.UPDATE_FAILED);
         return course;
     }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/22 09:15
+     * @description： 获取教师任教信息
+     * @version:     1.0.0
+     */
+    @Override
+    @Transactional
+    public List<Course> findCourseDetailByTeacherId(Integer teacherId) throws  BusinessException{
+        List<Course> list = courseRepository.findAllByTeacherId(teacherId);
+        if (list == null || list.size() == 0) throw new BusinessException(EnumBusinessError.RECORD_NOT_EXIST);
+        return list;
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/22 20:53
+     * @description： 通过课程详情获取课程信息
+     * @version:     1.0.0
+     */
+    @Override
+    public Course findCourseByCourseId(Integer courseId) throws BusinessException {
+        Course courseResult = courseRepository.findByCourseId(courseId);
+        if (courseResult == null) throw new BusinessException(EnumBusinessError.COURSE_NOT_EXIST);
+        return courseResult;
+    }
 }

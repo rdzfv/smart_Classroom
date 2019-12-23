@@ -147,13 +147,35 @@ public class CourseController extends BaseController {
     @ApiOperation("通过学生id获取课程信息")
     @RequestMapping(value = "/returnCourseDetailByStudentId", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType returnCourseDetailByStudentId(Integer studentId) throws BusinessException{
+    public CommonReturnType returnCourseDetailByStudentId(Integer studentId) throws BusinessException {
         if(studentId == null){
             throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
         } else if(studentId < 0){
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         List<StudentCourseDetailView> list = courseService.findCourseDetailByStudentId(studentId);
+        return CommonReturnType.create(list);
+    }
+
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/22
+     * @description： 通过教师id获取全部课程信息
+     * @version:     1.0.0
+     */
+
+    @ApiOperation("通过教师id获取课程信息")
+    @RequestMapping(value = "/returnCourseDetailByTeacherId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType returnCourseDetailByTeacherId(Integer teacherId) throws BusinessException {
+        if(teacherId == null){
+            throw new BusinessException(EnumBusinessError.PARAMETER_IS_NULL);
+        } else if(teacherId < 0){
+            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        List<Course> list = courseService.findCourseDetailByTeacherId(teacherId);
         return CommonReturnType.create(list);
     }
 
@@ -215,20 +237,44 @@ public class CourseController extends BaseController {
      * @version:     1.0.0
      */
     @ApiOperation("创建课程")
-    @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
+    @RequestMapping(value = "/createCourse", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType createCourse(@RequestBody() Course course) throws BusinessException {
+    public CommonReturnType createCourse(String courseDetail, String courseName, String courseMethod, String coursePicUrl, int teacherId, int credit) throws BusinessException {
         // 入参校验
 //        System.out.println(StringUtils.isEmpty(course.getCourseDetail()));
 //        System.out.println(StringUtils.isEmpty(course.getCourseMethod()));
 //        System.out.println(StringUtils.isEmpty(course.getCourseName()));
 //        System.out.println(StringUtils.isEmpty(course.getCoursePicUrl()));
 
-        if (StringUtils.isEmpty(course.getCourseDetail()) || StringUtils.isEmpty(course.getCourseMethod()) || StringUtils.isEmpty(course.getCourseName())
-            || StringUtils.isEmpty(course.getCoursePicUrl()) || course.getCourseCredit() == 0
+        if (StringUtils.isEmpty(courseDetail) || StringUtils.isEmpty(courseMethod) || StringUtils.isEmpty(courseName)
+            || StringUtils.isEmpty(coursePicUrl) || credit  == 0 || teacherId == 0
         ) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         // 创建课程
+        Course course = new Course();
+        course.setCourseCredit(credit);
+        course.setCourseName(courseName);
+        course.setCourseMethod(courseMethod);
+        course.setCourseDetail(courseDetail);
+        course.setTeacherId(teacherId);
+        course.setCoursePicUrl(coursePicUrl);
+
         Course courseResult = courseService.createCourse(course);
+        return CommonReturnType.create(courseResult);
+    }
+
+
+    /**
+     * @author     ：xyy
+     * @date       ：Created in 2019/12/18
+     * @description： 通过courseId获取课程信息
+     * @version:     1.0.0
+     */
+    @ApiOperation("通过courseId获取课程信息")
+    @RequestMapping(value = "/getCourseDetailByCourseId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getCourseDetailByCourseId(int courseId) throws BusinessException {
+        // 通过courseId查询全部ppt
+        Course courseResult = courseService.findCourseByCourseId(courseId);
         return CommonReturnType.create(courseResult);
     }
 }

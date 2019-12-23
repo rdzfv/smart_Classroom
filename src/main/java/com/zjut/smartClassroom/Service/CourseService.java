@@ -27,4 +27,8 @@ public interface CourseService {
     List<StudentCourseDetailView> findCourseDetailByStudentId(Integer studentId) throws  BusinessException;
     // 创建课程
     Course createCourse(Course course) throws BusinessException;
+    // 通过工号返回任教程信息
+    List<Course> findCourseDetailByTeacherId(Integer teacherId) throws  BusinessException;
+    // 通过courseId获取course信息
+    Course findCourseByCourseId(Integer courseId) throws BusinessException;
 }

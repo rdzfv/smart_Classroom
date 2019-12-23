@@ -106,21 +106,23 @@ public class UserController extends BaseController {
      * @version:     1.0.0
      */
     @ApiOperation("教师绑定")
-    @RequestMapping(value = "/teacherBinding", method = RequestMethod.POST)
+    @RequestMapping(value = "/teacherBinding", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType teacherBinding(@RequestBody() Teacher teacher) throws BusinessException {
-
+    public CommonReturnType teacherBinding(String teacherName, String teacherPassword, String teacherAccount, String code) throws BusinessException {
+        System.out.println(teacherName);
+        System.out.println(teacherPassword);
+        System.out.println(teacherAccount);
+        System.out.println(code);
         // 入参校验
-        if (StringUtils.isEmpty(teacher.getTeacherName()) ||
-                StringUtils.isEmpty(teacher.getSessionKey()) || StringUtils.isEmpty(teacher.getTeacherAccount()) ||
-                StringUtils.isEmpty(teacher.getTeacherPassword())
+        if (StringUtils.isEmpty(teacherName) ||
+                StringUtils.isEmpty(code) || StringUtils.isEmpty(teacherAccount) ||
+                StringUtils.isEmpty(teacherPassword)
         ) {
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         }
 
         // 通过code获取openid
         // 发送http请求到微信平台
-        String code = teacher.getSessionKey();
         // String url = "https://www.xuyuyan.cn/course/getPPTsByCourseId?courseId=1";
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wxc80f6fe4d1258003&&secret=77e61076f62a3bac86263af8d340905f&&js_code=" + code + "&grant_type=authorization_code";
         //post请求
@@ -135,6 +137,10 @@ public class UserController extends BaseController {
         String openid = wechatReturnJSON.get("openid").toString();
         String session_key = wechatReturnJSON.get("session_key").toString();
 
+        Teacher teacher = new Teacher();
+        teacher.setTeacherAccount(teacherAccount);
+        teacher.setTeacherPassword(teacherPassword);
+        teacher.setTeacherName(teacherName);
         teacher.setOpenid(openid);
 
         // 用户登录服务

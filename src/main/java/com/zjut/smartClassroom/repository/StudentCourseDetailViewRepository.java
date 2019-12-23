@@ -18,4 +18,5 @@ import java.util.List;
 @Repository
 public interface StudentCourseDetailViewRepository extends JpaRepository<StudentCourseDetailView, Integer> {
     List<StudentCourseDetailView> findStudentCourseDetailViewsByStudentId(Integer studentId);
+    List<StudentCourseDetailView> findAllByTeacherId(Integer teacherId);
 }

@@ -1,5 +1,6 @@
 package com.zjut.smartClassroom.Controller;
 
+import com.zjut.smartClassroom.Service.CourseService;
 import com.zjut.smartClassroom.Service.PaperService;
 import com.zjut.smartClassroom.dataObject.Paper;
 import com.zjut.smartClassroom.error.BusinessException;
@@ -26,6 +27,8 @@ public class PaperController extends BaseController {
 
     @Autowired
     private PaperService paperService;
+    @Autowired
+    private CourseService courseService;
 
     @ApiOperation("获取全部paper信息")
     @RequestMapping(value = "/getAllPaperInfo", method = RequestMethod.GET)
@@ -94,4 +97,5 @@ public class PaperController extends BaseController {
         ArrayList<Paper> paperIds = paperService.getPaperListByProblemSetId(problemSetId);
         return CommonReturnType.create(paperIds);
     }
+
 }
