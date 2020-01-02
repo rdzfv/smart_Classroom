@@ -28,4 +28,6 @@ public interface PaperService {
     Paper findPaperById(Integer paperId) throws BusinessException;
     // 通过problemSetId查询paperIds
     ArrayList<Paper> getPaperListByProblemSetId(Integer problemSetId) throws BusinessException;
+    // 通过courseId获取paperList
+    ArrayList<Paper> getPaperListByCourseId(Integer courseId) throws BusinessException;
 }

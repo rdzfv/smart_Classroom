@@ -1,6 +1,8 @@
 package com.zjut.smartClassroom.Service.impl;
 
+import com.zjut.smartClassroom.Service.CourseService;
 import com.zjut.smartClassroom.Service.PaperService;
+import com.zjut.smartClassroom.Service.ProblemSetService;
 import com.zjut.smartClassroom.dataObject.Paper;
 import com.zjut.smartClassroom.dataObject.ProblemSet;
 import com.zjut.smartClassroom.error.BusinessException;
@@ -26,6 +28,12 @@ public class PaperServiceImpl implements PaperService {
     PaperRepository paperRepository;
     @Autowired(required = false)
     ProblemSetRepository problemSetRepository;
+    @Autowired(required = false)
+    PaperService paperService;
+    @Autowired(required = false)
+    CourseService courseService;
+    @Autowired(required = false)
+    ProblemSetService problemSetService;
 
     @Override
     @Transactional
@@ -95,6 +103,16 @@ public class PaperServiceImpl implements PaperService {
      *@date 2019/12/12 22:14
      */
     public ArrayList<Paper> getPaperListByProblemSetId(Integer problemSetId) throws BusinessException {
+        ArrayList<Paper> papers = paperRepository.findAllByProblemSetId(problemSetId);
+        if (papers == null) throw new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
+        return papers;
+    }
+
+    @Override
+    public ArrayList<Paper> getPaperListByCourseId(Integer courseId) throws BusinessException {
+        // 通过courseId获取problemSetId
+        int problemSetId = problemSetService.getDataByCourseId(courseId).getProblemSetId();
+        // 通过problemSetId获取paperList
         ArrayList<Paper> papers = paperRepository.findAllByProblemSetId(problemSetId);
         if (papers == null) throw new BusinessException(EnumBusinessError.PAPER_NOT_EXIST);
         return papers;

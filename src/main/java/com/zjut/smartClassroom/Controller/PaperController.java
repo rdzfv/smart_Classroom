@@ -98,4 +98,16 @@ public class PaperController extends BaseController {
         return CommonReturnType.create(paperIds);
     }
 
+
+    /**
+     *@author xyy
+     *@date 2020/01/01 23:40
+     */
+    @ApiOperation("通过courseId获取paperList")
+    @RequestMapping(value = "/getPaperListByCourseId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getPaperListByCourseId(int courseId) throws BusinessException {
+        ArrayList<Paper> paperIds = paperService.getPaperListByCourseId(courseId);
+        return CommonReturnType.create(paperIds);
+    }
 }

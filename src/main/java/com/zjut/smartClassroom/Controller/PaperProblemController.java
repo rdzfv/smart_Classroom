@@ -45,9 +45,9 @@ public class PaperProblemController extends BaseController {
 
     // 根据老师选择的题目来插入试题
     @ApiOperation("根据老师选择的题目来插入试题")
-    @RequestMapping(value = "/createNewPaper", method = RequestMethod.POST)
+    @RequestMapping(value = "/createNewPaper", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType createNewPaper(@RequestParam() String problemList, @RequestParam() String paperName) throws BusinessException {
+    public CommonReturnType createNewPaper(String problemList, String paperName) throws BusinessException {
         // 入参校验
         if (StringUtils.isEmpty(problemList) || StringUtils.isEmpty(paperName)) throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
         List<PaperProblemView> paperProblemViews = paperProblemService.createNewPaper(problemList, paperName);
